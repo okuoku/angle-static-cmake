@@ -23,6 +23,7 @@ list(APPEND srcs
     ${angle_fe_preprocessor_srcs}
     ${angle_fe_translator_lib_srcs}
     ${angle_common_srcs}
+    ${angle_common_win_srcs}
     ${angle_libangle_srcs}
     ${angle_libangle_d3d_common_srcs}
     #${angle_libangle_d3d_9_srcs}
@@ -39,6 +40,7 @@ if(${CMAKE_SYSTEM_NAME} STREQUAL "WindowsStore")
     add_definitions(
             -D_SCL_SECURE_NO_WARNINGS
             -D_CRT_SECURE_NO_WARNINGS)
+    # FIXME: Patching srcs below
 elseif(WIN32)
     list(APPEND srcs
          ${angle_systeminfo_srcs}
@@ -68,6 +70,14 @@ include_directories(
 configure_file(${ANGLE_ROOT}/src/commit.h
     ${CMAKE_CURRENT_BINARY_DIR}/angle/includes/id/commit.h
     COPYONLY)
+
+if(${CMAKE_SYSTEM_NAME} STREQUAL "WindowsStore")
+    list(APPEND srcs
+        ${CMAKE_CURRENT_LIST_DIR}/patch-uwp/NativeWindow11WinRT.cpp)
+    include_directories(BEFORE
+        ${CMAKE_CURRENT_LIST_DIR}/patch-uwp)
+    add_definitions(/wd4996) # FIXME:
+endif()
 
 # Configurations
 set(CMAKE_CXX_STANDARD 11)
@@ -105,4 +115,4 @@ add_definitions(
     -DGL_APIENTRY=
     -DGL_APICALL=)
 
-add_library(angle_static STATIC ${srcs})
+add_library(angle_static OBJECT ${srcs})
