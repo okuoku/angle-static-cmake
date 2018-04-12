@@ -331,7 +331,7 @@ set(angle_libglesv2_srcs
     src/libGLESv2/entry_points_egl_ext.cpp
     src/libGLESv2/entry_points_gles_1_0_autogen.cpp
     src/libGLESv2/entry_points_gles_2_0_autogen.cpp
-    src/libGLESv2/entry_points_gles_2_0_ext.cpp
+    src/libGLESv2/entry_points_gles_2_0_autogen.cpp
     src/libGLESv2/entry_points_gles_3_0_autogen.cpp
     src/libGLESv2/entry_points_gles_3_1_autogen.cpp
     src/libGLESv2/entry_points_gles_ext_autogen.cpp
