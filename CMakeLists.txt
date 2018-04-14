@@ -28,10 +28,14 @@ list(APPEND srcs
     ${angle_libangle_d3d_common_srcs}
     #${angle_libangle_d3d_9_srcs}
     ${angle_libangle_d3d_11_srcs}
-    ${angle_libglesv2_srcs}
-    #${angle_libgles1_cm_srcs}
     ${angle_egl_srcs}
     ${angle_image_util_srcs})
+
+if(ANGLE_BUILD_ES1)
+    list(APPEND srcs ${angle_libgles1_cm_srcs})
+else()
+    list(APPEND srcs ${angle_libglesv2_srcs})
+endif()
 
 if(${CMAKE_SYSTEM_NAME} STREQUAL "WindowsStore")
     # Assume UWP

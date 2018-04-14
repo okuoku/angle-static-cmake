@@ -340,6 +340,17 @@ set(angle_libglesv2_srcs
     src/libGLESv2/libGLESv2.cpp)
 
 set(angle_libgles1_cm_srcs
+    # FIXME: Copy??
+    src/libGLESv2/entry_points_egl.cpp
+    src/libGLESv2/entry_points_egl_ext.cpp
+    src/libGLESv2/entry_points_gles_1_0_autogen.cpp
+    src/libGLESv2/entry_points_gles_2_0_autogen.cpp
+    src/libGLESv2/entry_points_gles_2_0_autogen.cpp
+    src/libGLESv2/entry_points_gles_3_0_autogen.cpp
+    src/libGLESv2/entry_points_gles_3_1_autogen.cpp
+    src/libGLESv2/entry_points_gles_ext_autogen.cpp
+    src/libGLESv2/global_state.cpp
+    src/libGLESv2/proc_table_autogen.cpp
     src/libGLESv1_CM/libGLESv1_CM.cpp
     )
 
