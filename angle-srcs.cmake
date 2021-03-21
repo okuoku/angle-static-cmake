@@ -1,211 +1,409 @@
-set(angle_fe_translator_srcs
-    # Common translator (instatiates implementation)
-    src/compiler/translator/ShaderLang.cpp
-    src/compiler/translator/ShaderVars.cpp)
+set(angle_fe_translator_srcs)
 
-set(angle_fe_preprocessor_srcs
+set(angle_fe_preprocessor_srcs # src/compiler.gni
     src/compiler/preprocessor/DiagnosticsBase.cpp
+    src/compiler/preprocessor/DiagnosticsBase.h
     src/compiler/preprocessor/DirectiveHandlerBase.cpp
+    src/compiler/preprocessor/DirectiveHandlerBase.h
     src/compiler/preprocessor/DirectiveParser.cpp
-    src/compiler/preprocessor/ExpressionParser.cpp
+    src/compiler/preprocessor/DirectiveParser.h
+    src/compiler/preprocessor/ExpressionParser.h
     src/compiler/preprocessor/Input.cpp
+    src/compiler/preprocessor/Input.h
     src/compiler/preprocessor/Lexer.cpp
+    src/compiler/preprocessor/Lexer.h
     src/compiler/preprocessor/Macro.cpp
+    src/compiler/preprocessor/Macro.h
     src/compiler/preprocessor/MacroExpander.cpp
+    src/compiler/preprocessor/MacroExpander.h
     src/compiler/preprocessor/Preprocessor.cpp
+    src/compiler/preprocessor/Preprocessor.h
+    src/compiler/preprocessor/SourceLocation.h
     src/compiler/preprocessor/Token.cpp
-    src/compiler/preprocessor/Tokenizer.cpp)
-
-set(angle_fe_translator_lib_srcs
-    # FIXME: Separate into backends (HLSL/Vulkan/...)
-    src/compiler/translator/tree_ops/AddAndTrueToLoopCondition.cpp
-    src/compiler/translator/tree_ops/BreakVariableAliasingInInnerLoops.cpp
-    src/compiler/translator/tree_ops/ClampFragDepth.cpp
-    src/compiler/translator/tree_ops/ClampPointSize.cpp
-    src/compiler/translator/tree_ops/DeclareAndInitBuiltinsForInstancedMultiview.cpp
-    src/compiler/translator/tree_ops/DeferGlobalInitializers.cpp
-    src/compiler/translator/tree_ops/EmulateGLFragColorBroadcast.cpp
-    src/compiler/translator/tree_ops/EmulatePrecision.cpp
-    src/compiler/translator/tree_ops/ExpandIntegerPowExpressions.cpp
-    src/compiler/translator/tree_ops/FoldExpressions.cpp
-    src/compiler/translator/tree_ops/InitializeVariables.cpp
-    src/compiler/translator/tree_ops/PruneEmptyCases.cpp
-    src/compiler/translator/tree_ops/PruneNoOps.cpp
-    src/compiler/translator/tree_ops/RecordConstantPrecision.cpp
-    src/compiler/translator/tree_ops/RegenerateStructNames.cpp
-    src/compiler/translator/tree_ops/RemoveArrayLengthMethod.cpp
-    src/compiler/translator/tree_ops/RemoveInvariantDeclaration.cpp
-    src/compiler/translator/tree_ops/RemovePow.cpp
-    src/compiler/translator/tree_ops/RemoveUnreferencedVariables.cpp
-    src/compiler/translator/tree_ops/RewriteDoWhile.cpp
-    src/compiler/translator/tree_ops/RewriteTexelFetchOffset.cpp
-    src/compiler/translator/tree_ops/RewriteUnaryMinusOperatorFloat.cpp
-    src/compiler/translator/tree_ops/RewriteUnaryMinusOperatorInt.cpp
-    src/compiler/translator/tree_ops/ScalarizeVecAndMatConstructorArgs.cpp
-    src/compiler/translator/tree_ops/SeparateDeclarations.cpp
-    src/compiler/translator/tree_ops/SimplifyLoopConditions.cpp
-    src/compiler/translator/tree_ops/SplitSequenceOperator.cpp
-    src/compiler/translator/tree_ops/UnfoldShortCircuitAST.cpp
-    src/compiler/translator/tree_ops/UseInterfaceBlockFields.cpp
-    src/compiler/translator/tree_ops/VectorizeVectorScalarArithmetic.cpp
-
-    src/compiler/translator/tree_util/FindMain.cpp
-    src/compiler/translator/tree_util/FindSymbolNode.cpp
-    src/compiler/translator/tree_util/IntermNodePatternMatcher.cpp
-    src/compiler/translator/tree_util/IntermNode_util.cpp
-    src/compiler/translator/tree_util/IntermTraverse.cpp
-    src/compiler/translator/tree_util/ReplaceVariable.cpp
-    src/compiler/translator/tree_util/RunAtTheEndOfShader.cpp
-
-    # HLSL tree_ops
-    src/compiler/translator/tree_ops/AddDefaultReturnStatements.cpp
-    src/compiler/translator/tree_ops/ArrayReturnValueToOutParameter.cpp
-    src/compiler/translator/tree_ops/RemoveDynamicIndexing.cpp
-    src/compiler/translator/tree_ops/RemoveSwitchFallThrough.cpp
-    src/compiler/translator/tree_ops/RewriteElseBlocks.cpp
-    src/compiler/translator/tree_ops/SeparateArrayConstructorStatements.cpp
-    src/compiler/translator/tree_ops/SeparateArrayInitialization.cpp
-    src/compiler/translator/tree_ops/SeparateExpressionsReturningArrays.cpp
-    src/compiler/translator/tree_ops/UnfoldShortCircuitToIf.cpp
-    src/compiler/translator/tree_ops/WrapSwitchStatementsInBlocks.cpp
-
-    # HLSL Sources
-    src/compiler/translator/ASTMetadataHLSL.cpp
-    src/compiler/translator/blocklayoutHLSL.cpp
-    src/compiler/translator/BuiltInFunctionEmulatorHLSL.cpp
-    src/compiler/translator/OutputHLSL.cpp
-    src/compiler/translator/StructureHLSL.cpp
-    src/compiler/translator/TextureFunctionHLSL.cpp
-    src/compiler/translator/ImageFunctionHLSL.cpp
-    src/compiler/translator/TranslatorHLSL.cpp
-    src/compiler/translator/UniformHLSL.cpp
-    src/compiler/translator/UtilsHLSL.cpp
-    src/compiler/translator/emulated_builtin_functions_hlsl_autogen.cpp
-
-
-    src/compiler/translator/blocklayout.cpp
-    src/compiler/translator/glslang_lex.cpp
-    src/compiler/translator/glslang_tab.cpp
-    src/compiler/translator/util.cpp
-
-    src/compiler/translator/BuiltInFunctionEmulator.cpp
-    #src/compiler/translator/BuiltInFunctionEmulatorGLSL.cpp
-    src/compiler/translator/CallDAG.cpp
-    src/compiler/translator/CodeGen.cpp
-    src/compiler/translator/CollectVariables.cpp
-    src/compiler/translator/Compiler.cpp
-    src/compiler/translator/ConstantUnion.cpp
-    src/compiler/translator/Declarator.cpp
-    src/compiler/translator/Diagnostics.cpp
-    src/compiler/translator/DirectiveHandler.cpp
-    src/compiler/translator/ExtensionBehavior.cpp
-    #src/compiler/translator/ExtensionGLSL.cpp
-    src/compiler/translator/FlagStd140Structs.cpp
-    src/compiler/translator/FunctionLookup.cpp
-    src/compiler/translator/HashNames.cpp
-    src/compiler/translator/ImmutableString.cpp
-    src/compiler/translator/ImmutableStringBuilder.cpp
-    src/compiler/translator/InfoSink.cpp
-    src/compiler/translator/Initialize.cpp
-    src/compiler/translator/InitializeDll.cpp
-    src/compiler/translator/IntermNode.cpp
-    src/compiler/translator/IsASTDepthBelowLimit.cpp
-    src/compiler/translator/Operator.cpp
-    #src/compiler/translator/OutputESSL.cpp
-    #src/compiler/translator/OutputGLSL.cpp
-    #src/compiler/translator/OutputGLSLBase.cpp
-    src/compiler/translator/OutputTree.cpp
-    #src/compiler/translator/OutputVulkanGLSL.cpp
-    src/compiler/translator/ParseContext.cpp
-    src/compiler/translator/PoolAlloc.cpp
-    src/compiler/translator/QualifierTypes.cpp
-    src/compiler/translator/ShaderLang.cpp
-    src/compiler/translator/ShaderVars.cpp
-    src/compiler/translator/Symbol.cpp
-    src/compiler/translator/SymbolTable.cpp
-    src/compiler/translator/SymbolTable_autogen.cpp
-    src/compiler/translator/SymbolUniqueId.cpp
-    #src/compiler/translator/TranslatorESSL.cpp
-    #src/compiler/translator/TranslatorGLSL.cpp
-    #src/compiler/translator/TranslatorVulkan.cpp
-    src/compiler/translator/Types.cpp
-    src/compiler/translator/ValidateGlobalInitializer.cpp
-    src/compiler/translator/ValidateLimitations.cpp
-    src/compiler/translator/ValidateMaxParameters.cpp
-    #src/compiler/translator/ValidateMultiviewWebGL.cpp
-    src/compiler/translator/ValidateOutputs.cpp
-    src/compiler/translator/ValidateSwitch.cpp
-    src/compiler/translator/ValidateVaryingLocations.cpp
-    src/compiler/translator/VariablePacker.cpp
-    #src/compiler/translator/VersionGLSL.cpp
-    src/third_party/compiler/ArrayBoundsClamper.cpp
+    src/compiler/preprocessor/Token.h
+    src/compiler/preprocessor/Tokenizer.h
+    src/compiler/preprocessor/numeric_lex.h
+    src/compiler/preprocessor/preprocessor_lex_autogen.cpp
+    src/compiler/preprocessor/preprocessor_tab_autogen.cpp
     )
 
-set(angle_common_srcs
+set(angle_fe_translator_lib_srcs # src/compiler.gni
+    # FIXME: Separate into backends (HLSL/Vulkan/...)
+    include/EGL/egl.h
+    include/EGL/eglext.h
+    include/EGL/eglplatform.h
+    include/GLES2/gl2.h
+    include/GLES2/gl2ext.h
+    include/GLES2/gl2platform.h
+    include/GLES3/gl3.h
+    include/GLES3/gl31.h
+    include/GLES3/gl32.h
+    include/GLES3/gl3platform.h
+    include/KHR/khrplatform.h
+    include/angle_gl.h
+    src/compiler/translator/BaseTypes.h
+    src/compiler/translator/BuiltInFunctionEmulator.cpp
+    src/compiler/translator/BuiltInFunctionEmulator.h
+    src/compiler/translator/CallDAG.cpp
+    src/compiler/translator/CallDAG.h
+    src/compiler/translator/CodeGen.cpp
+    src/compiler/translator/CollectVariables.cpp
+    src/compiler/translator/CollectVariables.h
+    src/compiler/translator/Common.h
+    src/compiler/translator/Compiler.cpp
+    src/compiler/translator/Compiler.h
+    src/compiler/translator/ConstantUnion.cpp
+    src/compiler/translator/ConstantUnion.h
+    src/compiler/translator/Declarator.cpp
+    src/compiler/translator/Declarator.h
+    src/compiler/translator/Diagnostics.cpp
+    src/compiler/translator/Diagnostics.h
+    src/compiler/translator/DirectiveHandler.cpp
+    src/compiler/translator/DirectiveHandler.h
+    src/compiler/translator/ExtensionBehavior.cpp
+    src/compiler/translator/ExtensionBehavior.h
+    src/compiler/translator/FlagStd140Structs.cpp
+    src/compiler/translator/FlagStd140Structs.h
+    src/compiler/translator/FunctionLookup.cpp
+    src/compiler/translator/FunctionLookup.h
+    src/compiler/translator/HashNames.cpp
+    src/compiler/translator/HashNames.h
+    src/compiler/translator/ImmutableString.h
+    src/compiler/translator/ImmutableStringBuilder.cpp
+    src/compiler/translator/ImmutableStringBuilder.h
+    src/compiler/translator/InfoSink.cpp
+    src/compiler/translator/InfoSink.h
+    src/compiler/translator/Initialize.cpp
+    src/compiler/translator/Initialize.h
+    src/compiler/translator/InitializeDll.cpp
+    src/compiler/translator/InitializeDll.h
+    src/compiler/translator/InitializeGlobals.h
+    src/compiler/translator/IntermNode.cpp
+    src/compiler/translator/IntermNode.h
+    src/compiler/translator/IsASTDepthBelowLimit.cpp
+    src/compiler/translator/IsASTDepthBelowLimit.h
+    src/compiler/translator/Operator.cpp
+    src/compiler/translator/Operator.h
+    src/compiler/translator/OutputTree.cpp
+    src/compiler/translator/OutputTree.h
+    src/compiler/translator/ParseContext.cpp
+    src/compiler/translator/ParseContext.h
+    src/compiler/translator/ParseContext_ESSL_autogen.h
+    src/compiler/translator/ParseContext_complete_autogen.h
+    src/compiler/translator/ParseContext_interm.h
+    src/compiler/translator/PoolAlloc.cpp
+    src/compiler/translator/PoolAlloc.h
+    src/compiler/translator/Pragma.h
+    src/compiler/translator/QualifierTypes.cpp
+    src/compiler/translator/QualifierTypes.h
+    src/compiler/translator/Severity.h
+    src/compiler/translator/ShaderLang.cpp
+    src/compiler/translator/ShaderVars.cpp
+    src/compiler/translator/StaticType.h
+    src/compiler/translator/Symbol.cpp
+    src/compiler/translator/Symbol.h
+    src/compiler/translator/SymbolTable.cpp
+    src/compiler/translator/SymbolTable.h
+    src/compiler/translator/SymbolTable_autogen.h
+    src/compiler/translator/SymbolUniqueId.cpp
+    src/compiler/translator/SymbolUniqueId.h
+    src/compiler/translator/Types.cpp
+    src/compiler/translator/Types.h
+    src/compiler/translator/ValidateAST.cpp
+    src/compiler/translator/ValidateAST.h
+    src/compiler/translator/ValidateBarrierFunctionCall.cpp
+    src/compiler/translator/ValidateBarrierFunctionCall.h
+    src/compiler/translator/ValidateClipCullDistance.cpp
+    src/compiler/translator/ValidateClipCullDistance.h
+    src/compiler/translator/ValidateGlobalInitializer.cpp
+    src/compiler/translator/ValidateGlobalInitializer.h
+    src/compiler/translator/ValidateLimitations.cpp
+    src/compiler/translator/ValidateLimitations.h
+    src/compiler/translator/ValidateMaxParameters.cpp
+    src/compiler/translator/ValidateMaxParameters.h
+    src/compiler/translator/ValidateOutputs.cpp
+    src/compiler/translator/ValidateOutputs.h
+    src/compiler/translator/ValidateSwitch.cpp
+    src/compiler/translator/ValidateSwitch.h
+    src/compiler/translator/ValidateVaryingLocations.cpp
+    src/compiler/translator/ValidateVaryingLocations.h
+    src/compiler/translator/VariablePacker.cpp
+    src/compiler/translator/VariablePacker.h
+    src/compiler/translator/blocklayout.cpp
+    src/compiler/translator/glslang.h
+    src/compiler/translator/glslang_lex_autogen.cpp
+    src/compiler/translator/glslang_tab_autogen.cpp
+    src/compiler/translator/glslang_tab_autogen.h
+    src/compiler/translator/length_limits.h
+    src/compiler/translator/tree_ops/ClampPointSize.cpp
+    src/compiler/translator/tree_ops/ClampPointSize.h
+    src/compiler/translator/tree_ops/DeclareAndInitBuiltinsForInstancedMultiview.cpp
+    src/compiler/translator/tree_ops/DeclareAndInitBuiltinsForInstancedMultiview.h
+    src/compiler/translator/tree_ops/DeferGlobalInitializers.cpp
+    src/compiler/translator/tree_ops/DeferGlobalInitializers.h
+    src/compiler/translator/tree_ops/EmulateGLFragColorBroadcast.cpp
+    src/compiler/translator/tree_ops/EmulateGLFragColorBroadcast.h
+    src/compiler/translator/tree_ops/EmulateMultiDrawShaderBuiltins.cpp
+    src/compiler/translator/tree_ops/EmulateMultiDrawShaderBuiltins.h
+    src/compiler/translator/tree_ops/EmulatePrecision.cpp
+    src/compiler/translator/tree_ops/EmulatePrecision.h
+    src/compiler/translator/tree_ops/FoldExpressions.cpp
+    src/compiler/translator/tree_ops/FoldExpressions.h
+    src/compiler/translator/tree_ops/ForcePrecisionQualifier.cpp
+    src/compiler/translator/tree_ops/ForcePrecisionQualifier.h
+    src/compiler/translator/tree_ops/InitializeVariables.cpp
+    src/compiler/translator/tree_ops/InitializeVariables.h
+    src/compiler/translator/tree_ops/PruneEmptyCases.cpp
+    src/compiler/translator/tree_ops/PruneEmptyCases.h
+    src/compiler/translator/tree_ops/PruneNoOps.cpp
+    src/compiler/translator/tree_ops/PruneNoOps.h
+    src/compiler/translator/tree_ops/RemoveArrayLengthMethod.cpp
+    src/compiler/translator/tree_ops/RemoveArrayLengthMethod.h
+    src/compiler/translator/tree_ops/RemoveDynamicIndexing.cpp
+    src/compiler/translator/tree_ops/RemoveDynamicIndexing.h
+    src/compiler/translator/tree_ops/RemoveInvariantDeclaration.cpp
+    src/compiler/translator/tree_ops/RemoveInvariantDeclaration.h
+    src/compiler/translator/tree_ops/RemovePow.cpp
+    src/compiler/translator/tree_ops/RemovePow.h
+    src/compiler/translator/tree_ops/RemoveUnreferencedVariables.cpp
+    src/compiler/translator/tree_ops/RemoveUnreferencedVariables.h
+    src/compiler/translator/tree_ops/RewriteTexelFetchOffset.cpp
+    src/compiler/translator/tree_ops/RewriteTexelFetchOffset.h
+    src/compiler/translator/tree_ops/ScalarizeVecAndMatConstructorArgs.cpp
+    src/compiler/translator/tree_ops/ScalarizeVecAndMatConstructorArgs.h
+    src/compiler/translator/tree_ops/SeparateDeclarations.cpp
+    src/compiler/translator/tree_ops/SeparateDeclarations.h
+    src/compiler/translator/tree_ops/SimplifyLoopConditions.cpp
+    src/compiler/translator/tree_ops/SimplifyLoopConditions.h
+    src/compiler/translator/tree_ops/SplitSequenceOperator.cpp
+    src/compiler/translator/tree_ops/SplitSequenceOperator.h
+    src/compiler/translator/tree_ops/gl/ClampFragDepth.h
+    src/compiler/translator/tree_ops/gl/RegenerateStructNames.h
+    src/compiler/translator/tree_ops/gl/RewriteRepeatedAssignToSwizzled.h
+    src/compiler/translator/tree_ops/gl/UseInterfaceBlockFields.h
+    src/compiler/translator/tree_ops/gl/VectorizeVectorScalarArithmetic.h
+    src/compiler/translator/tree_ops/gl/mac/AddAndTrueToLoopCondition.h
+    src/compiler/translator/tree_ops/gl/mac/RewriteDoWhile.h
+    src/compiler/translator/tree_ops/gl/mac/UnfoldShortCircuitAST.h
+    src/compiler/translator/tree_ops/vulkan/EarlyFragmentTestsOptimization.h
+    src/compiler/translator/tree_util/BuiltIn.h
+    src/compiler/translator/tree_util/BuiltIn_ESSL_autogen.h
+    src/compiler/translator/tree_util/BuiltIn_complete_autogen.h
+    src/compiler/translator/tree_util/DriverUniform.cpp
+    src/compiler/translator/tree_util/DriverUniform.h
+    src/compiler/translator/tree_util/FindFunction.cpp
+    src/compiler/translator/tree_util/FindFunction.h
+    src/compiler/translator/tree_util/FindMain.cpp
+    src/compiler/translator/tree_util/FindMain.h
+    src/compiler/translator/tree_util/FindSymbolNode.cpp
+    src/compiler/translator/tree_util/FindSymbolNode.h
+    src/compiler/translator/tree_util/IntermNodePatternMatcher.cpp
+    src/compiler/translator/tree_util/IntermNodePatternMatcher.h
+    src/compiler/translator/tree_util/IntermNode_util.cpp
+    src/compiler/translator/tree_util/IntermNode_util.h
+    src/compiler/translator/tree_util/IntermTraverse.cpp
+    src/compiler/translator/tree_util/IntermTraverse.h
+    src/compiler/translator/tree_util/NodeSearch.h
+    src/compiler/translator/tree_util/ReplaceArrayOfMatrixVarying.cpp
+    src/compiler/translator/tree_util/ReplaceArrayOfMatrixVarying.h
+    src/compiler/translator/tree_util/ReplaceClipCullDistanceVariable.cpp
+    src/compiler/translator/tree_util/ReplaceClipCullDistanceVariable.h
+    src/compiler/translator/tree_util/ReplaceShadowingVariables.cpp
+    src/compiler/translator/tree_util/ReplaceShadowingVariables.h
+    src/compiler/translator/tree_util/ReplaceVariable.cpp
+    src/compiler/translator/tree_util/ReplaceVariable.h
+    src/compiler/translator/tree_util/RewriteSampleMaskVariable.cpp
+    src/compiler/translator/tree_util/RewriteSampleMaskVariable.h
+    src/compiler/translator/tree_util/RunAtTheBeginningOfShader.cpp
+    src/compiler/translator/tree_util/RunAtTheBeginningOfShader.h
+    src/compiler/translator/tree_util/RunAtTheEndOfShader.cpp
+    src/compiler/translator/tree_util/RunAtTheEndOfShader.h
+    src/compiler/translator/tree_util/SpecializationConstant.cpp
+    src/compiler/translator/tree_util/SpecializationConstant.h
+    src/compiler/translator/tree_util/Visit.h
+    src/compiler/translator/util.cpp
+    src/compiler/translator/util.h
+    src/third_party/compiler/ArrayBoundsClamper.cpp
+    src/third_party/compiler/ArrayBoundsClamper.h
+
+    # HLSL Sources (angle_translator_hlsl_sources)
+    src/compiler/translator/ASTMetadataHLSL.cpp
+    src/compiler/translator/ASTMetadataHLSL.h
+    src/compiler/translator/AtomicCounterFunctionHLSL.cpp
+    src/compiler/translator/AtomicCounterFunctionHLSL.h
+    src/compiler/translator/BuiltInFunctionEmulatorHLSL.cpp
+    src/compiler/translator/BuiltInFunctionEmulatorHLSL.h
+    src/compiler/translator/ImageFunctionHLSL.cpp
+    src/compiler/translator/ImageFunctionHLSL.h
+    src/compiler/translator/OutputHLSL.cpp
+    src/compiler/translator/OutputHLSL.h
+    src/compiler/translator/ResourcesHLSL.cpp
+    src/compiler/translator/ResourcesHLSL.h
+    src/compiler/translator/ShaderStorageBlockFunctionHLSL.cpp
+    src/compiler/translator/ShaderStorageBlockFunctionHLSL.h
+    src/compiler/translator/ShaderStorageBlockOutputHLSL.cpp
+    src/compiler/translator/ShaderStorageBlockOutputHLSL.h
+    src/compiler/translator/StructureHLSL.cpp
+    src/compiler/translator/StructureHLSL.h
+    src/compiler/translator/TextureFunctionHLSL.cpp
+    src/compiler/translator/TextureFunctionHLSL.h
+    src/compiler/translator/TranslatorHLSL.cpp
+    src/compiler/translator/TranslatorHLSL.h
+    src/compiler/translator/UtilsHLSL.cpp
+    src/compiler/translator/UtilsHLSL.h
+    src/compiler/translator/blocklayoutHLSL.cpp
+    src/compiler/translator/emulated_builtin_functions_hlsl_autogen.cpp
+    src/compiler/translator/tree_ops/d3d/AddDefaultReturnStatements.cpp
+    src/compiler/translator/tree_ops/d3d/AddDefaultReturnStatements.h
+    src/compiler/translator/tree_ops/d3d/ArrayReturnValueToOutParameter.cpp
+    src/compiler/translator/tree_ops/d3d/ArrayReturnValueToOutParameter.h
+    src/compiler/translator/tree_ops/d3d/BreakVariableAliasingInInnerLoops.cpp
+    src/compiler/translator/tree_ops/d3d/BreakVariableAliasingInInnerLoops.h
+    src/compiler/translator/tree_ops/d3d/ExpandIntegerPowExpressions.cpp
+    src/compiler/translator/tree_ops/d3d/ExpandIntegerPowExpressions.h
+    src/compiler/translator/tree_ops/d3d/RecordUniformBlocksWithLargeArrayMember.cpp
+    src/compiler/translator/tree_ops/d3d/RecordUniformBlocksWithLargeArrayMember.h
+    src/compiler/translator/tree_ops/d3d/RemoveSwitchFallThrough.cpp
+    src/compiler/translator/tree_ops/d3d/RemoveSwitchFallThrough.h
+    src/compiler/translator/tree_ops/d3d/RewriteAtomicFunctionExpressions.cpp
+    src/compiler/translator/tree_ops/d3d/RewriteAtomicFunctionExpressions.h
+    src/compiler/translator/tree_ops/d3d/RewriteElseBlocks.cpp
+    src/compiler/translator/tree_ops/d3d/RewriteElseBlocks.h
+    src/compiler/translator/tree_ops/d3d/RewriteExpressionsWithShaderStorageBlock.cpp
+    src/compiler/translator/tree_ops/d3d/RewriteExpressionsWithShaderStorageBlock.h
+    src/compiler/translator/tree_ops/d3d/RewriteUnaryMinusOperatorInt.cpp
+    src/compiler/translator/tree_ops/d3d/RewriteUnaryMinusOperatorInt.h
+    src/compiler/translator/tree_ops/d3d/SeparateArrayConstructorStatements.cpp
+    src/compiler/translator/tree_ops/d3d/SeparateArrayConstructorStatements.h
+    src/compiler/translator/tree_ops/d3d/SeparateArrayInitialization.cpp
+    src/compiler/translator/tree_ops/d3d/SeparateArrayInitialization.h
+    src/compiler/translator/tree_ops/d3d/SeparateExpressionsReturningArrays.cpp
+    src/compiler/translator/tree_ops/d3d/SeparateExpressionsReturningArrays.h
+    src/compiler/translator/tree_ops/d3d/UnfoldShortCircuitToIf.cpp
+    src/compiler/translator/tree_ops/d3d/UnfoldShortCircuitToIf.h
+    src/compiler/translator/tree_ops/d3d/WrapSwitchStatementsInBlocks.cpp
+    src/compiler/translator/tree_ops/d3d/WrapSwitchStatementsInBlocks.h
+
+    # !android
+    src/compiler/translator/ImmutableString_autogen.cpp
+    src/compiler/translator/SymbolTable_autogen.cpp
+    )
+
+set(angle_common_srcs # src/libGLESv2.gni
+    src/common/Color.h
+    src/common/Color.inc
+    src/common/FastVector.h
+    src/common/FixedVector.h
     src/common/Float16ToFloat32.cpp
     src/common/MemoryBuffer.cpp
+    src/common/MemoryBuffer.h
+    src/common/Optional.h
+    src/common/PackedEGLEnums_autogen.cpp
+    src/common/PackedEGLEnums_autogen.h
+    src/common/PackedEnums.cpp
+    src/common/PackedEnums.h
+    src/common/PackedGLEnums_autogen.cpp
+    src/common/PackedGLEnums_autogen.h
+    src/common/PoolAlloc.cpp
+    src/common/PoolAlloc.h
     src/common/aligned_memory.cpp
+    src/common/aligned_memory.h
+    src/common/android_util.cpp
+    src/common/android_util.h
     src/common/angleutils.cpp
+    src/common/angleutils.h
+    src/common/apple_platform_utils.h
+    src/common/bitset_utils.h
     src/common/debug.cpp
+    src/common/debug.h
+    src/common/entry_points_enum_autogen.cpp
+    src/common/entry_points_enum_autogen.h
+    src/common/event_tracer.cpp
+    src/common/event_tracer.h
+    src/common/hash_utils.h
     src/common/mathutil.cpp
+    src/common/mathutil.h
     src/common/matrix_utils.cpp
+    src/common/matrix_utils.h
+    src/common/platform.h
     src/common/string_utils.cpp
+    src/common/string_utils.h
     src/common/system_utils.cpp
+    src/common/system_utils.h
+    src/common/third_party/base/anglebase/base_export.h
+    src/common/third_party/base/anglebase/containers/mru_cache.h
+    src/common/third_party/base/anglebase/logging.h
+    src/common/third_party/base/anglebase/macros.h
+    src/common/third_party/base/anglebase/no_destructor.h
+    src/common/third_party/base/anglebase/numerics/safe_conversions.h
+    src/common/third_party/base/anglebase/numerics/safe_conversions_impl.h
+    src/common/third_party/base/anglebase/numerics/safe_math.h
+    src/common/third_party/base/anglebase/numerics/safe_math_impl.h
     src/common/third_party/base/anglebase/sha1.cc
+    src/common/third_party/base/anglebase/sha1.h
+    src/common/third_party/base/anglebase/sys_byteorder.h
     src/common/third_party/smhasher/src/PMurHash.cpp
+    src/common/third_party/smhasher/src/PMurHash.h
     src/common/tls.cpp
+    src/common/tls.h
     src/common/uniform_type_info_autogen.cpp
-    src/common/utilities.cpp)
+    src/common/utilities.cpp
+    src/common/utilities.h
+    src/common/vector_utils.h
+
+    # xxhash_sources
+    src/common/third_party/xxhash/xxhash.c
+    src/common/third_party/xxhash/xxhash.h
+    )
 
 set(angle_common_win_srcs
     src/common/system_utils_win.cpp
+    src/common/system_utils_win32.cpp
+    #src/common/system_utils_winuwp.cpp
     )
 
-set(angle_libangle_srcs
-    src/common/event_tracer.cpp # only for ANGLE?
-    src/libANGLE/angletypes.cpp
-    src/libANGLE/es3_copy_conversion_table_autogen.cpp
-    src/libANGLE/format_map_autogen.cpp
-    src/libANGLE/formatutils.cpp
-    src/libANGLE/params.cpp
-    src/libANGLE/queryconversions.cpp
-    src/libANGLE/queryutils.cpp
-
+set(angle_libangle_srcs # src/libGLESv2.gni
     src/libANGLE/AttributeMap.cpp
+    src/libANGLE/BlobCache.cpp
     src/libANGLE/Buffer.cpp
     src/libANGLE/Caps.cpp
     src/libANGLE/Compiler.cpp
     src/libANGLE/Config.cpp
     src/libANGLE/Context.cpp
+    src/libANGLE/Context_gl.cpp
     src/libANGLE/Context_gles_1_0.cpp
-    src/libANGLE/ContextState.cpp
     src/libANGLE/Debug.cpp
     src/libANGLE/Device.cpp
     src/libANGLE/Display.cpp
+    src/libANGLE/EGLSync.cpp
     src/libANGLE/Error.cpp
     src/libANGLE/Fence.cpp
     src/libANGLE/Framebuffer.cpp
     src/libANGLE/FramebufferAttachment.cpp
+    src/libANGLE/GLES1Renderer.cpp
     src/libANGLE/GLES1State.cpp
     src/libANGLE/HandleAllocator.cpp
-    src/libANGLE/HandleRangeAllocator.cpp
     src/libANGLE/Image.cpp
     src/libANGLE/ImageIndex.cpp
     src/libANGLE/IndexRangeCache.cpp
     src/libANGLE/LoggingAnnotator.cpp
-    src/libANGLE/MemoryProgramCache.cpp
+    src/libANGLE/MemoryObject.cpp
+    #src/libANGLE/MemoryProgramCache.cpp
     src/libANGLE/Observer.cpp
-    src/libANGLE/PackedGLEnums.cpp
-    src/libANGLE/PackedGLEnums_autogen.cpp
-    src/libANGLE/Path.cpp
+    src/libANGLE/Overlay.cpp
+    src/libANGLE/OverlayWidgets.cpp
+    src/libANGLE/Overlay_autogen.cpp
+    src/libANGLE/Overlay_font_autogen.cpp
     src/libANGLE/Platform.cpp
     src/libANGLE/Program.cpp
+    src/libANGLE/ProgramExecutable.cpp
     src/libANGLE/ProgramLinkedResources.cpp
     src/libANGLE/ProgramPipeline.cpp
     src/libANGLE/Query.cpp
     src/libANGLE/Renderbuffer.cpp
     src/libANGLE/ResourceManager.cpp
     src/libANGLE/Sampler.cpp
+    src/libANGLE/Semaphore.cpp
     src/libANGLE/Shader.cpp
     src/libANGLE/State.cpp
     src/libANGLE/Stream.cpp
@@ -218,129 +416,343 @@ set(angle_libangle_srcs
     src/libANGLE/VertexArray.cpp
     src/libANGLE/VertexAttribute.cpp
     src/libANGLE/WorkerThread.cpp
-
+    src/libANGLE/angletypes.cpp
+    src/libANGLE/es3_copy_conversion_table_autogen.cpp
+    src/libANGLE/format_map_autogen.cpp
+    src/libANGLE/format_map_desktop.cpp
+    src/libANGLE/formatutils.cpp
+    src/libANGLE/queryconversions.cpp
+    src/libANGLE/queryutils.cpp
+    src/libANGLE/renderer/BufferImpl.cpp
     src/libANGLE/renderer/ContextImpl.cpp
     src/libANGLE/renderer/DeviceImpl.cpp
     src/libANGLE/renderer/DisplayImpl.cpp
-    src/libANGLE/renderer/driver_utils.cpp
+    src/libANGLE/renderer/EGLReusableSync.cpp
+    src/libANGLE/renderer/EGLSyncImpl.cpp
     src/libANGLE/renderer/Format_table_autogen.cpp
-    src/libANGLE/renderer/load_functions_table_autogen.cpp
-    src/libANGLE/renderer/renderer_utils.cpp
+    src/libANGLE/renderer/ProgramPipelineImpl.cpp
+    src/libANGLE/renderer/QueryImpl.cpp
+    src/libANGLE/renderer/ShaderImpl.cpp
     src/libANGLE/renderer/SurfaceImpl.cpp
     src/libANGLE/renderer/TextureImpl.cpp
-
+    src/libANGLE/renderer/driver_utils.cpp
+    src/libANGLE/renderer/load_functions_table_autogen.cpp
+    src/libANGLE/renderer/renderer_utils.cpp
     src/libANGLE/validationEGL.cpp
     src/libANGLE/validationES.cpp
     src/libANGLE/validationES1.cpp
     src/libANGLE/validationES2.cpp
     src/libANGLE/validationES3.cpp
-    src/libANGLE/validationES31.cpp)
+    src/libANGLE/validationES31.cpp
+    src/libANGLE/validationES32.cpp
+    src/libANGLE/validationESEXT.cpp
+    src/libANGLE/validationGL1.cpp
+    src/libANGLE/validationGL2.cpp
+    src/libANGLE/validationGL3.cpp
+    src/libANGLE/validationGL4.cpp
 
-set(angle_libangle_d3d_common_srcs
+    # BUILD.gn
+    src/libANGLE/capture/FrameCapture_mock.cpp
+    )
+
+set(angle_libangle_d3d_common_srcs # src/libANGLE/renderer/d3d/BUILD.gn
     src/libANGLE/renderer/d3d/BufferD3D.cpp
+    src/libANGLE/renderer/d3d/BufferD3D.h
     src/libANGLE/renderer/d3d/CompilerD3D.cpp
+    src/libANGLE/renderer/d3d/CompilerD3D.h
+    src/libANGLE/renderer/d3d/ContextD3D.h
     src/libANGLE/renderer/d3d/DeviceD3D.cpp
+    src/libANGLE/renderer/d3d/DeviceD3D.h
     src/libANGLE/renderer/d3d/DisplayD3D.cpp
+    src/libANGLE/renderer/d3d/DisplayD3D.h
     src/libANGLE/renderer/d3d/DynamicHLSL.cpp
+    src/libANGLE/renderer/d3d/DynamicHLSL.h
+    src/libANGLE/renderer/d3d/DynamicImage2DHLSL.cpp
+    src/libANGLE/renderer/d3d/DynamicImage2DHLSL.h
     src/libANGLE/renderer/d3d/EGLImageD3D.cpp
+    src/libANGLE/renderer/d3d/EGLImageD3D.h
     src/libANGLE/renderer/d3d/FramebufferD3D.cpp
+    src/libANGLE/renderer/d3d/FramebufferD3D.h
     src/libANGLE/renderer/d3d/HLSLCompiler.cpp
+    src/libANGLE/renderer/d3d/HLSLCompiler.h
     src/libANGLE/renderer/d3d/ImageD3D.cpp
+    src/libANGLE/renderer/d3d/ImageD3D.h
     src/libANGLE/renderer/d3d/IndexBuffer.cpp
+    src/libANGLE/renderer/d3d/IndexBuffer.h
     src/libANGLE/renderer/d3d/IndexDataManager.cpp
+    src/libANGLE/renderer/d3d/IndexDataManager.h
     src/libANGLE/renderer/d3d/NativeWindowD3D.cpp
+    src/libANGLE/renderer/d3d/NativeWindowD3D.h
     src/libANGLE/renderer/d3d/ProgramD3D.cpp
-    src/libANGLE/renderer/d3d/RenderbufferD3D.cpp
-    src/libANGLE/renderer/d3d/RendererD3D.cpp
+    src/libANGLE/renderer/d3d/ProgramD3D.h
     src/libANGLE/renderer/d3d/RenderTargetD3D.cpp
+    src/libANGLE/renderer/d3d/RenderTargetD3D.h
+    src/libANGLE/renderer/d3d/RenderbufferD3D.cpp
+    src/libANGLE/renderer/d3d/RenderbufferD3D.h
+    src/libANGLE/renderer/d3d/RendererD3D.cpp
+    src/libANGLE/renderer/d3d/RendererD3D.h
+    src/libANGLE/renderer/d3d/SamplerD3D.h
     src/libANGLE/renderer/d3d/ShaderD3D.cpp
+    src/libANGLE/renderer/d3d/ShaderD3D.h
     src/libANGLE/renderer/d3d/ShaderExecutableD3D.cpp
+    src/libANGLE/renderer/d3d/ShaderExecutableD3D.h
     src/libANGLE/renderer/d3d/SurfaceD3D.cpp
+    src/libANGLE/renderer/d3d/SurfaceD3D.h
     src/libANGLE/renderer/d3d/SwapChainD3D.cpp
+    src/libANGLE/renderer/d3d/SwapChainD3D.h
     src/libANGLE/renderer/d3d/TextureD3D.cpp
+    src/libANGLE/renderer/d3d/TextureD3D.h
+    src/libANGLE/renderer/d3d/TextureStorage.h
     src/libANGLE/renderer/d3d/VertexBuffer.cpp
-    src/libANGLE/renderer/d3d/VertexDataManager.cpp)
+    src/libANGLE/renderer/d3d/VertexBuffer.h
+    src/libANGLE/renderer/d3d/VertexDataManager.cpp
+    src/libANGLE/renderer/d3d/VertexDataManager.h
+    src/libANGLE/renderer/d3d/driver_utils_d3d.cpp
+    src/libANGLE/renderer/d3d/driver_utils_d3d.h
+    src/libANGLE/renderer/d3d/formatutilsD3D.h
 
-set(angle_libangle_d3d_9_srcs
+    # src/BUILD.gn
+    src/libANGLE/renderer/dxgi_format_map.h
+    src/libANGLE/renderer/dxgi_format_map_autogen.cpp
+    src/libANGLE/renderer/dxgi_support_table.h
+    src/libANGLE/renderer/dxgi_support_table_autogen.cpp
+    )
+
+set(angle_libangle_d3d_9_srcs # src/libANGLE/renderer/d3d/BUILD.gn
     src/libANGLE/renderer/d3d/d3d9/Blit9.cpp
+    src/libANGLE/renderer/d3d/d3d9/Blit9.h
     src/libANGLE/renderer/d3d/d3d9/Buffer9.cpp
+    src/libANGLE/renderer/d3d/d3d9/Buffer9.h
     src/libANGLE/renderer/d3d/d3d9/Context9.cpp
+    src/libANGLE/renderer/d3d/d3d9/Context9.h
     src/libANGLE/renderer/d3d/d3d9/DebugAnnotator9.cpp
+    src/libANGLE/renderer/d3d/d3d9/DebugAnnotator9.h
     src/libANGLE/renderer/d3d/d3d9/Fence9.cpp
-    src/libANGLE/renderer/d3d/d3d9/formatutils9.cpp
+    src/libANGLE/renderer/d3d/d3d9/Fence9.h
     src/libANGLE/renderer/d3d/d3d9/Framebuffer9.cpp
+    src/libANGLE/renderer/d3d/d3d9/Framebuffer9.h
     src/libANGLE/renderer/d3d/d3d9/Image9.cpp
+    src/libANGLE/renderer/d3d/d3d9/Image9.h
     src/libANGLE/renderer/d3d/d3d9/IndexBuffer9.cpp
+    src/libANGLE/renderer/d3d/d3d9/IndexBuffer9.h
     src/libANGLE/renderer/d3d/d3d9/NativeWindow9.cpp
+    src/libANGLE/renderer/d3d/d3d9/NativeWindow9.h
     src/libANGLE/renderer/d3d/d3d9/Query9.cpp
-    src/libANGLE/renderer/d3d/d3d9/Renderer9.cpp
-    src/libANGLE/renderer/d3d/d3d9/renderer9_utils.cpp
+    src/libANGLE/renderer/d3d/d3d9/Query9.h
     src/libANGLE/renderer/d3d/d3d9/RenderTarget9.cpp
+    src/libANGLE/renderer/d3d/d3d9/RenderTarget9.h
+    src/libANGLE/renderer/d3d/d3d9/Renderer9.cpp
+    src/libANGLE/renderer/d3d/d3d9/Renderer9.h
+    src/libANGLE/renderer/d3d/d3d9/ShaderCache.h
     src/libANGLE/renderer/d3d/d3d9/ShaderExecutable9.cpp
+    src/libANGLE/renderer/d3d/d3d9/ShaderExecutable9.h
     src/libANGLE/renderer/d3d/d3d9/StateManager9.cpp
+    src/libANGLE/renderer/d3d/d3d9/StateManager9.h
     src/libANGLE/renderer/d3d/d3d9/SwapChain9.cpp
+    src/libANGLE/renderer/d3d/d3d9/SwapChain9.h
     src/libANGLE/renderer/d3d/d3d9/TextureStorage9.cpp
+    src/libANGLE/renderer/d3d/d3d9/TextureStorage9.h
+    src/libANGLE/renderer/d3d/d3d9/VertexArray9.h
     src/libANGLE/renderer/d3d/d3d9/VertexBuffer9.cpp
-    src/libANGLE/renderer/d3d/d3d9/VertexDeclarationCache.cpp)
+    src/libANGLE/renderer/d3d/d3d9/VertexBuffer9.h
+    src/libANGLE/renderer/d3d/d3d9/VertexDeclarationCache.cpp
+    src/libANGLE/renderer/d3d/d3d9/VertexDeclarationCache.h
+    src/libANGLE/renderer/d3d/d3d9/formatutils9.cpp
+    src/libANGLE/renderer/d3d/d3d9/formatutils9.h
+    src/libANGLE/renderer/d3d/d3d9/renderer9_utils.cpp
+    src/libANGLE/renderer/d3d/d3d9/renderer9_utils.h
+    src/libANGLE/renderer/d3d/d3d9/shaders/compiled/componentmaskpremultps.h
+    src/libANGLE/renderer/d3d/d3d9/shaders/compiled/componentmaskps.h
+    src/libANGLE/renderer/d3d/d3d9/shaders/compiled/componentmaskunmultps.h
+    src/libANGLE/renderer/d3d/d3d9/shaders/compiled/luminancepremultps.h
+    src/libANGLE/renderer/d3d/d3d9/shaders/compiled/luminanceps.h
+    src/libANGLE/renderer/d3d/d3d9/shaders/compiled/luminanceunmultps.h
+    src/libANGLE/renderer/d3d/d3d9/shaders/compiled/passthroughps.h
+    src/libANGLE/renderer/d3d/d3d9/shaders/compiled/standardvs.h
+    src/libANGLE/renderer/d3d/d3d9/vertexconversion.h
+    )
 
-set(angle_libangle_d3d_11_srcs
+set(angle_libangle_d3d_11_srcs # src/libANGLE/renderer/d3d/BUILD.gn
     src/libANGLE/renderer/d3d/d3d11/Blit11.cpp
+    src/libANGLE/renderer/d3d/d3d11/Blit11.h
+    src/libANGLE/renderer/d3d/d3d11/Blit11Helper_autogen.inc
     src/libANGLE/renderer/d3d/d3d11/Buffer11.cpp
+    src/libANGLE/renderer/d3d/d3d11/Buffer11.h
     src/libANGLE/renderer/d3d/d3d11/Clear11.cpp
+    src/libANGLE/renderer/d3d/d3d11/Clear11.h
     src/libANGLE/renderer/d3d/d3d11/Context11.cpp
+    src/libANGLE/renderer/d3d/d3d11/Context11.h
     src/libANGLE/renderer/d3d/d3d11/DebugAnnotator11.cpp
-    src/libANGLE/renderer/d3d/d3d11/dxgi_format_map_autogen.cpp
-    src/libANGLE/renderer/d3d/d3d11/dxgi_support_table.cpp
+    src/libANGLE/renderer/d3d/d3d11/DebugAnnotator11.h
+    src/libANGLE/renderer/d3d/d3d11/ExternalImageSiblingImpl11.cpp
+    src/libANGLE/renderer/d3d/d3d11/ExternalImageSiblingImpl11.h
     src/libANGLE/renderer/d3d/d3d11/Fence11.cpp
-    src/libANGLE/renderer/d3d/d3d11/formatutils11.cpp
+    src/libANGLE/renderer/d3d/d3d11/Fence11.h
     src/libANGLE/renderer/d3d/d3d11/Framebuffer11.cpp
+    src/libANGLE/renderer/d3d/d3d11/Framebuffer11.h
     src/libANGLE/renderer/d3d/d3d11/Image11.cpp
+    src/libANGLE/renderer/d3d/d3d11/Image11.h
     src/libANGLE/renderer/d3d/d3d11/IndexBuffer11.cpp
+    src/libANGLE/renderer/d3d/d3d11/IndexBuffer11.h
     src/libANGLE/renderer/d3d/d3d11/InputLayoutCache.cpp
+    src/libANGLE/renderer/d3d/d3d11/InputLayoutCache.h
+    src/libANGLE/renderer/d3d/d3d11/MappedSubresourceVerifier11.cpp
+    src/libANGLE/renderer/d3d/d3d11/MappedSubresourceVerifier11.h
+    src/libANGLE/renderer/d3d/d3d11/NativeWindow11.h
     src/libANGLE/renderer/d3d/d3d11/PixelTransfer11.cpp
+    src/libANGLE/renderer/d3d/d3d11/PixelTransfer11.h
+    src/libANGLE/renderer/d3d/d3d11/Program11.cpp
+    src/libANGLE/renderer/d3d/d3d11/Program11.h
     src/libANGLE/renderer/d3d/d3d11/ProgramPipeline11.cpp
+    src/libANGLE/renderer/d3d/d3d11/ProgramPipeline11.h
     src/libANGLE/renderer/d3d/d3d11/Query11.cpp
-    src/libANGLE/renderer/d3d/d3d11/Renderer11.cpp
-    src/libANGLE/renderer/d3d/d3d11/renderer11_utils.cpp
+    src/libANGLE/renderer/d3d/d3d11/Query11.h
     src/libANGLE/renderer/d3d/d3d11/RenderStateCache.cpp
+    src/libANGLE/renderer/d3d/d3d11/RenderStateCache.h
     src/libANGLE/renderer/d3d/d3d11/RenderTarget11.cpp
+    src/libANGLE/renderer/d3d/d3d11/RenderTarget11.h
+    src/libANGLE/renderer/d3d/d3d11/Renderer11.cpp
+    src/libANGLE/renderer/d3d/d3d11/Renderer11.h
     src/libANGLE/renderer/d3d/d3d11/ResourceManager11.cpp
+    src/libANGLE/renderer/d3d/d3d11/ResourceManager11.h
     src/libANGLE/renderer/d3d/d3d11/ShaderExecutable11.cpp
+    src/libANGLE/renderer/d3d/d3d11/ShaderExecutable11.h
     src/libANGLE/renderer/d3d/d3d11/StateManager11.cpp
+    src/libANGLE/renderer/d3d/d3d11/StateManager11.h
     src/libANGLE/renderer/d3d/d3d11/StreamProducerD3DTexture.cpp
+    src/libANGLE/renderer/d3d/d3d11/StreamProducerD3DTexture.h
     src/libANGLE/renderer/d3d/d3d11/SwapChain11.cpp
+    src/libANGLE/renderer/d3d/d3d11/SwapChain11.h
     src/libANGLE/renderer/d3d/d3d11/TextureStorage11.cpp
-    src/libANGLE/renderer/d3d/d3d11/texture_format_table.cpp
-    src/libANGLE/renderer/d3d/d3d11/texture_format_table_autogen.cpp
+    src/libANGLE/renderer/d3d/d3d11/TextureStorage11.h
     src/libANGLE/renderer/d3d/d3d11/TransformFeedback11.cpp
+    src/libANGLE/renderer/d3d/d3d11/TransformFeedback11.h
     src/libANGLE/renderer/d3d/d3d11/Trim11.cpp
+    src/libANGLE/renderer/d3d/d3d11/Trim11.h
     src/libANGLE/renderer/d3d/d3d11/VertexArray11.cpp
-    src/libANGLE/renderer/d3d/d3d11/VertexBuffer11.cpp)
+    src/libANGLE/renderer/d3d/d3d11/VertexArray11.h
+    src/libANGLE/renderer/d3d/d3d11/VertexBuffer11.cpp
+    src/libANGLE/renderer/d3d/d3d11/VertexBuffer11.h
+    src/libANGLE/renderer/d3d/d3d11/formatutils11.cpp
+    src/libANGLE/renderer/d3d/d3d11/formatutils11.h
+    src/libANGLE/renderer/d3d/d3d11/renderer11_utils.cpp
+    src/libANGLE/renderer/d3d/d3d11/renderer11_utils.h
+    src/libANGLE/renderer/d3d/d3d11/shaders/compiled/buffertotexture11_gs.h
+    src/libANGLE/renderer/d3d/d3d11/shaders/compiled/buffertotexture11_ps_4f.h
+    src/libANGLE/renderer/d3d/d3d11/shaders/compiled/buffertotexture11_ps_4i.h
+    src/libANGLE/renderer/d3d/d3d11/shaders/compiled/buffertotexture11_ps_4ui.h
+    src/libANGLE/renderer/d3d/d3d11/shaders/compiled/buffertotexture11_vs.h
+    src/libANGLE/renderer/d3d/d3d11/shaders/compiled/clear11_fl9vs.h
+    src/libANGLE/renderer/d3d/d3d11/shaders/compiled/clear11multiviewgs.h
+    src/libANGLE/renderer/d3d/d3d11/shaders/compiled/clear11multiviewvs.h
+    src/libANGLE/renderer/d3d/d3d11/shaders/compiled/clear11vs.h
+    src/libANGLE/renderer/d3d/d3d11/shaders/compiled/cleardepth11ps.h
+    src/libANGLE/renderer/d3d/d3d11/shaders/compiled/clearfloat11_fl9ps.h
+    src/libANGLE/renderer/d3d/d3d11/shaders/compiled/clearfloat11ps1.h
+    src/libANGLE/renderer/d3d/d3d11/shaders/compiled/clearfloat11ps2.h
+    src/libANGLE/renderer/d3d/d3d11/shaders/compiled/clearfloat11ps3.h
+    src/libANGLE/renderer/d3d/d3d11/shaders/compiled/clearfloat11ps4.h
+    src/libANGLE/renderer/d3d/d3d11/shaders/compiled/clearfloat11ps5.h
+    src/libANGLE/renderer/d3d/d3d11/shaders/compiled/clearfloat11ps6.h
+    src/libANGLE/renderer/d3d/d3d11/shaders/compiled/clearfloat11ps7.h
+    src/libANGLE/renderer/d3d/d3d11/shaders/compiled/clearfloat11ps8.h
+    src/libANGLE/renderer/d3d/d3d11/shaders/compiled/clearsint11ps1.h
+    src/libANGLE/renderer/d3d/d3d11/shaders/compiled/clearsint11ps2.h
+    src/libANGLE/renderer/d3d/d3d11/shaders/compiled/clearsint11ps3.h
+    src/libANGLE/renderer/d3d/d3d11/shaders/compiled/clearsint11ps4.h
+    src/libANGLE/renderer/d3d/d3d11/shaders/compiled/clearsint11ps5.h
+    src/libANGLE/renderer/d3d/d3d11/shaders/compiled/clearsint11ps6.h
+    src/libANGLE/renderer/d3d/d3d11/shaders/compiled/clearsint11ps7.h
+    src/libANGLE/renderer/d3d/d3d11/shaders/compiled/clearsint11ps8.h
+    src/libANGLE/renderer/d3d/d3d11/shaders/compiled/clearuint11ps1.h
+    src/libANGLE/renderer/d3d/d3d11/shaders/compiled/clearuint11ps2.h
+    src/libANGLE/renderer/d3d/d3d11/shaders/compiled/clearuint11ps3.h
+    src/libANGLE/renderer/d3d/d3d11/shaders/compiled/clearuint11ps4.h
+    src/libANGLE/renderer/d3d/d3d11/shaders/compiled/clearuint11ps5.h
+    src/libANGLE/renderer/d3d/d3d11/shaders/compiled/clearuint11ps6.h
+    src/libANGLE/renderer/d3d/d3d11/shaders/compiled/clearuint11ps7.h
+    src/libANGLE/renderer/d3d/d3d11/shaders/compiled/clearuint11ps8.h
+    src/libANGLE/renderer/d3d/d3d11/shaders/compiled/passthrough2d11vs.h
+    src/libANGLE/renderer/d3d/d3d11/shaders/compiled/passthrough3d11gs.h
+    src/libANGLE/renderer/d3d/d3d11/shaders/compiled/passthrough3d11vs.h
+    src/libANGLE/renderer/d3d/d3d11/shaders/compiled/passthroughdepth2d11ps.h
+    src/libANGLE/renderer/d3d/d3d11/shaders/compiled/passthroughrgba2dms11ps.h
+    src/libANGLE/renderer/d3d/d3d11/shaders/compiled/resolvecolor2dps.h
+    src/libANGLE/renderer/d3d/d3d11/shaders/compiled/resolvedepth11_ps.h
+    src/libANGLE/renderer/d3d/d3d11/shaders/compiled/resolvedepthstencil11_ps.h
+    src/libANGLE/renderer/d3d/d3d11/shaders/compiled/resolvedepthstencil11_vs.h
+    src/libANGLE/renderer/d3d/d3d11/shaders/compiled/resolvestencil11_ps.h
+    src/libANGLE/renderer/d3d/d3d11/shaders/compiled/swizzlef2darrayps.h
+    src/libANGLE/renderer/d3d/d3d11/shaders/compiled/swizzlef2dps.h
+    src/libANGLE/renderer/d3d/d3d11/shaders/compiled/swizzlef3dps.h
+    src/libANGLE/renderer/d3d/d3d11/shaders/compiled/swizzlei2darrayps.h
+    src/libANGLE/renderer/d3d/d3d11/shaders/compiled/swizzlei2dps.h
+    src/libANGLE/renderer/d3d/d3d11/shaders/compiled/swizzlei3dps.h
+    src/libANGLE/renderer/d3d/d3d11/shaders/compiled/swizzleui2darrayps.h
+    src/libANGLE/renderer/d3d/d3d11/shaders/compiled/swizzleui2dps.h
+    src/libANGLE/renderer/d3d/d3d11/shaders/compiled/swizzleui3dps.h
+    src/libANGLE/renderer/d3d/d3d11/texture_format_table.cpp
+    src/libANGLE/renderer/d3d/d3d11/texture_format_table.h
+    src/libANGLE/renderer/d3d/d3d11/texture_format_table_autogen.cpp
+    src/libANGLE/renderer/d3d/d3d11/texture_format_table_utils.h
+    )
 
-set(angle_libangle_d3d_11_win32_srcs
-    src/libANGLE/renderer/d3d/d3d11/win32/NativeWindow11Win32.cpp)
+set(angle_libangle_d3d_11_win32_srcs # src/libANGLE/renderer/d3d/BUILD.gn
+    src/libANGLE/renderer/d3d/d3d11/converged/CompositorNativeWindow11.cpp
+    src/libANGLE/renderer/d3d/d3d11/converged/CompositorNativeWindow11.h
+    src/libANGLE/renderer/d3d/d3d11/win32/NativeWindow11Win32.cpp
+    src/libANGLE/renderer/d3d/d3d11/win32/NativeWindow11Win32.h
 
-set(angle_libangle_d3d_11_winrt_srcs
+    # src/BUILD.gn
+    #src/libANGLE/renderer/d3d_format.cpp
+    #src/libANGLE/renderer/d3d_format.h
+    )
+
+set(angle_libangle_d3d_11_winrt_srcs # src/libANGLE/renderer/d3d/BUILD.gn
+    src/libANGLE/renderer/d3d/d3d11/converged/CompositorNativeWindow11.cpp
+    src/libANGLE/renderer/d3d/d3d11/converged/CompositorNativeWindow11.h
     src/libANGLE/renderer/d3d/d3d11/winrt/CoreWindowNativeWindow.cpp
+    src/libANGLE/renderer/d3d/d3d11/winrt/CoreWindowNativeWindow.h
     src/libANGLE/renderer/d3d/d3d11/winrt/InspectableNativeWindow.cpp
+    src/libANGLE/renderer/d3d/d3d11/winrt/InspectableNativeWindow.h
     src/libANGLE/renderer/d3d/d3d11/winrt/NativeWindow11WinRT.cpp
-    src/libANGLE/renderer/d3d/d3d11/winrt/SwapChainPanelNativeWindow.cpp)
+    src/libANGLE/renderer/d3d/d3d11/winrt/NativeWindow11WinRT.h
+    src/libANGLE/renderer/d3d/d3d11/winrt/SwapChainPanelNativeWindow.cpp
+    src/libANGLE/renderer/d3d/d3d11/winrt/SwapChainPanelNativeWindow.h
+    )
 
-set(angle_libglesv2_srcs
-    src/libGLESv2/entry_points_egl.cpp
-    src/libGLESv2/entry_points_egl_ext.cpp
+set(angle_libglesv2_srcs # src/libGLESv2.gni
+    src/libGLESv2/egl_ext_stubs.cpp
+    src/libGLESv2/egl_ext_stubs_autogen.h
+    src/libGLESv2/egl_stubs.cpp
+    src/libGLESv2/egl_stubs_autogen.h
+    src/libGLESv2/entry_points_egl_autogen.cpp
+    src/libGLESv2/entry_points_egl_autogen.h
+    src/libGLESv2/entry_points_egl_ext_autogen.cpp
+    src/libGLESv2/entry_points_egl_ext_autogen.h
     src/libGLESv2/entry_points_gles_1_0_autogen.cpp
+    src/libGLESv2/entry_points_gles_1_0_autogen.h
     src/libGLESv2/entry_points_gles_2_0_autogen.cpp
-    src/libGLESv2/entry_points_gles_2_0_autogen.cpp
+    src/libGLESv2/entry_points_gles_2_0_autogen.h
     src/libGLESv2/entry_points_gles_3_0_autogen.cpp
+    src/libGLESv2/entry_points_gles_3_0_autogen.h
     src/libGLESv2/entry_points_gles_3_1_autogen.cpp
+    src/libGLESv2/entry_points_gles_3_1_autogen.h
+    src/libGLESv2/entry_points_gles_3_2_autogen.cpp
+    src/libGLESv2/entry_points_gles_3_2_autogen.h
     src/libGLESv2/entry_points_gles_ext_autogen.cpp
+    src/libGLESv2/entry_points_gles_ext_autogen.h
     src/libGLESv2/global_state.cpp
-    src/libGLESv2/proc_table_autogen.cpp
-    src/libGLESv2/libGLESv2.cpp)
+    src/libGLESv2/global_state.h
+    src/libGLESv2/libGLESv2_autogen.cpp
+    src/libGLESv2/proc_table_egl.h
+    src/libGLESv2/proc_table_egl_autogen.cpp
+    src/libGLESv2/resource.h
+    )
+
 
 set(angle_egl_srcs
-    src/libEGL/libEGL.cpp)
+    src/libEGL/libEGL_autogen.cpp)
 
 set(angle_image_util_srcs # FIXME: Only for Win32??
     src/image_util/copyimage.cpp
