@@ -388,7 +388,7 @@ set(angle_libangle_srcs # src/libGLESv2.gni
     src/libANGLE/IndexRangeCache.cpp
     src/libANGLE/LoggingAnnotator.cpp
     src/libANGLE/MemoryObject.cpp
-    #src/libANGLE/MemoryProgramCache.cpp
+    src/libANGLE/MemoryProgramCache.cpp
     src/libANGLE/Observer.cpp
     src/libANGLE/Overlay.cpp
     src/libANGLE/OverlayWidgets.cpp

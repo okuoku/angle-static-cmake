@@ -116,6 +116,37 @@ add_definitions(
     -DEGLAPI=
     -DGL_API=
     -DGL_APIENTRY=
-    -DGL_APICALL=)
+    -DGL_APICALL=
 
-add_library(angle_static OBJECT ${srcs})
+    # zlib
+    -DCPU_NO_SIMD
+    -DCHROMIUM_ZLIB_NO_CHROMECONF
+    )
+
+set(chromium_zlib_srcs
+    chromium_zlib/adler32.c
+    chromium_zlib/compress.c
+    chromium_zlib/cpu_features.c
+    chromium_zlib/crc32.c
+    chromium_zlib/deflate.c
+    chromium_zlib/gzclose.c
+    chromium_zlib/gzlib.c
+    chromium_zlib/gzread.c
+    chromium_zlib/gzwrite.c
+    chromium_zlib/infback.c
+    chromium_zlib/inffast.c
+    chromium_zlib/inflate.c
+    chromium_zlib/inftrees.c
+    chromium_zlib/trees.c
+    chromium_zlib/uncompr.c
+    chromium_zlib/zutil.c
+
+    chromium_zlib/google/compression_utils_portable.cc
+    )
+
+include_directories(
+    chromium_zlib
+    chromium_zlib/google)
+
+add_library(angle_static OBJECT ${srcs}
+    ${chromium_zlib_srcs})
