@@ -1,0 +1,7 @@
+#ifndef __YUNI_ANGLE_COMMIT_H
+#define __YUNI_ANGLE_COMMIT_H
+
+#define ANGLE_COMMIT_HASH ""
+#define ANGLE_COMMIT_POSITION ""
+
+#endif

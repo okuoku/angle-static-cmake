@@ -63,12 +63,8 @@ include_directories(
     ${ANGLE_ROOT}/src
     ${ANGLE_ROOT}/include
     ${ANGLE_ROOT}/src/common/third_party/base
+    ${CMAKE_CURRENT_LIST_DIR}/angle_commit
     ${CMAKE_CURRENT_BINARY_DIR}/angle/includes)
-
-# FIXME: This disables binary with ANGLE_DISABLE_PROGRAM_BINARY_LOAD
-configure_file(${ANGLE_ROOT}/src/commit.h
-    ${CMAKE_CURRENT_BINARY_DIR}/angle/includes/id/commit.h
-    COPYONLY)
 
 if(${CMAKE_SYSTEM_NAME} STREQUAL "WindowsStore")
     add_definitions(/wd4996) # FIXME:
