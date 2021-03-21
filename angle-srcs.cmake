@@ -323,7 +323,7 @@ set(angle_libangle_d3d_11_win32_srcs
 set(angle_libangle_d3d_11_winrt_srcs
     src/libANGLE/renderer/d3d/d3d11/winrt/CoreWindowNativeWindow.cpp
     src/libANGLE/renderer/d3d/d3d11/winrt/InspectableNativeWindow.cpp
-    #src/libANGLE/renderer/d3d/d3d11/winrt/NativeWindow11WinRT.cpp
+    src/libANGLE/renderer/d3d/d3d11/winrt/NativeWindow11WinRT.cpp
     src/libANGLE/renderer/d3d/d3d11/winrt/SwapChainPanelNativeWindow.cpp)
 
 set(angle_libglesv2_srcs

@@ -71,10 +71,6 @@ configure_file(${ANGLE_ROOT}/src/commit.h
     COPYONLY)
 
 if(${CMAKE_SYSTEM_NAME} STREQUAL "WindowsStore")
-    list(APPEND srcs
-        ${CMAKE_CURRENT_LIST_DIR}/patch-uwp/NativeWindow11WinRT.cpp)
-    include_directories(BEFORE
-        ${CMAKE_CURRENT_LIST_DIR}/patch-uwp)
     add_definitions(/wd4996) # FIXME:
 endif()
 
