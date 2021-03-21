@@ -70,6 +70,10 @@ if(${CMAKE_SYSTEM_NAME} STREQUAL "WindowsStore")
     add_definitions(/wd4996) # FIXME:
 endif()
 
+if(WIN32)
+    add_definitions(-DANGLE_IS_WIN)
+endif()
+
 # Configurations
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -90,6 +94,14 @@ add_definitions(-DNOMINMAX)
 add_definitions(-DANGLE_ENABLE_HLSL)
 #add_definitions(-DANGLE_ENABLE_D3D9) # Requires d3d9
 add_definitions(-DANGLE_ENABLE_D3D11) # Requires dxguid
+
+# FIXME: 32bit??
+set(sixtyfour ON)
+if(sixtyfour)
+    add_definitions(-DANGLE_IS_64_BIT_CPU)
+else()
+    add_definitions(-DANGLE_IS_32_BIT_CPU)
+endif()
 
 # FIXME: Correct?
 add_definitions(
