@@ -14,6 +14,14 @@ if(NOT EXISTS ${ANGLE_ROOT})
     message(FATAL_ERROR "ANGLE_ROOT is not found (${ANGLE_ROOT})")
 endif()
 
+if(NOT CHROMIUM_ZLIB)
+    message(FATAL_ERROR "CHROMIUM_ZLIB is not defined")
+endif()
+
+if(NOT EXISTS ${CHROMIUM_ZLIB})
+    message(FATAL_ERROR "CHROMIUM_ZLIB is not found (${CHROMIUM_ZLIB})")
+endif()
+
 include(./angle-srcs.cmake)
 
 set(srcs)
@@ -124,29 +132,29 @@ add_definitions(
     )
 
 set(chromium_zlib_srcs
-    chromium_zlib/adler32.c
-    chromium_zlib/compress.c
-    chromium_zlib/cpu_features.c
-    chromium_zlib/crc32.c
-    chromium_zlib/deflate.c
-    chromium_zlib/gzclose.c
-    chromium_zlib/gzlib.c
-    chromium_zlib/gzread.c
-    chromium_zlib/gzwrite.c
-    chromium_zlib/infback.c
-    chromium_zlib/inffast.c
-    chromium_zlib/inflate.c
-    chromium_zlib/inftrees.c
-    chromium_zlib/trees.c
-    chromium_zlib/uncompr.c
-    chromium_zlib/zutil.c
+    ${CHROMIUM_ZLIB_ROOT}/adler32.c
+    ${CHROMIUM_ZLIB_ROOT}/compress.c
+    ${CHROMIUM_ZLIB_ROOT}/cpu_features.c
+    ${CHROMIUM_ZLIB_ROOT}/crc32.c
+    ${CHROMIUM_ZLIB_ROOT}/deflate.c
+    ${CHROMIUM_ZLIB_ROOT}/gzclose.c
+    ${CHROMIUM_ZLIB_ROOT}/gzlib.c
+    ${CHROMIUM_ZLIB_ROOT}/gzread.c
+    ${CHROMIUM_ZLIB_ROOT}/gzwrite.c
+    ${CHROMIUM_ZLIB_ROOT}/infback.c
+    ${CHROMIUM_ZLIB_ROOT}/inffast.c
+    ${CHROMIUM_ZLIB_ROOT}/inflate.c
+    ${CHROMIUM_ZLIB_ROOT}/inftrees.c
+    ${CHROMIUM_ZLIB_ROOT}/trees.c
+    ${CHROMIUM_ZLIB_ROOT}/uncompr.c
+    ${CHROMIUM_ZLIB_ROOT}/zutil.c
 
-    chromium_zlib/google/compression_utils_portable.cc
+    ${CHROMIUM_ZLIB_ROOT}/google/compression_utils_portable.cc
     )
 
 include_directories(
-    chromium_zlib
-    chromium_zlib/google)
+    ${CHROMIUM_ZLIB_ROOT}
+    ${CHROMIUM_ZLIB_ROOT}/google)
 
 add_library(angle_static OBJECT ${srcs}
     ${chromium_zlib_srcs})
