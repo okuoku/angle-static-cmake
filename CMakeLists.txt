@@ -3,7 +3,7 @@
 # INPUTs:
 #   ANGLE_ROOT: Absolute path to ANGLE source
 
-cmake_minimum_required(VERSION 2.8.11)
+cmake_minimum_required(VERSION 2.8.12)
 project(ANGLE C CXX)
 
 if(NOT ANGLE_ROOT)
