@@ -14,12 +14,12 @@ if(NOT EXISTS ${ANGLE_ROOT})
     message(FATAL_ERROR "ANGLE_ROOT is not found (${ANGLE_ROOT})")
 endif()
 
-if(NOT CHROMIUM_ZLIB)
+if(NOT CHROMIUM_ZLIB_ROOT)
     message(FATAL_ERROR "CHROMIUM_ZLIB is not defined")
 endif()
 
-if(NOT EXISTS ${CHROMIUM_ZLIB})
-    message(FATAL_ERROR "CHROMIUM_ZLIB is not found (${CHROMIUM_ZLIB})")
+if(NOT EXISTS ${CHROMIUM_ZLIB_ROOT})
+    message(FATAL_ERROR "CHROMIUM_ZLIB is not found (${CHROMIUM_ZLIB_ROOT})")
 endif()
 
 include(./angle-srcs.cmake)
