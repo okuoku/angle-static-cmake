@@ -358,8 +358,12 @@ set(angle_common_srcs # src/libGLESv2.gni
 
 set(angle_common_win_srcs
     src/common/system_utils_win.cpp
+    )
+set(angle_common_win32_srcs
     src/common/system_utils_win32.cpp
-    #src/common/system_utils_winuwp.cpp
+    )
+set(angle_common_winrt_srcs
+    src/common/system_utils_winuwp.cpp
     )
 
 set(angle_libangle_srcs # src/libGLESv2.gni

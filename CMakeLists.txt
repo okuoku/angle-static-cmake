@@ -43,15 +43,16 @@ list(APPEND srcs
 if(${CMAKE_SYSTEM_NAME} STREQUAL "WindowsStore")
     # Assume UWP
     list(APPEND srcs
+        ${angle_common_winrt_srcs}
         ${angle_libangle_d3d_11_winrt_srcs})
     add_definitions(
             -D_SCL_SECURE_NO_WARNINGS
             -D_CRT_SECURE_NO_WARNINGS)
-    # FIXME: Patching srcs below
 elseif(WIN32)
     list(APPEND srcs
-         ${angle_systeminfo_srcs}
-         ${angle_libangle_d3d_11_win32_srcs})
+        ${angle_common_win32_srcs}
+        ${angle_systeminfo_srcs}
+        ${angle_libangle_d3d_11_win32_srcs})
 endif()
 
 # Rebase sources
