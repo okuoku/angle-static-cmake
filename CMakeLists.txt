@@ -22,23 +22,55 @@ if(NOT EXISTS ${CHROMIUM_ZLIB_ROOT})
     message(FATAL_ERROR "CHROMIUM_ZLIB is not found (${CHROMIUM_ZLIB_ROOT})")
 endif()
 
+if(NOT ANGLE_BACKEND)
+    set(ANGLE_BACKEND DirectX)
+endif()
+
 include(./angle-srcs.cmake)
 
 set(srcs)
 
+if(ANGLE_VULKAN_HEADERS_ROOT)
+    include_directories(${ANGLE_VULKAN_HEADERS_ROOT}/include)
+endif()
+
+if(ANGLE_SPIRV_HEADERS_ROOT)
+    include_directories(${ANGLE_SPIRV_HEADERS_ROOT}/include)
+endif()
+if(ANGLE_SPIRV_TOOLS_ROOT)
+    include_directories(${ANGLE_SPIRV_TOOLS_ROOT}/include)
+endif()
+if(ANGLE_GLSLANG_ROOT)
+    include_directories(${ANGLE_GLSLANG_ROOT})
+endif()
+if(ANGLE_VOLK_ROOT)
+    include_directories(${ANGLE_VOLK_ROOT})
+endif()
+
+
 list(APPEND srcs
     ${angle_fe_translator_srcs}
     ${angle_fe_preprocessor_srcs}
-    ${angle_fe_translator_lib_srcs}
+    ${angle_fe_translator_lib_common_srcs}
     ${angle_common_srcs}
     ${angle_common_win_srcs}
     ${angle_libangle_srcs}
-    ${angle_libangle_d3d_common_srcs}
-    #${angle_libangle_d3d_9_srcs}
-    ${angle_libangle_d3d_11_srcs}
     ${angle_egl_srcs}
     ${angle_image_util_srcs}
     ${angle_libglesv2_srcs})
+
+if(${ANGLE_BACKEND} STREQUAL Vulkan)
+    list(APPEND srcs
+        ${angle_fe_translator_lib_vulkan_srcs}
+        ${angle_libangle_vulkan_common_srcs}
+        )
+else()
+    list(APPEND srcs
+        ${angle_fe_translator_lib_hlsl_srcs}
+        ${angle_libangle_d3d_common_srcs}
+        #${angle_libangle_d3d_9_srcs}
+        ${angle_libangle_d3d_11_srcs})
+endif()
 
 if(${CMAKE_SYSTEM_NAME} STREQUAL "WindowsStore")
     # Assume UWP
@@ -51,8 +83,14 @@ if(${CMAKE_SYSTEM_NAME} STREQUAL "WindowsStore")
 elseif(WIN32)
     list(APPEND srcs
         ${angle_common_win32_srcs}
-        ${angle_systeminfo_srcs}
-        ${angle_libangle_d3d_11_win32_srcs})
+        ${angle_systeminfo_srcs})
+    if(${ANGLE_BACKEND} STREQUAL Vulkan)
+        list(APPEND srcs
+            ${angle_libangle_vulkan_win32_srcs})
+    else()
+        list(APPEND srcs
+            ${angle_libangle_d3d_11_win32_srcs})
+    endif()
 endif()
 
 # Rebase sources
@@ -100,9 +138,26 @@ add_definitions(
 add_definitions(-DNOMINMAX)
 
 # Backend selection
-add_definitions(-DANGLE_ENABLE_HLSL)
-#add_definitions(-DANGLE_ENABLE_D3D9) # Requires d3d9
-add_definitions(-DANGLE_ENABLE_D3D11) # Requires dxguid
+if(${ANGLE_BACKEND} STREQUAL Vulkan)
+    add_definitions(-DANGLE_ENABLE_VULKAN)
+    add_definitions(-DANGLE_USE_CUSTOM_VULKAN_CMD_BUFFERS=1
+        -DANGLE_ENABLE_VULKAN_GPU_TRACE_EVENTS=1)
+    if(WIN32)
+        add_definitions(-DVK_USE_PLATFORM_WIN32_KHR)
+    endif()
+    if(ANGLE_VOLK_ROOT)
+        list(APPEND srcs ${ANGLE_VOLK_ROOT}/volk.c)
+        add_definitions(-DANGLE_SHARED_LIBVULKAN=1)
+    endif()
+    if(ANGLE_VMA_ROOT)
+        list(APPEND srcs vma_gen.cpp)
+        include_directories(${ANGLE_VMA_ROOT}/src)
+    endif()
+else()
+    add_definitions(-DANGLE_ENABLE_HLSL)
+    #add_definitions(-DANGLE_ENABLE_D3D9) # Requires d3d9
+    add_definitions(-DANGLE_ENABLE_D3D11) # Requires dxguid
+endif()
 
 # FIXME: 32bit??
 set(sixtyfour ON)
@@ -115,6 +170,10 @@ endif()
 # FIXME: Correct?
 add_definitions(
     "-DANGLE_PRELOADED_D3DCOMPILER_MODULE_NAMES={ \"d3dcompiler_47.dll\", \"d3dcompiler_46.dll\", \"d3dcompiler_43.dll\" }"
+    )
+add_definitions(
+    "-DANGLE_VK_MOCK_ICD_JSON=\"\""
+    "-DANGLE_VK_LAYERS_DIR=\"\""
     )
 
 # Headers required for User

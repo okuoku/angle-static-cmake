@@ -27,8 +27,113 @@ set(angle_fe_preprocessor_srcs # src/compiler.gni
     src/compiler/preprocessor/preprocessor_tab_autogen.cpp
     )
 
-set(angle_fe_translator_lib_srcs # src/compiler.gni
-    # FIXME: Separate into backends (HLSL/Vulkan/...)
+set(angle_fe_translator_lib_vulkan_srcs # src/compiler.gni
+    # Vulkan GLSL Sources
+    # angle_translator_glsl_and_vulkan_base_sources
+    src/compiler/translator/BuiltinsWorkaroundGLSL.cpp
+    src/compiler/translator/BuiltinsWorkaroundGLSL.h
+    src/compiler/translator/OutputGLSLBase.cpp
+    src/compiler/translator/OutputGLSLBase.h
+    src/compiler/translator/OutputGLSL.cpp
+    src/compiler/translator/OutputGLSL.h
+    # angle_translator_lib_vulkan_sources
+    src/compiler/translator/OutputVulkanGLSL.cpp
+    src/compiler/translator/OutputVulkanGLSL.h
+    src/compiler/translator/TranslatorVulkan.cpp
+    src/compiler/translator/TranslatorVulkan.h
+    src/compiler/translator/tree_ops/vulkan/EarlyFragmentTestsOptimization.cpp
+    src/compiler/translator/tree_ops/vulkan/FlagSamplersWithTexelFetch.cpp
+    src/compiler/translator/tree_ops/vulkan/FlagSamplersWithTexelFetch.h
+    src/compiler/translator/tree_ops/vulkan/MonomorphizeUnsupportedFunctionsInVulkanGLSL.cpp
+    src/compiler/translator/tree_ops/vulkan/MonomorphizeUnsupportedFunctionsInVulkanGLSL.h
+    src/compiler/translator/tree_ops/vulkan/NameEmbeddedUniformStructs.cpp
+    src/compiler/translator/tree_ops/vulkan/NameEmbeddedUniformStructs.h
+    src/compiler/translator/tree_ops/vulkan/RemoveAtomicCounterBuiltins.cpp
+    src/compiler/translator/tree_ops/vulkan/RemoveAtomicCounterBuiltins.h
+    src/compiler/translator/tree_ops/vulkan/RemoveInactiveInterfaceVariables.cpp
+    src/compiler/translator/tree_ops/vulkan/RemoveInactiveInterfaceVariables.h
+    src/compiler/translator/tree_ops/vulkan/ReplaceForShaderFramebufferFetch.cpp
+    src/compiler/translator/tree_ops/vulkan/ReplaceForShaderFramebufferFetch.h
+    src/compiler/translator/tree_ops/vulkan/RewriteArrayOfArrayOfOpaqueUniforms.cpp
+    src/compiler/translator/tree_ops/vulkan/RewriteArrayOfArrayOfOpaqueUniforms.h
+    src/compiler/translator/tree_ops/vulkan/RewriteAtomicCounters.cpp
+    src/compiler/translator/tree_ops/vulkan/RewriteAtomicCounters.h
+    src/compiler/translator/tree_ops/vulkan/RewriteCubeMapSamplersAs2DArray.cpp
+    src/compiler/translator/tree_ops/vulkan/RewriteCubeMapSamplersAs2DArray.h
+    src/compiler/translator/tree_ops/vulkan/RewriteDfdy.cpp
+    src/compiler/translator/tree_ops/vulkan/RewriteDfdy.h
+    src/compiler/translator/tree_ops/vulkan/RewriteInterpolateAtOffset.cpp
+    src/compiler/translator/tree_ops/vulkan/RewriteInterpolateAtOffset.h
+    src/compiler/translator/tree_ops/vulkan/RewriteR32fImages.cpp
+    src/compiler/translator/tree_ops/vulkan/RewriteR32fImages.h
+    src/compiler/translator/tree_ops/vulkan/RewriteStructSamplers.cpp
+    src/compiler/translator/tree_ops/vulkan/RewriteStructSamplers.h
+    # FIXME: angle_translator_lib_metal_sources ?
+    
+  )
+
+
+set(angle_fe_translator_lib_hlsl_srcs # src/compiler.gni
+    # HLSL Sources (angle_translator_hlsl_sources)
+    src/compiler/translator/ASTMetadataHLSL.cpp
+    src/compiler/translator/ASTMetadataHLSL.h
+    src/compiler/translator/AtomicCounterFunctionHLSL.cpp
+    src/compiler/translator/AtomicCounterFunctionHLSL.h
+    src/compiler/translator/BuiltInFunctionEmulatorHLSL.cpp
+    src/compiler/translator/BuiltInFunctionEmulatorHLSL.h
+    src/compiler/translator/ImageFunctionHLSL.cpp
+    src/compiler/translator/ImageFunctionHLSL.h
+    src/compiler/translator/OutputHLSL.cpp
+    src/compiler/translator/OutputHLSL.h
+    src/compiler/translator/ResourcesHLSL.cpp
+    src/compiler/translator/ResourcesHLSL.h
+    src/compiler/translator/ShaderStorageBlockFunctionHLSL.cpp
+    src/compiler/translator/ShaderStorageBlockFunctionHLSL.h
+    src/compiler/translator/ShaderStorageBlockOutputHLSL.cpp
+    src/compiler/translator/ShaderStorageBlockOutputHLSL.h
+    src/compiler/translator/StructureHLSL.cpp
+    src/compiler/translator/StructureHLSL.h
+    src/compiler/translator/TextureFunctionHLSL.cpp
+    src/compiler/translator/TextureFunctionHLSL.h
+    src/compiler/translator/TranslatorHLSL.cpp
+    src/compiler/translator/TranslatorHLSL.h
+    src/compiler/translator/UtilsHLSL.cpp
+    src/compiler/translator/UtilsHLSL.h
+    src/compiler/translator/blocklayoutHLSL.cpp
+    src/compiler/translator/emulated_builtin_functions_hlsl_autogen.cpp
+    src/compiler/translator/tree_ops/d3d/AddDefaultReturnStatements.cpp
+    src/compiler/translator/tree_ops/d3d/AddDefaultReturnStatements.h
+    src/compiler/translator/tree_ops/d3d/ArrayReturnValueToOutParameter.cpp
+    src/compiler/translator/tree_ops/d3d/ArrayReturnValueToOutParameter.h
+    src/compiler/translator/tree_ops/d3d/BreakVariableAliasingInInnerLoops.cpp
+    src/compiler/translator/tree_ops/d3d/BreakVariableAliasingInInnerLoops.h
+    src/compiler/translator/tree_ops/d3d/ExpandIntegerPowExpressions.cpp
+    src/compiler/translator/tree_ops/d3d/ExpandIntegerPowExpressions.h
+    src/compiler/translator/tree_ops/d3d/RecordUniformBlocksWithLargeArrayMember.cpp
+    src/compiler/translator/tree_ops/d3d/RecordUniformBlocksWithLargeArrayMember.h
+    src/compiler/translator/tree_ops/d3d/RemoveSwitchFallThrough.cpp
+    src/compiler/translator/tree_ops/d3d/RemoveSwitchFallThrough.h
+    src/compiler/translator/tree_ops/d3d/RewriteAtomicFunctionExpressions.cpp
+    src/compiler/translator/tree_ops/d3d/RewriteAtomicFunctionExpressions.h
+    src/compiler/translator/tree_ops/d3d/RewriteElseBlocks.cpp
+    src/compiler/translator/tree_ops/d3d/RewriteElseBlocks.h
+    src/compiler/translator/tree_ops/d3d/RewriteExpressionsWithShaderStorageBlock.cpp
+    src/compiler/translator/tree_ops/d3d/RewriteExpressionsWithShaderStorageBlock.h
+    src/compiler/translator/tree_ops/d3d/RewriteUnaryMinusOperatorInt.cpp
+    src/compiler/translator/tree_ops/d3d/RewriteUnaryMinusOperatorInt.h
+    src/compiler/translator/tree_ops/d3d/SeparateArrayConstructorStatements.cpp
+    src/compiler/translator/tree_ops/d3d/SeparateArrayConstructorStatements.h
+    src/compiler/translator/tree_ops/d3d/SeparateArrayInitialization.cpp
+    src/compiler/translator/tree_ops/d3d/SeparateArrayInitialization.h
+    src/compiler/translator/tree_ops/d3d/SeparateExpressionsReturningArrays.cpp
+    src/compiler/translator/tree_ops/d3d/SeparateExpressionsReturningArrays.h
+    src/compiler/translator/tree_ops/d3d/UnfoldShortCircuitToIf.cpp
+    src/compiler/translator/tree_ops/d3d/UnfoldShortCircuitToIf.h
+    src/compiler/translator/tree_ops/d3d/WrapSwitchStatementsInBlocks.cpp
+    src/compiler/translator/tree_ops/d3d/WrapSwitchStatementsInBlocks.h
+    )
+
+set(angle_fe_translator_lib_common_srcs # src/compiler.gni
     include/EGL/egl.h
     include/EGL/eglext.h
     include/EGL/eglplatform.h
@@ -226,63 +331,6 @@ set(angle_fe_translator_lib_srcs # src/compiler.gni
     src/third_party/compiler/ArrayBoundsClamper.cpp
     src/third_party/compiler/ArrayBoundsClamper.h
 
-    # HLSL Sources (angle_translator_hlsl_sources)
-    src/compiler/translator/ASTMetadataHLSL.cpp
-    src/compiler/translator/ASTMetadataHLSL.h
-    src/compiler/translator/AtomicCounterFunctionHLSL.cpp
-    src/compiler/translator/AtomicCounterFunctionHLSL.h
-    src/compiler/translator/BuiltInFunctionEmulatorHLSL.cpp
-    src/compiler/translator/BuiltInFunctionEmulatorHLSL.h
-    src/compiler/translator/ImageFunctionHLSL.cpp
-    src/compiler/translator/ImageFunctionHLSL.h
-    src/compiler/translator/OutputHLSL.cpp
-    src/compiler/translator/OutputHLSL.h
-    src/compiler/translator/ResourcesHLSL.cpp
-    src/compiler/translator/ResourcesHLSL.h
-    src/compiler/translator/ShaderStorageBlockFunctionHLSL.cpp
-    src/compiler/translator/ShaderStorageBlockFunctionHLSL.h
-    src/compiler/translator/ShaderStorageBlockOutputHLSL.cpp
-    src/compiler/translator/ShaderStorageBlockOutputHLSL.h
-    src/compiler/translator/StructureHLSL.cpp
-    src/compiler/translator/StructureHLSL.h
-    src/compiler/translator/TextureFunctionHLSL.cpp
-    src/compiler/translator/TextureFunctionHLSL.h
-    src/compiler/translator/TranslatorHLSL.cpp
-    src/compiler/translator/TranslatorHLSL.h
-    src/compiler/translator/UtilsHLSL.cpp
-    src/compiler/translator/UtilsHLSL.h
-    src/compiler/translator/blocklayoutHLSL.cpp
-    src/compiler/translator/emulated_builtin_functions_hlsl_autogen.cpp
-    src/compiler/translator/tree_ops/d3d/AddDefaultReturnStatements.cpp
-    src/compiler/translator/tree_ops/d3d/AddDefaultReturnStatements.h
-    src/compiler/translator/tree_ops/d3d/ArrayReturnValueToOutParameter.cpp
-    src/compiler/translator/tree_ops/d3d/ArrayReturnValueToOutParameter.h
-    src/compiler/translator/tree_ops/d3d/BreakVariableAliasingInInnerLoops.cpp
-    src/compiler/translator/tree_ops/d3d/BreakVariableAliasingInInnerLoops.h
-    src/compiler/translator/tree_ops/d3d/ExpandIntegerPowExpressions.cpp
-    src/compiler/translator/tree_ops/d3d/ExpandIntegerPowExpressions.h
-    src/compiler/translator/tree_ops/d3d/RecordUniformBlocksWithLargeArrayMember.cpp
-    src/compiler/translator/tree_ops/d3d/RecordUniformBlocksWithLargeArrayMember.h
-    src/compiler/translator/tree_ops/d3d/RemoveSwitchFallThrough.cpp
-    src/compiler/translator/tree_ops/d3d/RemoveSwitchFallThrough.h
-    src/compiler/translator/tree_ops/d3d/RewriteAtomicFunctionExpressions.cpp
-    src/compiler/translator/tree_ops/d3d/RewriteAtomicFunctionExpressions.h
-    src/compiler/translator/tree_ops/d3d/RewriteElseBlocks.cpp
-    src/compiler/translator/tree_ops/d3d/RewriteElseBlocks.h
-    src/compiler/translator/tree_ops/d3d/RewriteExpressionsWithShaderStorageBlock.cpp
-    src/compiler/translator/tree_ops/d3d/RewriteExpressionsWithShaderStorageBlock.h
-    src/compiler/translator/tree_ops/d3d/RewriteUnaryMinusOperatorInt.cpp
-    src/compiler/translator/tree_ops/d3d/RewriteUnaryMinusOperatorInt.h
-    src/compiler/translator/tree_ops/d3d/SeparateArrayConstructorStatements.cpp
-    src/compiler/translator/tree_ops/d3d/SeparateArrayConstructorStatements.h
-    src/compiler/translator/tree_ops/d3d/SeparateArrayInitialization.cpp
-    src/compiler/translator/tree_ops/d3d/SeparateArrayInitialization.h
-    src/compiler/translator/tree_ops/d3d/SeparateExpressionsReturningArrays.cpp
-    src/compiler/translator/tree_ops/d3d/SeparateExpressionsReturningArrays.h
-    src/compiler/translator/tree_ops/d3d/UnfoldShortCircuitToIf.cpp
-    src/compiler/translator/tree_ops/d3d/UnfoldShortCircuitToIf.h
-    src/compiler/translator/tree_ops/d3d/WrapSwitchStatementsInBlocks.cpp
-    src/compiler/translator/tree_ops/d3d/WrapSwitchStatementsInBlocks.h
 
     # !android
     src/compiler/translator/ImmutableString_autogen.cpp
@@ -723,6 +771,121 @@ set(angle_libangle_d3d_11_winrt_srcs # src/libANGLE/renderer/d3d/BUILD.gn
     src/libANGLE/renderer/d3d/d3d11/winrt/NativeWindow11WinRT.h
     src/libANGLE/renderer/d3d/d3d11/winrt/SwapChainPanelNativeWindow.cpp
     src/libANGLE/renderer/d3d/d3d11/winrt/SwapChainPanelNativeWindow.h
+    )
+
+set(angle_libangle_vulkan_common_srcs
+    # src/libANGLE/renderer/vulkan/BUILD.gn
+    src/libANGLE/renderer/vulkan/BufferVk.cpp
+    src/libANGLE/renderer/vulkan/BufferVk.h
+    src/libANGLE/renderer/vulkan/CommandProcessor.cpp
+    src/libANGLE/renderer/vulkan/CommandProcessor.h
+    src/libANGLE/renderer/vulkan/CompilerVk.cpp
+    src/libANGLE/renderer/vulkan/CompilerVk.h
+    src/libANGLE/renderer/vulkan/ContextVk.cpp
+    src/libANGLE/renderer/vulkan/ContextVk.h
+    src/libANGLE/renderer/vulkan/DebugAnnotatorVk.cpp
+    src/libANGLE/renderer/vulkan/DebugAnnotatorVk.h
+    src/libANGLE/renderer/vulkan/DeviceVk.cpp
+    src/libANGLE/renderer/vulkan/DeviceVk.h
+    src/libANGLE/renderer/vulkan/DisplayVk.cpp
+    src/libANGLE/renderer/vulkan/DisplayVk.h
+    src/libANGLE/renderer/vulkan/DisplayVk_api.h
+    src/libANGLE/renderer/vulkan/FenceNVVk.cpp
+    src/libANGLE/renderer/vulkan/FenceNVVk.h
+    src/libANGLE/renderer/vulkan/FramebufferVk.cpp
+    src/libANGLE/renderer/vulkan/FramebufferVk.h
+    src/libANGLE/renderer/vulkan/GlslangWrapperVk.cpp
+    src/libANGLE/renderer/vulkan/GlslangWrapperVk.h
+    src/libANGLE/renderer/vulkan/ImageVk.cpp
+    src/libANGLE/renderer/vulkan/ImageVk.h
+    src/libANGLE/renderer/vulkan/MemoryObjectVk.cpp
+    src/libANGLE/renderer/vulkan/MemoryObjectVk.h
+    src/libANGLE/renderer/vulkan/OverlayVk.cpp
+    src/libANGLE/renderer/vulkan/OverlayVk.h
+    src/libANGLE/renderer/vulkan/PersistentCommandPool.cpp
+    src/libANGLE/renderer/vulkan/PersistentCommandPool.h
+    src/libANGLE/renderer/vulkan/ProgramExecutableVk.cpp
+    src/libANGLE/renderer/vulkan/ProgramExecutableVk.h
+    src/libANGLE/renderer/vulkan/ProgramPipelineVk.cpp
+    src/libANGLE/renderer/vulkan/ProgramPipelineVk.h
+    src/libANGLE/renderer/vulkan/ProgramVk.cpp
+    src/libANGLE/renderer/vulkan/ProgramVk.h
+    src/libANGLE/renderer/vulkan/QueryVk.cpp
+    src/libANGLE/renderer/vulkan/QueryVk.h
+    src/libANGLE/renderer/vulkan/RenderTargetVk.cpp
+    src/libANGLE/renderer/vulkan/RenderTargetVk.h
+    src/libANGLE/renderer/vulkan/RenderbufferVk.cpp
+    src/libANGLE/renderer/vulkan/RenderbufferVk.h
+    src/libANGLE/renderer/vulkan/RendererVk.cpp
+    src/libANGLE/renderer/vulkan/RendererVk.h
+    src/libANGLE/renderer/vulkan/ResourceVk.cpp
+    src/libANGLE/renderer/vulkan/ResourceVk.h
+    src/libANGLE/renderer/vulkan/SamplerVk.cpp
+    src/libANGLE/renderer/vulkan/SamplerVk.h
+    src/libANGLE/renderer/vulkan/SecondaryCommandBuffer.cpp
+    src/libANGLE/renderer/vulkan/SecondaryCommandBuffer.h
+    src/libANGLE/renderer/vulkan/SemaphoreVk.cpp
+    src/libANGLE/renderer/vulkan/SemaphoreVk.h
+    src/libANGLE/renderer/vulkan/ShaderVk.cpp
+    src/libANGLE/renderer/vulkan/ShaderVk.h
+    src/libANGLE/renderer/vulkan/SurfaceVk.cpp
+    src/libANGLE/renderer/vulkan/SurfaceVk.h
+    src/libANGLE/renderer/vulkan/SyncVk.cpp
+    src/libANGLE/renderer/vulkan/SyncVk.h
+    src/libANGLE/renderer/vulkan/TextureVk.cpp
+    src/libANGLE/renderer/vulkan/TextureVk.h
+    src/libANGLE/renderer/vulkan/TransformFeedbackVk.cpp
+    src/libANGLE/renderer/vulkan/TransformFeedbackVk.h
+    src/libANGLE/renderer/vulkan/UtilsVk.cpp
+    src/libANGLE/renderer/vulkan/UtilsVk.h
+    src/libANGLE/renderer/vulkan/VertexArrayVk.cpp
+    src/libANGLE/renderer/vulkan/VertexArrayVk.h
+    src/libANGLE/renderer/vulkan/android/vk_android_utils.cpp
+    src/libANGLE/renderer/vulkan/android/vk_android_utils.h
+    src/libANGLE/renderer/vulkan/vk_cache_utils.cpp
+    src/libANGLE/renderer/vulkan/vk_cache_utils.h
+    src/libANGLE/renderer/vulkan/vk_caps_utils.cpp
+    src/libANGLE/renderer/vulkan/vk_caps_utils.h
+    src/libANGLE/renderer/vulkan/vk_format_table_autogen.cpp
+    src/libANGLE/renderer/vulkan/vk_format_utils.cpp
+    src/libANGLE/renderer/vulkan/vk_format_utils.h
+    src/libANGLE/renderer/vulkan/vk_helpers.cpp
+    src/libANGLE/renderer/vulkan/vk_helpers.h
+    src/libANGLE/renderer/vulkan/vk_internal_shaders_autogen.cpp
+    src/libANGLE/renderer/vulkan/vk_internal_shaders_autogen.h
+    src/libANGLE/renderer/vulkan/vk_mandatory_format_support_table_autogen.cpp
+    src/libANGLE/renderer/vulkan/vk_utils.cpp
+    src/libANGLE/renderer/vulkan/vk_utils.h
+    src/libANGLE/renderer/vulkan/vk_wrapper.h
+
+    src/libANGLE/renderer/vulkan/vk_mem_alloc_wrapper.cpp
+    src/libANGLE/renderer/vulkan/vk_mem_alloc_wrapper.h
+
+    # glslang wrapper
+    src/libANGLE/renderer/glslang_wrapper_utils.cpp
+    src/libANGLE/renderer/glslang_wrapper_utils.h
+
+    # Vulkan common (FIXME)
+    src/common/vulkan/vulkan_icd.cpp
+
+    # GPU Info (FIXME)
+    src/gpu_info_util/SystemInfo.cpp
+    src/gpu_info_util/SystemInfo.h
+
+    # SPIR-V (FIXME)
+    src/common/spirv/spirv_instruction_parser_autogen.cpp
+    src/common/spirv/spirv_instruction_parser_autogen.h
+    src/common/spirv/angle_spirv_utils.cpp
+    src/common/spirv/spirv_types.h
+    src/common/spirv/spirv_instruction_builder_autogen.cpp
+    src/common/spirv/spirv_instruction_builder_autogen.h
+    )
+set(angle_libangle_vulkan_win32_srcs
+    # src/libANGLE/renderer/vulkan/BUILD.gn
+    src/libANGLE/renderer/vulkan/win32/DisplayVkWin32.cpp
+    src/libANGLE/renderer/vulkan/win32/DisplayVkWin32.h
+    src/libANGLE/renderer/vulkan/win32/WindowSurfaceVkWin32.cpp
+    src/libANGLE/renderer/vulkan/win32/WindowSurfaceVkWin32.h
     )
 
 set(angle_libglesv2_srcs # src/libGLESv2.gni
