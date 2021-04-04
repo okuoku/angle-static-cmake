@@ -72,8 +72,6 @@ set(angle_fe_translator_lib_vulkan_srcs # src/compiler.gni
 
 set(angle_fe_translator_lib_metal_srcs # src/compiler.gni
     # Metal GLSL Sources
-    # FIXME: Merge?
-    ${angle_fe_translator_lib_vulkan_srcs}
     # angle_translator_lib_metal_sources
     src/compiler/translator/OutputVulkanGLSLForMetal.h
     src/compiler/translator/OutputVulkanGLSLForMetal.mm

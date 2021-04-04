@@ -70,6 +70,7 @@ if(${ANGLE_BACKEND} STREQUAL Vulkan)
         )
 elseif(${ANGLE_BACKEND} STREQUAL Metal)
     list(APPEND srcs
+        ${angle_fe_translator_lib_vulkan_srcs}
         ${angle_fe_translator_lib_metal_srcs}
         )
 else()
@@ -180,6 +181,14 @@ if(${ANGLE_BACKEND} STREQUAL Vulkan)
     endif()
 elseif(${ANGLE_BACKEND} STREQUAL Metal)
     add_definitions(-DANGLE_ENABLE_METAL)
+
+    rebase_sources(_vulkan_fe_srcs
+        ${angle_fe_translator_lib_vulkan_srcs})
+
+    set_source_files_properties(
+        ${_vulkan_fe_srcs}
+        PROPERTIES
+        COMPILE_DEFINITIONS "ANGLE_ENABLE_VULKAN")
 else()
     add_definitions(-DANGLE_ENABLE_HLSL)
     #add_definitions(-DANGLE_ENABLE_D3D9) # Requires d3d9
@@ -245,3 +254,4 @@ include_directories(
 
 add_library(angle_static STATIC ${srcs}
     ${chromium_zlib_srcs})
+
