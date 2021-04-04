@@ -68,9 +68,20 @@ set(angle_fe_translator_lib_vulkan_srcs # src/compiler.gni
     src/compiler/translator/tree_ops/vulkan/RewriteR32fImages.h
     src/compiler/translator/tree_ops/vulkan/RewriteStructSamplers.cpp
     src/compiler/translator/tree_ops/vulkan/RewriteStructSamplers.h
-    # FIXME: angle_translator_lib_metal_sources ?
-    
   )
+
+set(angle_fe_translator_lib_metal_srcs # src/compiler.gni
+    # Metal GLSL Sources
+    # FIXME: Merge?
+    ${angle_fe_translator_lib_vulkan_srcs}
+    # angle_translator_lib_metal_sources
+    src/compiler/translator/OutputVulkanGLSLForMetal.h
+    src/compiler/translator/OutputVulkanGLSLForMetal.mm
+    src/compiler/translator/TranslatorMetal.cpp
+    src/compiler/translator/TranslatorMetal.h
+    )
+
+
 
 
 set(angle_fe_translator_lib_hlsl_srcs # src/compiler.gni
@@ -412,6 +423,16 @@ set(angle_common_win32_srcs
     )
 set(angle_common_winrt_srcs
     src/common/system_utils_winuwp.cpp
+    )
+
+set(angle_common_apple_srcs
+    src/common/apple/SoftLinking.h
+    src/common/gl/cgl/FunctionsCGL.cpp
+    src/common/gl/cgl/FunctionsCGL.h
+    src/common/system_utils_apple.cpp
+    src/common/system_utils_posix.cpp
+    src/common/system_utils_mac.cpp
+    #src/common/system_utils_ios.cpp
     )
 
 set(angle_libangle_srcs # src/libGLESv2.gni
@@ -773,6 +794,26 @@ set(angle_libangle_d3d_11_winrt_srcs # src/libANGLE/renderer/d3d/BUILD.gn
     src/libANGLE/renderer/d3d/d3d11/winrt/SwapChainPanelNativeWindow.h
     )
 
+set(angle_libangle_spirv_common_srcs
+    # FIXME: Merge
+
+    # glslang wrapper
+    src/libANGLE/renderer/glslang_wrapper_utils.cpp
+    src/libANGLE/renderer/glslang_wrapper_utils.h
+
+    # GPU Info (FIXME)
+    src/gpu_info_util/SystemInfo.cpp
+    src/gpu_info_util/SystemInfo.h
+
+    # SPIR-V (FIXME)
+    src/common/spirv/spirv_instruction_parser_autogen.cpp
+    src/common/spirv/spirv_instruction_parser_autogen.h
+    src/common/spirv/angle_spirv_utils.cpp
+    src/common/spirv/spirv_types.h
+    src/common/spirv/spirv_instruction_builder_autogen.cpp
+    src/common/spirv/spirv_instruction_builder_autogen.h
+    )
+
 set(angle_libangle_vulkan_common_srcs
     # src/libANGLE/renderer/vulkan/BUILD.gn
     src/libANGLE/renderer/vulkan/BufferVk.cpp
@@ -861,24 +902,10 @@ set(angle_libangle_vulkan_common_srcs
     src/libANGLE/renderer/vulkan/vk_mem_alloc_wrapper.cpp
     src/libANGLE/renderer/vulkan/vk_mem_alloc_wrapper.h
 
-    # glslang wrapper
-    src/libANGLE/renderer/glslang_wrapper_utils.cpp
-    src/libANGLE/renderer/glslang_wrapper_utils.h
-
     # Vulkan common (FIXME)
     src/common/vulkan/vulkan_icd.cpp
 
-    # GPU Info (FIXME)
-    src/gpu_info_util/SystemInfo.cpp
-    src/gpu_info_util/SystemInfo.h
-
-    # SPIR-V (FIXME)
-    src/common/spirv/spirv_instruction_parser_autogen.cpp
-    src/common/spirv/spirv_instruction_parser_autogen.h
-    src/common/spirv/angle_spirv_utils.cpp
-    src/common/spirv/spirv_types.h
-    src/common/spirv/spirv_instruction_builder_autogen.cpp
-    src/common/spirv/spirv_instruction_builder_autogen.h
+    ${angle_libangle_spirv_common_srcs}
     )
 set(angle_libangle_vulkan_win32_srcs
     # src/libANGLE/renderer/vulkan/BUILD.gn
@@ -886,6 +913,70 @@ set(angle_libangle_vulkan_win32_srcs
     src/libANGLE/renderer/vulkan/win32/DisplayVkWin32.h
     src/libANGLE/renderer/vulkan/win32/WindowSurfaceVkWin32.cpp
     src/libANGLE/renderer/vulkan/win32/WindowSurfaceVkWin32.h
+    )
+
+set(angle_libangle_metal_mac_srcs
+    # _metal_backend_sources
+    src/libANGLE/renderer/metal/BufferMtl.h
+    src/libANGLE/renderer/metal/BufferMtl.mm
+    src/libANGLE/renderer/metal/CompilerMtl.h
+    src/libANGLE/renderer/metal/CompilerMtl.mm
+    src/libANGLE/renderer/metal/ContextMtl.h
+    src/libANGLE/renderer/metal/ContextMtl.mm
+    src/libANGLE/renderer/metal/DisplayMtl.h
+    src/libANGLE/renderer/metal/DisplayMtl.mm
+    src/libANGLE/renderer/metal/DisplayMtl_api.h
+    src/libANGLE/renderer/metal/FrameBufferMtl.h
+    src/libANGLE/renderer/metal/FrameBufferMtl.mm
+    src/libANGLE/renderer/metal/ProgramMtl.h
+    src/libANGLE/renderer/metal/ProgramMtl.mm
+    src/libANGLE/renderer/metal/QueryMtl.h
+    src/libANGLE/renderer/metal/QueryMtl.mm
+    src/libANGLE/renderer/metal/RenderBufferMtl.h
+    src/libANGLE/renderer/metal/RenderBufferMtl.mm
+    src/libANGLE/renderer/metal/RenderTargetMtl.h
+    src/libANGLE/renderer/metal/RenderTargetMtl.mm
+    src/libANGLE/renderer/metal/SamplerMtl.h
+    src/libANGLE/renderer/metal/SamplerMtl.mm
+    src/libANGLE/renderer/metal/ShaderMtl.h
+    src/libANGLE/renderer/metal/ShaderMtl.mm
+    src/libANGLE/renderer/metal/SurfaceMtl.h
+    src/libANGLE/renderer/metal/SurfaceMtl.mm
+    src/libANGLE/renderer/metal/SyncMtl.h
+    src/libANGLE/renderer/metal/SyncMtl.mm
+    src/libANGLE/renderer/metal/TextureMtl.h
+    src/libANGLE/renderer/metal/TextureMtl.mm
+    src/libANGLE/renderer/metal/TransformFeedbackMtl.h
+    src/libANGLE/renderer/metal/TransformFeedbackMtl.mm
+    src/libANGLE/renderer/metal/VertexArrayMtl.h
+    src/libANGLE/renderer/metal/VertexArrayMtl.mm
+    src/libANGLE/renderer/metal/mtl_buffer_pool.h
+    src/libANGLE/renderer/metal/mtl_buffer_pool.mm
+    src/libANGLE/renderer/metal/mtl_command_buffer.h
+    src/libANGLE/renderer/metal/mtl_command_buffer.mm
+    src/libANGLE/renderer/metal/mtl_common.h
+    src/libANGLE/renderer/metal/mtl_common.mm
+    src/libANGLE/renderer/metal/mtl_format_table_autogen.mm
+    src/libANGLE/renderer/metal/mtl_format_utils.h
+    src/libANGLE/renderer/metal/mtl_format_utils.mm
+    src/libANGLE/renderer/metal/mtl_glslang_utils.h
+    src/libANGLE/renderer/metal/mtl_glslang_utils.mm
+    src/libANGLE/renderer/metal/mtl_occlusion_query_pool.h
+    src/libANGLE/renderer/metal/mtl_occlusion_query_pool.mm
+    src/libANGLE/renderer/metal/mtl_render_utils.h
+    src/libANGLE/renderer/metal/mtl_render_utils.mm
+    src/libANGLE/renderer/metal/mtl_resources.h
+    src/libANGLE/renderer/metal/mtl_resources.mm
+    src/libANGLE/renderer/metal/mtl_state_cache.h
+    src/libANGLE/renderer/metal/mtl_state_cache.mm
+    src/libANGLE/renderer/metal/mtl_utils.h
+    src/libANGLE/renderer/metal/mtl_utils.mm
+    src/libANGLE/renderer/metal/shaders/constants.h
+    src/libANGLE/renderer/metal/shaders/format_autogen.h
+    src/libANGLE/renderer/metal/shaders/mtl_default_shaders_src_autogen.inc
+
+    ${angle_libangle_spirv_common_srcs}
+    src/gpu_info_util/SystemInfo_macos.mm
     )
 
 set(angle_libglesv2_srcs # src/libGLESv2.gni

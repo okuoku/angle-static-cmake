@@ -5,6 +5,9 @@
 
 cmake_minimum_required(VERSION 2.8.12)
 project(ANGLE C CXX)
+if(APPLE)
+    enable_language(OBJC OBJCXX)
+endif()
 
 if(NOT ANGLE_ROOT)
     message(FATAL_ERROR "ANGLE_ROOT is not defined")
@@ -46,14 +49,15 @@ endif()
 if(ANGLE_VOLK_ROOT)
     include_directories(${ANGLE_VOLK_ROOT})
 endif()
-
+if(ANGLE_SPIRV_CROSS_ROOT)
+    include_directories(${ANGLE_SPIRV_CROSS_ROOT})
+endif()
 
 list(APPEND srcs
     ${angle_fe_translator_srcs}
     ${angle_fe_preprocessor_srcs}
     ${angle_fe_translator_lib_common_srcs}
     ${angle_common_srcs}
-    ${angle_common_win_srcs}
     ${angle_libangle_srcs}
     ${angle_egl_srcs}
     ${angle_image_util_srcs}
@@ -63,6 +67,10 @@ if(${ANGLE_BACKEND} STREQUAL Vulkan)
     list(APPEND srcs
         ${angle_fe_translator_lib_vulkan_srcs}
         ${angle_libangle_vulkan_common_srcs}
+        )
+elseif(${ANGLE_BACKEND} STREQUAL Metal)
+    list(APPEND srcs
+        ${angle_fe_translator_lib_metal_srcs}
         )
 else()
     list(APPEND srcs
@@ -75,6 +83,7 @@ endif()
 if(${CMAKE_SYSTEM_NAME} STREQUAL "WindowsStore")
     # Assume UWP
     list(APPEND srcs
+        ${angle_common_win_srcs}
         ${angle_common_winrt_srcs}
         ${angle_libangle_d3d_11_winrt_srcs})
     add_definitions(
@@ -82,6 +91,7 @@ if(${CMAKE_SYSTEM_NAME} STREQUAL "WindowsStore")
             -D_CRT_SECURE_NO_WARNINGS)
 elseif(WIN32)
     list(APPEND srcs
+        ${angle_common_win_srcs}
         ${angle_common_win32_srcs}
         ${angle_systeminfo_srcs})
     if(${ANGLE_BACKEND} STREQUAL Vulkan)
@@ -91,6 +101,16 @@ elseif(WIN32)
         list(APPEND srcs
             ${angle_libangle_d3d_11_win32_srcs})
     endif()
+elseif(APPLE)
+    list(APPEND srcs
+        ${angle_common_apple_srcs}
+        ${angle_libangle_metal_mac_srcs}
+        )
+    add_definitions(
+        -Wno-nullability-completeness
+        -Wno-unguarded-availability
+        -fno-objc-arc
+        )
 endif()
 
 # Rebase sources
@@ -122,7 +142,12 @@ if(WIN32)
 endif()
 
 # Configurations
-set(CMAKE_CXX_STANDARD 11)
+if(APPLE)
+    # FIXME: What BUILD.gn say?
+    set(CMAKE_CXX_STANDARD 14)
+else()
+    set(CMAKE_CXX_STANDARD 11)
+endif()
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 add_definitions(
@@ -153,6 +178,8 @@ if(${ANGLE_BACKEND} STREQUAL Vulkan)
         list(APPEND srcs vma_gen.cpp)
         include_directories(${ANGLE_VMA_ROOT}/src)
     endif()
+elseif(${ANGLE_BACKEND} STREQUAL Metal)
+    add_definitions(-DANGLE_ENABLE_METAL)
 else()
     add_definitions(-DANGLE_ENABLE_HLSL)
     #add_definitions(-DANGLE_ENABLE_D3D9) # Requires d3d9
@@ -216,5 +243,5 @@ include_directories(
     ${CHROMIUM_ZLIB_ROOT}
     ${CHROMIUM_ZLIB_ROOT}/google)
 
-add_library(angle_static OBJECT ${srcs}
+add_library(angle_static STATIC ${srcs}
     ${chromium_zlib_srcs})
