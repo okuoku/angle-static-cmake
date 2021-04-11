@@ -2,10 +2,12 @@
 #
 # INPUTs:
 #   ANGLE_ROOT: Absolute path to ANGLE source
+#   ANGLE_WORKAROUND_FAKEOBJCSOURCE: Do not enable OBJC/OBJCXX
 
 cmake_minimum_required(VERSION 2.8.12)
 project(ANGLE C CXX)
-if(APPLE)
+if(APPLE AND NOT ANGLE_WORKAROUND_FAKEOBJCSOURCE)
+    cmake_minimum_required(VERSION 3.16)
     enable_language(OBJC OBJCXX)
 endif()
 
@@ -118,7 +120,16 @@ endif()
 function(rebase_sources var)
     set(srcs0)
     foreach(s ${ARGN})
-        list(APPEND srcs0 ${ANGLE_ROOT}/${s})
+        set(srcname ${ANGLE_ROOT}/${s})
+        list(APPEND srcs0 ${srcname})
+        if(ANGLE_WORKAROUND_FAKEOBJCSOURCE)
+            get_filename_component(ext ${srcname} EXT)
+            if("${ext}" STREQUAL .mm)
+                message(STATUS "Fake ${s} as CXX")
+                set_source_files_properties(${srcname}
+                    PROPERTY LANGUAGE CXX)
+            endif()
+        endif()
     endforeach()
     set(${var} ${srcs0} PARENT_SCOPE)
 endfunction()
