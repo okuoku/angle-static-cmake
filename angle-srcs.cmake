@@ -430,7 +430,7 @@ set(angle_common_apple_srcs
     src/common/system_utils_apple.cpp
     src/common/system_utils_posix.cpp
     src/common/system_utils_mac.cpp
-    #src/common/system_utils_ios.cpp
+    src/common/system_utils_ios.cpp
     )
 
 set(angle_libangle_srcs # src/libGLESv2.gni
@@ -974,7 +974,9 @@ set(angle_libangle_metal_mac_srcs
     src/libANGLE/renderer/metal/shaders/mtl_default_shaders_src_autogen.inc
 
     ${angle_libangle_spirv_common_srcs}
+    src/gpu_info_util/SystemInfo_apple.mm
     src/gpu_info_util/SystemInfo_macos.mm
+    src/gpu_info_util/SystemInfo_ios.cpp
     )
 
 set(angle_libglesv2_srcs # src/libGLESv2.gni
