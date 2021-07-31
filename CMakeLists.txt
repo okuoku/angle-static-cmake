@@ -114,6 +114,14 @@ elseif(APPLE)
         -Wno-unguarded-availability
         -fno-objc-arc
         )
+elseif(UNIX)
+    list(APPEND srcs
+        ${angle_common_posix_srcs}
+        )
+    # Linux
+    list(APPEND srcs
+        ${angle_common_linux_srcs}
+        )
 endif()
 
 # Rebase sources
@@ -154,7 +162,7 @@ if(WIN32)
 endif()
 
 # Configurations
-if(APPLE)
+if(APPLE OR UNIX)
     # FIXME: What BUILD.gn say?
     set(CMAKE_CXX_STANDARD 14)
 else()

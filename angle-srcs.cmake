@@ -433,6 +433,14 @@ set(angle_common_apple_srcs
     src/common/system_utils_ios.cpp
     )
 
+set(angle_common_posix_srcs
+    src/common/system_utils_posix.cpp
+    )
+
+set(angle_common_linux_srcs
+    src/common/system_utils_linux.cpp
+    )
+
 set(angle_libangle_srcs # src/libGLESv2.gni
     src/libANGLE/AttributeMap.cpp
     src/libANGLE/BlobCache.cpp
