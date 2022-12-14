@@ -1073,7 +1073,7 @@ set(angle_libangle_vulkan_win32_srcs
     src/libANGLE/renderer/vulkan/win32/WindowSurfaceVkWin32.h
     )
 
-set(angle_libangle_metal_mac_srcs
+set(angle_libangle_metal_mac_srcs # src/libANGLE/renderer/metal/BUILD.gn
     # _metal_backend_sources
     src/libANGLE/renderer/metal/BufferMtl.h
     src/libANGLE/renderer/metal/BufferMtl.mm
@@ -1090,6 +1090,8 @@ set(angle_libangle_metal_mac_srcs
     src/libANGLE/renderer/metal/FrameBufferMtl.mm
     src/libANGLE/renderer/metal/IOSurfaceSurfaceMtl.h
     src/libANGLE/renderer/metal/IOSurfaceSurfaceMtl.mm
+    src/libANGLE/renderer/metal/ImageMtl.h
+    src/libANGLE/renderer/metal/ImageMtl.mm
     src/libANGLE/renderer/metal/ProgramMtl.h
     src/libANGLE/renderer/metal/ProgramMtl.mm
     src/libANGLE/renderer/metal/ProvokingVertexHelper.h
@@ -1145,10 +1147,16 @@ set(angle_libangle_metal_mac_srcs
     src/libANGLE/renderer/metal/shaders/format_autogen.h
     src/libANGLE/renderer/metal/shaders/mtl_default_shaders_src_autogen.inc
 
-    #${angle_libangle_spirv_common_srcs}
+    ${angle_libangle_spirv_common_srcs}
     src/gpu_info_util/SystemInfo_apple.mm
     src/gpu_info_util/SystemInfo_macos.mm
     src/gpu_info_util/SystemInfo_ios.cpp
+    )
+
+set(angle_libangle_mac_srcs # src/libGLESv2.gni
+    src/libANGLE/renderer/driver_utils_mac.mm
+    src/libANGLE/renderer/gl/apple/DisplayApple_api.cpp
+    src/libANGLE/renderer/gl/apple/DisplayApple_api.h
     )
 
 set(angle_libglesv2_srcs # src/libGLESv2.gni

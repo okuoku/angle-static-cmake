@@ -112,6 +112,7 @@ elseif(WIN32)
 elseif(APPLE)
     list(APPEND srcs
         ${angle_common_apple_srcs}
+        ${angle_libangle_mac_srcs}
         ${angle_libangle_metal_mac_srcs}
         )
     add_definitions(
