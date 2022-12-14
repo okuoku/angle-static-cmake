@@ -35,6 +35,10 @@ include(./angle-srcs.cmake)
 
 set(srcs)
 
+include_directories(${ANGLE_ROOT}/src/common/base
+    ${ANGLE_ROOT}/src/common/third_party/xxhash
+    )
+
 if(ANGLE_VULKAN_HEADERS_ROOT)
     include_directories(${ANGLE_VULKAN_HEADERS_ROOT}/include)
 endif()
@@ -90,6 +94,7 @@ if(${CMAKE_SYSTEM_NAME} STREQUAL "WindowsStore")
         ${angle_common_winrt_srcs}
         ${angle_libangle_d3d_11_winrt_srcs})
     add_definitions(
+        -DANGLE_IS_WINUWP
             -D_SCL_SECURE_NO_WARNINGS
             -D_CRT_SECURE_NO_WARNINGS)
 elseif(WIN32)
@@ -162,15 +167,11 @@ if(WIN32)
 endif()
 
 # Configurations
-if(APPLE OR UNIX)
-    # FIXME: What BUILD.gn say?
-    set(CMAKE_CXX_STANDARD 14)
-else()
-    set(CMAKE_CXX_STANDARD 11)
-endif()
+set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 add_definitions(
+    -DANGLE_REVISION=9999
     -DANGLE_TRANSLATOR_IMPLEMENTATION
     -DLIBGLESV2_IMPLEMENTATION
     -DLIBEGL_IMPLEMENTATION
@@ -196,7 +197,8 @@ if(${ANGLE_BACKEND} STREQUAL Vulkan)
     endif()
     if(ANGLE_VMA_ROOT)
         list(APPEND srcs vma_gen.cpp)
-        include_directories(${ANGLE_VMA_ROOT}/src)
+        add_definitions(-DANGLE_VMA_VERSION=3001000)
+        include_directories(${ANGLE_VMA_ROOT}/include)
     endif()
 elseif(${ANGLE_BACKEND} STREQUAL Metal)
     add_definitions(-DANGLE_ENABLE_METAL)
@@ -212,6 +214,7 @@ else()
     add_definitions(-DANGLE_ENABLE_HLSL)
     #add_definitions(-DANGLE_ENABLE_D3D9) # Requires d3d9
     add_definitions(-DANGLE_ENABLE_D3D11) # Requires dxguid
+    add_definitions(-DANGLE_ENABLE_D3D11_COMPOSITOR_NATIVE_WINDOW)
 endif()
 
 # FIXME: 32bit??

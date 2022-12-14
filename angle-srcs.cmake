@@ -37,46 +37,103 @@ set(angle_fe_translator_lib_vulkan_srcs # src/compiler.gni
     src/compiler/translator/OutputGLSL.cpp
     src/compiler/translator/OutputGLSL.h
     # angle_translator_lib_vulkan_sources
-    src/compiler/translator/OutputVulkanGLSL.cpp
-    src/compiler/translator/OutputVulkanGLSL.h
+    src/compiler/translator/BuildSPIRV.cpp
+    src/compiler/translator/BuildSPIRV.h
+    src/compiler/translator/OutputSPIRV.cpp
+    src/compiler/translator/OutputSPIRV.h
     src/compiler/translator/TranslatorVulkan.cpp
-    src/compiler/translator/TranslatorVulkan.h
-    src/compiler/translator/tree_ops/vulkan/EarlyFragmentTestsOptimization.cpp
+    src/compiler/translator/tree_ops/vulkan/EmulateAdvancedBlendEquations.cpp
+    src/compiler/translator/tree_ops/vulkan/EmulateAdvancedBlendEquations.h
+    src/compiler/translator/tree_ops/vulkan/EmulateDithering.cpp
+    src/compiler/translator/tree_ops/vulkan/EmulateDithering.h
+    src/compiler/translator/tree_ops/vulkan/EmulateFragColorData.cpp
+    src/compiler/translator/tree_ops/vulkan/EmulateFragColorData.h
+    src/compiler/translator/tree_ops/vulkan/EmulateYUVBuiltIns.cpp
+    src/compiler/translator/tree_ops/vulkan/EmulateYUVBuiltIns.h
     src/compiler/translator/tree_ops/vulkan/FlagSamplersWithTexelFetch.cpp
     src/compiler/translator/tree_ops/vulkan/FlagSamplersWithTexelFetch.h
-    src/compiler/translator/tree_ops/vulkan/MonomorphizeUnsupportedFunctionsInVulkanGLSL.cpp
-    src/compiler/translator/tree_ops/vulkan/MonomorphizeUnsupportedFunctionsInVulkanGLSL.h
-    src/compiler/translator/tree_ops/vulkan/NameEmbeddedUniformStructs.cpp
-    src/compiler/translator/tree_ops/vulkan/NameEmbeddedUniformStructs.h
-    src/compiler/translator/tree_ops/vulkan/RemoveAtomicCounterBuiltins.cpp
-    src/compiler/translator/tree_ops/vulkan/RemoveAtomicCounterBuiltins.h
-    src/compiler/translator/tree_ops/vulkan/RemoveInactiveInterfaceVariables.cpp
-    src/compiler/translator/tree_ops/vulkan/RemoveInactiveInterfaceVariables.h
     src/compiler/translator/tree_ops/vulkan/ReplaceForShaderFramebufferFetch.cpp
     src/compiler/translator/tree_ops/vulkan/ReplaceForShaderFramebufferFetch.h
-    src/compiler/translator/tree_ops/vulkan/RewriteArrayOfArrayOfOpaqueUniforms.cpp
-    src/compiler/translator/tree_ops/vulkan/RewriteArrayOfArrayOfOpaqueUniforms.h
-    src/compiler/translator/tree_ops/vulkan/RewriteAtomicCounters.cpp
-    src/compiler/translator/tree_ops/vulkan/RewriteAtomicCounters.h
-    src/compiler/translator/tree_ops/vulkan/RewriteCubeMapSamplersAs2DArray.cpp
-    src/compiler/translator/tree_ops/vulkan/RewriteCubeMapSamplersAs2DArray.h
-    src/compiler/translator/tree_ops/vulkan/RewriteDfdy.cpp
-    src/compiler/translator/tree_ops/vulkan/RewriteDfdy.h
     src/compiler/translator/tree_ops/vulkan/RewriteInterpolateAtOffset.cpp
     src/compiler/translator/tree_ops/vulkan/RewriteInterpolateAtOffset.h
     src/compiler/translator/tree_ops/vulkan/RewriteR32fImages.cpp
     src/compiler/translator/tree_ops/vulkan/RewriteR32fImages.h
-    src/compiler/translator/tree_ops/vulkan/RewriteStructSamplers.cpp
-    src/compiler/translator/tree_ops/vulkan/RewriteStructSamplers.h
+
+    # angle_translator_glsl_symbol_table_sources
+    # FIXME: Do we still need this?
+    #src/compiler/translator/ImmutableString_autogen.cpp
+    #src/compiler/translator/ImmutableString_ESSL_autogen.cpp
+    #src/compiler/translator/SymbolTable_autogen.cpp
   )
 
 set(angle_fe_translator_lib_metal_srcs # src/compiler.gni
-    # Metal GLSL Sources
     # angle_translator_lib_metal_sources
-    src/compiler/translator/OutputVulkanGLSLForMetal.h
-    src/compiler/translator/OutputVulkanGLSLForMetal.mm
-    src/compiler/translator/TranslatorMetal.cpp
-    src/compiler/translator/TranslatorMetal.h
+    src/compiler/translator/DriverUniformMetal.cpp
+    src/compiler/translator/TranslatorMetalDirect.cpp
+    src/compiler/translator/TranslatorMetalDirect/AddExplicitTypeCasts.cpp
+    src/compiler/translator/TranslatorMetalDirect/AddExplicitTypeCasts.h
+    src/compiler/translator/TranslatorMetalDirect/AstHelpers.cpp
+    src/compiler/translator/TranslatorMetalDirect/AstHelpers.h
+    src/compiler/translator/TranslatorMetalDirect/ConstantNames.cpp
+    src/compiler/translator/TranslatorMetalDirect/DebugSink.h
+    src/compiler/translator/TranslatorMetalDirect/DiscoverDependentFunctions.cpp
+    src/compiler/translator/TranslatorMetalDirect/DiscoverDependentFunctions.h
+    src/compiler/translator/TranslatorMetalDirect/DiscoverEnclosingFunctionTraverser.cpp
+    src/compiler/translator/TranslatorMetalDirect/DiscoverEnclosingFunctionTraverser.h
+    src/compiler/translator/TranslatorMetalDirect/EmitMetal.cpp
+    src/compiler/translator/TranslatorMetalDirect/EmitMetal.h
+    src/compiler/translator/TranslatorMetalDirect/FixTypeConstructors.cpp
+    src/compiler/translator/TranslatorMetalDirect/FixTypeConstructors.h
+    src/compiler/translator/TranslatorMetalDirect/GuardFragDepthWrite.cpp
+    src/compiler/translator/TranslatorMetalDirect/GuardFragDepthWrite.h
+    src/compiler/translator/TranslatorMetalDirect/HoistConstants.cpp
+    src/compiler/translator/TranslatorMetalDirect/HoistConstants.h
+    src/compiler/translator/TranslatorMetalDirect/IdGen.cpp
+    src/compiler/translator/TranslatorMetalDirect/IdGen.h
+    src/compiler/translator/TranslatorMetalDirect/IntroduceVertexIndexID.cpp
+    src/compiler/translator/TranslatorMetalDirect/IntroduceVertexIndexID.h
+    src/compiler/translator/TranslatorMetalDirect/Layout.cpp
+    src/compiler/translator/TranslatorMetalDirect/Layout.h
+    src/compiler/translator/TranslatorMetalDirect/MapFunctionsToDefinitions.cpp
+    src/compiler/translator/TranslatorMetalDirect/MapFunctionsToDefinitions.h
+    src/compiler/translator/TranslatorMetalDirect/MapSymbols.cpp
+    src/compiler/translator/TranslatorMetalDirect/MapSymbols.h
+    src/compiler/translator/TranslatorMetalDirect/ModifyStruct.cpp
+    src/compiler/translator/TranslatorMetalDirect/ModifyStruct.h
+    src/compiler/translator/TranslatorMetalDirect/Name.cpp
+    src/compiler/translator/TranslatorMetalDirect/Name.h
+    src/compiler/translator/TranslatorMetalDirect/NameEmbeddedUniformStructsMetal.cpp
+    src/compiler/translator/TranslatorMetalDirect/NameEmbeddedUniformStructsMetal.h
+    src/compiler/translator/TranslatorMetalDirect/Pipeline.cpp
+    src/compiler/translator/TranslatorMetalDirect/Pipeline.h
+    src/compiler/translator/TranslatorMetalDirect/ProgramPrelude.cpp
+    src/compiler/translator/TranslatorMetalDirect/ProgramPrelude.h
+    src/compiler/translator/TranslatorMetalDirect/ReduceInterfaceBlocks.cpp
+    src/compiler/translator/TranslatorMetalDirect/ReduceInterfaceBlocks.h
+    src/compiler/translator/TranslatorMetalDirect/Reference.h
+    src/compiler/translator/TranslatorMetalDirect/RewriteCaseDeclarations.cpp
+    src/compiler/translator/TranslatorMetalDirect/RewriteCaseDeclarations.h
+    src/compiler/translator/TranslatorMetalDirect/RewriteOutArgs.cpp
+    src/compiler/translator/TranslatorMetalDirect/RewriteOutArgs.h
+    src/compiler/translator/TranslatorMetalDirect/RewritePipelines.cpp
+    src/compiler/translator/TranslatorMetalDirect/RewritePipelines.h
+    src/compiler/translator/TranslatorMetalDirect/RewriteUnaddressableReferences.cpp
+    src/compiler/translator/TranslatorMetalDirect/RewriteUnaddressableReferences.h
+    src/compiler/translator/TranslatorMetalDirect/SeparateCompoundExpressions.cpp
+    src/compiler/translator/TranslatorMetalDirect/SeparateCompoundExpressions.h
+    src/compiler/translator/TranslatorMetalDirect/SeparateCompoundStructDeclarations.cpp
+    src/compiler/translator/TranslatorMetalDirect/SeparateCompoundStructDeclarations.h
+    src/compiler/translator/TranslatorMetalDirect/SkippingTraverser.h
+    src/compiler/translator/TranslatorMetalDirect/SymbolEnv.cpp
+    src/compiler/translator/TranslatorMetalDirect/SymbolEnv.h
+    src/compiler/translator/TranslatorMetalDirect/ToposortStructs.cpp
+    src/compiler/translator/TranslatorMetalDirect/ToposortStructs.h
+    src/compiler/translator/TranslatorMetalDirect/TranslatorMetalUtils.cpp
+    src/compiler/translator/TranslatorMetalDirect/TranslatorMetalUtils.h
+    src/compiler/translator/TranslatorMetalDirect/TransposeRowMajorMatrices.cpp
+    src/compiler/translator/TranslatorMetalDirect/TransposeRowMajorMatrices.h
+    src/compiler/translator/TranslatorMetalDirect/WrapMain.cpp
+    src/compiler/translator/TranslatorMetalDirect/WrapMain.h
     )
 
 
@@ -105,13 +162,16 @@ set(angle_fe_translator_lib_hlsl_srcs # src/compiler.gni
     src/compiler/translator/TextureFunctionHLSL.cpp
     src/compiler/translator/TextureFunctionHLSL.h
     src/compiler/translator/TranslatorHLSL.cpp
-    src/compiler/translator/TranslatorHLSL.h
     src/compiler/translator/UtilsHLSL.cpp
     src/compiler/translator/UtilsHLSL.h
     src/compiler/translator/blocklayoutHLSL.cpp
     src/compiler/translator/emulated_builtin_functions_hlsl_autogen.cpp
     src/compiler/translator/tree_ops/d3d/AddDefaultReturnStatements.cpp
     src/compiler/translator/tree_ops/d3d/AddDefaultReturnStatements.h
+    src/compiler/translator/tree_ops/d3d/AggregateAssignArraysInSSBOs.cpp
+    src/compiler/translator/tree_ops/d3d/AggregateAssignArraysInSSBOs.h
+    src/compiler/translator/tree_ops/d3d/AggregateAssignStructsInSSBOs.cpp
+    src/compiler/translator/tree_ops/d3d/AggregateAssignStructsInSSBOs.h
     src/compiler/translator/tree_ops/d3d/ArrayReturnValueToOutParameter.cpp
     src/compiler/translator/tree_ops/d3d/ArrayReturnValueToOutParameter.h
     src/compiler/translator/tree_ops/d3d/BreakVariableAliasingInInnerLoops.cpp
@@ -155,6 +215,8 @@ set(angle_fe_translator_lib_common_srcs # src/compiler.gni
     include/GLES3/gl3platform.h
     include/KHR/khrplatform.h
     include/angle_gl.h
+    # angle_translator_sources
+    src/compiler/translator/BaseTypes.cpp
     src/compiler/translator/BaseTypes.h
     src/compiler/translator/BuiltInFunctionEmulator.cpp
     src/compiler/translator/BuiltInFunctionEmulator.h
@@ -174,6 +236,7 @@ set(angle_fe_translator_lib_common_srcs # src/compiler.gni
     src/compiler/translator/Diagnostics.h
     src/compiler/translator/DirectiveHandler.cpp
     src/compiler/translator/DirectiveHandler.h
+    src/compiler/translator/DriverUniformMetal.h
     src/compiler/translator/ExtensionBehavior.cpp
     src/compiler/translator/ExtensionBehavior.h
     src/compiler/translator/FlagStd140Structs.cpp
@@ -197,14 +260,11 @@ set(angle_fe_translator_lib_common_srcs # src/compiler.gni
     src/compiler/translator/IsASTDepthBelowLimit.cpp
     src/compiler/translator/IsASTDepthBelowLimit.h
     src/compiler/translator/Operator.cpp
-    src/compiler/translator/Operator.h
+    src/compiler/translator/Operator_autogen.h
     src/compiler/translator/OutputTree.cpp
     src/compiler/translator/OutputTree.h
     src/compiler/translator/ParseContext.cpp
     src/compiler/translator/ParseContext.h
-    src/compiler/translator/ParseContext_ESSL_autogen.h
-    src/compiler/translator/ParseContext_complete_autogen.h
-    src/compiler/translator/ParseContext_interm.h
     src/compiler/translator/PoolAlloc.cpp
     src/compiler/translator/PoolAlloc.h
     src/compiler/translator/Pragma.h
@@ -221,6 +281,11 @@ set(angle_fe_translator_lib_common_srcs # src/compiler.gni
     src/compiler/translator/SymbolTable_autogen.h
     src/compiler/translator/SymbolUniqueId.cpp
     src/compiler/translator/SymbolUniqueId.h
+    src/compiler/translator/TranslatorESSL.h
+    src/compiler/translator/TranslatorGLSL.h
+    src/compiler/translator/TranslatorHLSL.h
+    src/compiler/translator/TranslatorMetalDirect.h
+    src/compiler/translator/TranslatorVulkan.h
     src/compiler/translator/Types.cpp
     src/compiler/translator/Types.h
     src/compiler/translator/ValidateAST.cpp
@@ -239,67 +304,97 @@ set(angle_fe_translator_lib_common_srcs # src/compiler.gni
     src/compiler/translator/ValidateOutputs.h
     src/compiler/translator/ValidateSwitch.cpp
     src/compiler/translator/ValidateSwitch.h
+    src/compiler/translator/ValidateTypeSizeLimitations.cpp
+    src/compiler/translator/ValidateTypeSizeLimitations.h
     src/compiler/translator/ValidateVaryingLocations.cpp
     src/compiler/translator/ValidateVaryingLocations.h
     src/compiler/translator/VariablePacker.cpp
     src/compiler/translator/VariablePacker.h
+    src/compiler/translator/VersionGLSL.h
     src/compiler/translator/blocklayout.cpp
     src/compiler/translator/glslang.h
     src/compiler/translator/glslang_lex_autogen.cpp
     src/compiler/translator/glslang_tab_autogen.cpp
     src/compiler/translator/glslang_tab_autogen.h
     src/compiler/translator/length_limits.h
+    src/compiler/translator/tree_ops/ClampIndirectIndices.cpp
+    src/compiler/translator/tree_ops/ClampIndirectIndices.h
     src/compiler/translator/tree_ops/ClampPointSize.cpp
     src/compiler/translator/tree_ops/ClampPointSize.h
+    src/compiler/translator/tree_ops/ConvertUnsupportedConstructorsToFunctionCalls.cpp
+    src/compiler/translator/tree_ops/ConvertUnsupportedConstructorsToFunctionCalls.h
     src/compiler/translator/tree_ops/DeclareAndInitBuiltinsForInstancedMultiview.cpp
     src/compiler/translator/tree_ops/DeclareAndInitBuiltinsForInstancedMultiview.h
+    src/compiler/translator/tree_ops/DeclarePerVertexBlocks.cpp
+    src/compiler/translator/tree_ops/DeclarePerVertexBlocks.h
     src/compiler/translator/tree_ops/DeferGlobalInitializers.cpp
     src/compiler/translator/tree_ops/DeferGlobalInitializers.h
     src/compiler/translator/tree_ops/EmulateGLFragColorBroadcast.cpp
     src/compiler/translator/tree_ops/EmulateGLFragColorBroadcast.h
     src/compiler/translator/tree_ops/EmulateMultiDrawShaderBuiltins.cpp
     src/compiler/translator/tree_ops/EmulateMultiDrawShaderBuiltins.h
-    src/compiler/translator/tree_ops/EmulatePrecision.cpp
-    src/compiler/translator/tree_ops/EmulatePrecision.h
     src/compiler/translator/tree_ops/FoldExpressions.cpp
     src/compiler/translator/tree_ops/FoldExpressions.h
     src/compiler/translator/tree_ops/ForcePrecisionQualifier.cpp
     src/compiler/translator/tree_ops/ForcePrecisionQualifier.h
     src/compiler/translator/tree_ops/InitializeVariables.cpp
     src/compiler/translator/tree_ops/InitializeVariables.h
+    src/compiler/translator/tree_ops/MonomorphizeUnsupportedFunctions.cpp
+    src/compiler/translator/tree_ops/MonomorphizeUnsupportedFunctions.h
+    src/compiler/translator/tree_ops/NameNamelessUniformBuffers.cpp
+    src/compiler/translator/tree_ops/NameNamelessUniformBuffers.h
     src/compiler/translator/tree_ops/PruneEmptyCases.cpp
     src/compiler/translator/tree_ops/PruneEmptyCases.h
     src/compiler/translator/tree_ops/PruneNoOps.cpp
     src/compiler/translator/tree_ops/PruneNoOps.h
+    src/compiler/translator/tree_ops/RecordConstantPrecision.cpp
+    src/compiler/translator/tree_ops/RecordConstantPrecision.h
     src/compiler/translator/tree_ops/RemoveArrayLengthMethod.cpp
     src/compiler/translator/tree_ops/RemoveArrayLengthMethod.h
+    src/compiler/translator/tree_ops/RemoveAtomicCounterBuiltins.cpp
+    src/compiler/translator/tree_ops/RemoveAtomicCounterBuiltins.h
     src/compiler/translator/tree_ops/RemoveDynamicIndexing.cpp
     src/compiler/translator/tree_ops/RemoveDynamicIndexing.h
+    src/compiler/translator/tree_ops/RemoveInactiveInterfaceVariables.cpp
+    src/compiler/translator/tree_ops/RemoveInactiveInterfaceVariables.h
     src/compiler/translator/tree_ops/RemoveInvariantDeclaration.cpp
     src/compiler/translator/tree_ops/RemoveInvariantDeclaration.h
-    src/compiler/translator/tree_ops/RemovePow.cpp
-    src/compiler/translator/tree_ops/RemovePow.h
     src/compiler/translator/tree_ops/RemoveUnreferencedVariables.cpp
     src/compiler/translator/tree_ops/RemoveUnreferencedVariables.h
+    src/compiler/translator/tree_ops/RewriteArrayOfArrayOfOpaqueUniforms.cpp
+    src/compiler/translator/tree_ops/RewriteArrayOfArrayOfOpaqueUniforms.h
+    src/compiler/translator/tree_ops/RewriteAtomicCounters.cpp
+    src/compiler/translator/tree_ops/RewriteAtomicCounters.h
+    src/compiler/translator/tree_ops/RewriteCubeMapSamplersAs2DArray.cpp
+    src/compiler/translator/tree_ops/RewriteCubeMapSamplersAs2DArray.h
+    src/compiler/translator/tree_ops/RewriteDfdy.cpp
+    src/compiler/translator/tree_ops/RewriteDfdy.h
+    src/compiler/translator/tree_ops/RewritePixelLocalStorage.cpp
+    src/compiler/translator/tree_ops/RewritePixelLocalStorage.h
+    src/compiler/translator/tree_ops/RewriteStructSamplers.cpp
+    src/compiler/translator/tree_ops/RewriteStructSamplers.h
     src/compiler/translator/tree_ops/RewriteTexelFetchOffset.cpp
     src/compiler/translator/tree_ops/RewriteTexelFetchOffset.h
     src/compiler/translator/tree_ops/ScalarizeVecAndMatConstructorArgs.cpp
     src/compiler/translator/tree_ops/ScalarizeVecAndMatConstructorArgs.h
     src/compiler/translator/tree_ops/SeparateDeclarations.cpp
     src/compiler/translator/tree_ops/SeparateDeclarations.h
+    src/compiler/translator/tree_ops/SeparateStructFromUniformDeclarations.cpp
+    src/compiler/translator/tree_ops/SeparateStructFromUniformDeclarations.h
     src/compiler/translator/tree_ops/SimplifyLoopConditions.cpp
     src/compiler/translator/tree_ops/SimplifyLoopConditions.h
     src/compiler/translator/tree_ops/SplitSequenceOperator.cpp
     src/compiler/translator/tree_ops/SplitSequenceOperator.h
+    src/compiler/translator/tree_ops/apple/AddAndTrueToLoopCondition.h
+    src/compiler/translator/tree_ops/apple/RewriteDoWhile.h
+    src/compiler/translator/tree_ops/apple/RewriteRowMajorMatrices.h
+    src/compiler/translator/tree_ops/apple/RewriteUnaryMinusOperatorFloat.h
+    src/compiler/translator/tree_ops/apple/UnfoldShortCircuitAST.h
     src/compiler/translator/tree_ops/gl/ClampFragDepth.h
     src/compiler/translator/tree_ops/gl/RegenerateStructNames.h
     src/compiler/translator/tree_ops/gl/RewriteRepeatedAssignToSwizzled.h
     src/compiler/translator/tree_ops/gl/UseInterfaceBlockFields.h
-    src/compiler/translator/tree_ops/gl/VectorizeVectorScalarArithmetic.h
-    src/compiler/translator/tree_ops/gl/mac/AddAndTrueToLoopCondition.h
-    src/compiler/translator/tree_ops/gl/mac/RewriteDoWhile.h
-    src/compiler/translator/tree_ops/gl/mac/UnfoldShortCircuitAST.h
-    src/compiler/translator/tree_ops/vulkan/EarlyFragmentTestsOptimization.h
+    src/compiler/translator/tree_util/AsNode.h
     src/compiler/translator/tree_util/BuiltIn.h
     src/compiler/translator/tree_util/BuiltIn_ESSL_autogen.h
     src/compiler/translator/tree_util/BuiltIn_complete_autogen.h
@@ -309,15 +404,20 @@ set(angle_fe_translator_lib_common_srcs # src/compiler.gni
     src/compiler/translator/tree_util/FindFunction.h
     src/compiler/translator/tree_util/FindMain.cpp
     src/compiler/translator/tree_util/FindMain.h
+    src/compiler/translator/tree_util/FindPreciseNodes.cpp
+    src/compiler/translator/tree_util/FindPreciseNodes.h
     src/compiler/translator/tree_util/FindSymbolNode.cpp
     src/compiler/translator/tree_util/FindSymbolNode.h
     src/compiler/translator/tree_util/IntermNodePatternMatcher.cpp
     src/compiler/translator/tree_util/IntermNodePatternMatcher.h
     src/compiler/translator/tree_util/IntermNode_util.cpp
     src/compiler/translator/tree_util/IntermNode_util.h
+    src/compiler/translator/tree_util/IntermRebuild.cpp
+    src/compiler/translator/tree_util/IntermRebuild.h
     src/compiler/translator/tree_util/IntermTraverse.cpp
     src/compiler/translator/tree_util/IntermTraverse.h
     src/compiler/translator/tree_util/NodeSearch.h
+    src/compiler/translator/tree_util/NodeType.h
     src/compiler/translator/tree_util/ReplaceArrayOfMatrixVarying.cpp
     src/compiler/translator/tree_util/ReplaceArrayOfMatrixVarying.h
     src/compiler/translator/tree_util/ReplaceClipCullDistanceVariable.cpp
@@ -337,16 +437,16 @@ set(angle_fe_translator_lib_common_srcs # src/compiler.gni
     src/compiler/translator/tree_util/Visit.h
     src/compiler/translator/util.cpp
     src/compiler/translator/util.h
-    src/third_party/compiler/ArrayBoundsClamper.cpp
-    src/third_party/compiler/ArrayBoundsClamper.h
 
-
-    # !android
-    src/compiler/translator/ImmutableString_autogen.cpp
+    # ???
     src/compiler/translator/SymbolTable_autogen.cpp
+    src/compiler/translator/SymbolTable_ESSL_autogen.cpp
+    src/compiler/translator/ImmutableString_autogen.cpp
+    src/compiler/translator/ImmutableString_ESSL_autogen.cpp
     )
 
 set(angle_common_srcs # src/libGLESv2.gni
+    src/common/CircularBuffer.h
     src/common/Color.h
     src/common/Color.inc
     src/common/FastVector.h
@@ -363,6 +463,12 @@ set(angle_common_srcs # src/libGLESv2.gni
     src/common/PackedGLEnums_autogen.h
     src/common/PoolAlloc.cpp
     src/common/PoolAlloc.h
+    src/common/RingBufferAllocator.cpp
+    src/common/RingBufferAllocator.h
+    src/common/Spinlock.h
+    src/common/SynchronizedValue.h
+    src/common/WorkerThread.cpp
+    src/common/WorkerThread.h
     src/common/aligned_memory.cpp
     src/common/aligned_memory.h
     src/common/android_util.cpp
@@ -370,6 +476,28 @@ set(angle_common_srcs # src/libGLESv2.gni
     src/common/angleutils.cpp
     src/common/angleutils.h
     src/common/apple_platform_utils.h
+    src/common/backtrace_utils.h
+    src/common/base/anglebase/base_export.h
+    src/common/base/anglebase/containers/mru_cache.h
+    src/common/base/anglebase/logging.h
+    src/common/base/anglebase/macros.h
+    src/common/base/anglebase/no_destructor.h
+    src/common/base/anglebase/numerics/checked_math.h
+    src/common/base/anglebase/numerics/checked_math_impl.h
+    src/common/base/anglebase/numerics/clamped_math.h
+    src/common/base/anglebase/numerics/clamped_math_impl.h
+    src/common/base/anglebase/numerics/math_constants.h
+    src/common/base/anglebase/numerics/ranges.h
+    src/common/base/anglebase/numerics/safe_conversions.h
+    src/common/base/anglebase/numerics/safe_conversions_arm_impl.h
+    src/common/base/anglebase/numerics/safe_conversions_impl.h
+    src/common/base/anglebase/numerics/safe_math.h
+    src/common/base/anglebase/numerics/safe_math_arm_impl.h
+    src/common/base/anglebase/numerics/safe_math_clang_gcc_impl.h
+    src/common/base/anglebase/numerics/safe_math_shared_impl.h
+    src/common/base/anglebase/sha1.cc
+    src/common/base/anglebase/sha1.h
+    src/common/base/anglebase/sys_byteorder.h
     src/common/bitset_utils.h
     src/common/debug.cpp
     src/common/debug.h
@@ -384,23 +512,10 @@ set(angle_common_srcs # src/libGLESv2.gni
     src/common/matrix_utils.h
     src/common/platform.h
     src/common/string_utils.cpp
+    # libangle_common_sources
     src/common/string_utils.h
     src/common/system_utils.cpp
     src/common/system_utils.h
-    src/common/third_party/base/anglebase/base_export.h
-    src/common/third_party/base/anglebase/containers/mru_cache.h
-    src/common/third_party/base/anglebase/logging.h
-    src/common/third_party/base/anglebase/macros.h
-    src/common/third_party/base/anglebase/no_destructor.h
-    src/common/third_party/base/anglebase/numerics/safe_conversions.h
-    src/common/third_party/base/anglebase/numerics/safe_conversions_impl.h
-    src/common/third_party/base/anglebase/numerics/safe_math.h
-    src/common/third_party/base/anglebase/numerics/safe_math_impl.h
-    src/common/third_party/base/anglebase/sha1.cc
-    src/common/third_party/base/anglebase/sha1.h
-    src/common/third_party/base/anglebase/sys_byteorder.h
-    src/common/third_party/smhasher/src/PMurHash.cpp
-    src/common/third_party/smhasher/src/PMurHash.h
     src/common/tls.cpp
     src/common/tls.h
     src/common/uniform_type_info_autogen.cpp
@@ -408,9 +523,15 @@ set(angle_common_srcs # src/libGLESv2.gni
     src/common/utilities.h
     src/common/vector_utils.h
 
+    src/common/backtrace_utils_noop.cpp # !android
+
     # xxhash_sources
     src/common/third_party/xxhash/xxhash.c
     src/common/third_party/xxhash/xxhash.h
+
+    # angle_version_info
+    src/common/angle_version_info.cpp
+    src/common/angle_version_info.h
     )
 
 set(angle_common_win_srcs
@@ -425,6 +546,8 @@ set(angle_common_winrt_srcs
 
 set(angle_common_apple_srcs
     src/common/apple/SoftLinking.h
+    src/common/apple/apple_platform.h
+    src/common/apple_platform_utils.mm
     src/common/gl/cgl/FunctionsCGL.cpp
     src/common/gl/cgl/FunctionsCGL.h
     src/common/system_utils_apple.cpp
@@ -468,11 +591,13 @@ set(angle_libangle_srcs # src/libGLESv2.gni
     src/libANGLE/LoggingAnnotator.cpp
     src/libANGLE/MemoryObject.cpp
     src/libANGLE/MemoryProgramCache.cpp
+    src/libANGLE/MemoryShaderCache.cpp
     src/libANGLE/Observer.cpp
     src/libANGLE/Overlay.cpp
     src/libANGLE/OverlayWidgets.cpp
     src/libANGLE/Overlay_autogen.cpp
     src/libANGLE/Overlay_font_autogen.cpp
+    src/libANGLE/PixelLocalStorage.cpp
     src/libANGLE/Platform.cpp
     src/libANGLE/Program.cpp
     src/libANGLE/ProgramExecutable.cpp
@@ -494,12 +619,12 @@ set(angle_libangle_srcs # src/libGLESv2.gni
     src/libANGLE/VaryingPacking.cpp
     src/libANGLE/VertexArray.cpp
     src/libANGLE/VertexAttribute.cpp
-    src/libANGLE/WorkerThread.cpp
     src/libANGLE/angletypes.cpp
     src/libANGLE/es3_copy_conversion_table_autogen.cpp
     src/libANGLE/format_map_autogen.cpp
     src/libANGLE/format_map_desktop.cpp
     src/libANGLE/formatutils.cpp
+    src/libANGLE/gles_extensions_autogen.cpp
     src/libANGLE/queryconversions.cpp
     src/libANGLE/queryutils.cpp
     src/libANGLE/renderer/BufferImpl.cpp
@@ -509,11 +634,17 @@ set(angle_libangle_srcs # src/libGLESv2.gni
     src/libANGLE/renderer/EGLReusableSync.cpp
     src/libANGLE/renderer/EGLSyncImpl.cpp
     src/libANGLE/renderer/Format_table_autogen.cpp
+    src/libANGLE/renderer/FramebufferImpl.cpp
+    src/libANGLE/renderer/ImageImpl.cpp
+    src/libANGLE/renderer/ProgramImpl.cpp
     src/libANGLE/renderer/ProgramPipelineImpl.cpp
     src/libANGLE/renderer/QueryImpl.cpp
+    src/libANGLE/renderer/RenderbufferImpl.cpp
     src/libANGLE/renderer/ShaderImpl.cpp
     src/libANGLE/renderer/SurfaceImpl.cpp
     src/libANGLE/renderer/TextureImpl.cpp
+    src/libANGLE/renderer/TransformFeedbackImpl.cpp
+    src/libANGLE/renderer/VertexArrayImpl.cpp
     src/libANGLE/renderer/driver_utils.cpp
     src/libANGLE/renderer/load_functions_table_autogen.cpp
     src/libANGLE/renderer/renderer_utils.cpp
@@ -530,8 +661,14 @@ set(angle_libangle_srcs # src/libGLESv2.gni
     src/libANGLE/validationGL3.cpp
     src/libANGLE/validationGL4.cpp
 
+    # libangle_headers
+    src/libANGLE/entry_points_utils.cpp
+
     # BUILD.gn
     src/libANGLE/capture/FrameCapture_mock.cpp
+
+    # ???
+    src/libANGLE/capture/serialize_mock.cpp
     )
 
 set(angle_libangle_d3d_common_srcs # src/libANGLE/renderer/d3d/BUILD.gn
@@ -777,6 +914,7 @@ set(angle_libangle_d3d_11_srcs # src/libANGLE/renderer/d3d/BUILD.gn
     )
 
 set(angle_libangle_d3d_11_win32_srcs # src/libANGLE/renderer/d3d/BUILD.gn
+    # if  (angle_enable_d3d11_compositor_native_window)
     src/libANGLE/renderer/d3d/d3d11/converged/CompositorNativeWindow11.cpp
     src/libANGLE/renderer/d3d/d3d11/converged/CompositorNativeWindow11.h
     src/libANGLE/renderer/d3d/d3d11/win32/NativeWindow11Win32.cpp
@@ -800,12 +938,14 @@ set(angle_libangle_d3d_11_winrt_srcs # src/libANGLE/renderer/d3d/BUILD.gn
     src/libANGLE/renderer/d3d/d3d11/winrt/SwapChainPanelNativeWindow.h
     )
 
-set(angle_libangle_spirv_common_srcs
+set(angle_libangle_spirv_common_srcs # BUILD.gn
     # FIXME: Merge
 
     # glslang wrapper
     src/libANGLE/renderer/glslang_wrapper_utils.cpp
     src/libANGLE/renderer/glslang_wrapper_utils.h
+    src/libANGLE/renderer/ShaderInterfaceVariableInfoMap.cpp
+    src/libANGLE/renderer/ShaderInterfaceVariableInfoMap.h
 
     # GPU Info (FIXME)
     src/gpu_info_util/SystemInfo.cpp
@@ -822,6 +962,10 @@ set(angle_libangle_spirv_common_srcs
 
 set(angle_libangle_vulkan_common_srcs
     # src/libANGLE/renderer/vulkan/BUILD.gn
+    src/libANGLE/renderer/vulkan/AllocatorHelperPool.cpp
+    src/libANGLE/renderer/vulkan/AllocatorHelperPool.h
+    src/libANGLE/renderer/vulkan/AllocatorHelperRing.cpp
+    src/libANGLE/renderer/vulkan/AllocatorHelperRing.h
     src/libANGLE/renderer/vulkan/BufferVk.cpp
     src/libANGLE/renderer/vulkan/BufferVk.h
     src/libANGLE/renderer/vulkan/CommandProcessor.cpp
@@ -875,6 +1019,8 @@ set(angle_libangle_vulkan_common_srcs
     src/libANGLE/renderer/vulkan/SemaphoreVk.h
     src/libANGLE/renderer/vulkan/ShaderVk.cpp
     src/libANGLE/renderer/vulkan/ShaderVk.h
+    src/libANGLE/renderer/vulkan/Suballocation.cpp
+    src/libANGLE/renderer/vulkan/Suballocation.h
     src/libANGLE/renderer/vulkan/SurfaceVk.cpp
     src/libANGLE/renderer/vulkan/SurfaceVk.h
     src/libANGLE/renderer/vulkan/SyncVk.cpp
@@ -887,12 +1033,17 @@ set(angle_libangle_vulkan_common_srcs
     src/libANGLE/renderer/vulkan/UtilsVk.h
     src/libANGLE/renderer/vulkan/VertexArrayVk.cpp
     src/libANGLE/renderer/vulkan/VertexArrayVk.h
+    src/libANGLE/renderer/vulkan/VkImageImageSiblingVk.cpp
+    src/libANGLE/renderer/vulkan/VkImageImageSiblingVk.h
+    src/libANGLE/renderer/vulkan/VulkanSecondaryCommandBuffer.cpp
+    src/libANGLE/renderer/vulkan/VulkanSecondaryCommandBuffer.h
     src/libANGLE/renderer/vulkan/android/vk_android_utils.cpp
     src/libANGLE/renderer/vulkan/android/vk_android_utils.h
     src/libANGLE/renderer/vulkan/vk_cache_utils.cpp
     src/libANGLE/renderer/vulkan/vk_cache_utils.h
     src/libANGLE/renderer/vulkan/vk_caps_utils.cpp
     src/libANGLE/renderer/vulkan/vk_caps_utils.h
+    src/libANGLE/renderer/vulkan/vk_command_buffer_utils.h
     src/libANGLE/renderer/vulkan/vk_format_table_autogen.cpp
     src/libANGLE/renderer/vulkan/vk_format_utils.cpp
     src/libANGLE/renderer/vulkan/vk_format_utils.h
@@ -909,6 +1060,7 @@ set(angle_libangle_vulkan_common_srcs
     src/libANGLE/renderer/vulkan/vk_mem_alloc_wrapper.h
 
     # Vulkan common (FIXME)
+    src/common/vulkan/libvulkan_loader.cpp
     src/common/vulkan/vulkan_icd.cpp
 
     ${angle_libangle_spirv_common_srcs}
@@ -929,13 +1081,19 @@ set(angle_libangle_metal_mac_srcs
     src/libANGLE/renderer/metal/CompilerMtl.mm
     src/libANGLE/renderer/metal/ContextMtl.h
     src/libANGLE/renderer/metal/ContextMtl.mm
+    src/libANGLE/renderer/metal/DeviceMtl.h
+    src/libANGLE/renderer/metal/DeviceMtl.mm
     src/libANGLE/renderer/metal/DisplayMtl.h
     src/libANGLE/renderer/metal/DisplayMtl.mm
     src/libANGLE/renderer/metal/DisplayMtl_api.h
     src/libANGLE/renderer/metal/FrameBufferMtl.h
     src/libANGLE/renderer/metal/FrameBufferMtl.mm
+    src/libANGLE/renderer/metal/IOSurfaceSurfaceMtl.h
+    src/libANGLE/renderer/metal/IOSurfaceSurfaceMtl.mm
     src/libANGLE/renderer/metal/ProgramMtl.h
     src/libANGLE/renderer/metal/ProgramMtl.mm
+    src/libANGLE/renderer/metal/ProvokingVertexHelper.h
+    src/libANGLE/renderer/metal/ProvokingVertexHelper.mm
     src/libANGLE/renderer/metal/QueryMtl.h
     src/libANGLE/renderer/metal/QueryMtl.mm
     src/libANGLE/renderer/metal/RenderBufferMtl.h
@@ -956,21 +1114,27 @@ set(angle_libangle_metal_mac_srcs
     src/libANGLE/renderer/metal/TransformFeedbackMtl.mm
     src/libANGLE/renderer/metal/VertexArrayMtl.h
     src/libANGLE/renderer/metal/VertexArrayMtl.mm
+    src/libANGLE/renderer/metal/mtl_buffer_manager.h
+    src/libANGLE/renderer/metal/mtl_buffer_manager.mm
     src/libANGLE/renderer/metal/mtl_buffer_pool.h
     src/libANGLE/renderer/metal/mtl_buffer_pool.mm
     src/libANGLE/renderer/metal/mtl_command_buffer.h
     src/libANGLE/renderer/metal/mtl_command_buffer.mm
     src/libANGLE/renderer/metal/mtl_common.h
     src/libANGLE/renderer/metal/mtl_common.mm
+    src/libANGLE/renderer/metal/mtl_context_device.h
+    src/libANGLE/renderer/metal/mtl_context_device.mm
+    src/libANGLE/renderer/metal/mtl_default_shaders_compiled.inc
     src/libANGLE/renderer/metal/mtl_format_table_autogen.mm
     src/libANGLE/renderer/metal/mtl_format_utils.h
     src/libANGLE/renderer/metal/mtl_format_utils.mm
-    src/libANGLE/renderer/metal/mtl_glslang_utils.h
-    src/libANGLE/renderer/metal/mtl_glslang_utils.mm
+    src/libANGLE/renderer/metal/mtl_glslang_mtl_utils.h
+    src/libANGLE/renderer/metal/mtl_glslang_mtl_utils.mm
     src/libANGLE/renderer/metal/mtl_occlusion_query_pool.h
     src/libANGLE/renderer/metal/mtl_occlusion_query_pool.mm
     src/libANGLE/renderer/metal/mtl_render_utils.h
     src/libANGLE/renderer/metal/mtl_render_utils.mm
+    src/libANGLE/renderer/metal/mtl_resource_spi.h
     src/libANGLE/renderer/metal/mtl_resources.h
     src/libANGLE/renderer/metal/mtl_resources.mm
     src/libANGLE/renderer/metal/mtl_state_cache.h
@@ -981,7 +1145,7 @@ set(angle_libangle_metal_mac_srcs
     src/libANGLE/renderer/metal/shaders/format_autogen.h
     src/libANGLE/renderer/metal/shaders/mtl_default_shaders_src_autogen.inc
 
-    ${angle_libangle_spirv_common_srcs}
+    #${angle_libangle_spirv_common_srcs}
     src/gpu_info_util/SystemInfo_apple.mm
     src/gpu_info_util/SystemInfo_macos.mm
     src/gpu_info_util/SystemInfo_ios.cpp
@@ -992,10 +1156,12 @@ set(angle_libglesv2_srcs # src/libGLESv2.gni
     src/libGLESv2/egl_ext_stubs_autogen.h
     src/libGLESv2/egl_stubs.cpp
     src/libGLESv2/egl_stubs_autogen.h
+    # libegl_sources
     src/libGLESv2/entry_points_egl_autogen.cpp
     src/libGLESv2/entry_points_egl_autogen.h
     src/libGLESv2/entry_points_egl_ext_autogen.cpp
     src/libGLESv2/entry_points_egl_ext_autogen.h
+    # ???
     src/libGLESv2/entry_points_gles_1_0_autogen.cpp
     src/libGLESv2/entry_points_gles_1_0_autogen.h
     src/libGLESv2/entry_points_gles_2_0_autogen.cpp
@@ -1020,12 +1186,18 @@ set(angle_libglesv2_srcs # src/libGLESv2.gni
 set(angle_egl_srcs
     src/libEGL/libEGL_autogen.cpp)
 
-set(angle_image_util_srcs # FIXME: Only for Win32??
+set(angle_image_util_srcs # src/libGLESv2.gni
+    src/image_util/AstcDecompressor.h
     src/image_util/copyimage.cpp
     src/image_util/imageformats.cpp
     src/image_util/loadimage.cpp
-    src/image_util/loadimage_etc.cpp)
+    src/image_util/loadimage_astc.cpp
+    src/image_util/loadimage_etc.cpp
+    src/image_util/loadimage_paletted.cpp
+
+    # ???
+    src/image_util/AstcDecompressorNoOp.cpp # ! angle_has_astc_encoder
+    )
 
 set(angle_systeminfo_srcs # FIXME: Only for D3d9??
     src/third_party/systeminfo/SystemInfo.cpp)
-
