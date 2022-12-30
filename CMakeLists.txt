@@ -228,8 +228,11 @@ else()
     add_definitions(-DANGLE_ENABLE_D3D11_COMPOSITOR_NATIVE_WINDOW)
 endif()
 
-# FIXME: 32bit??
-set(sixtyfour ON)
+if(CMAKE_SIZEOF_VOID_P EQUAL 4)
+    set(sixtyfour OFF)
+else()
+    set(sixtyfour ON)
+endif()
 if(sixtyfour)
     add_definitions(-DANGLE_IS_64_BIT_CPU)
 else()
