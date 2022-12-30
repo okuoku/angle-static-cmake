@@ -439,9 +439,9 @@ set(angle_fe_translator_lib_common_srcs # src/compiler.gni
     src/compiler/translator/util.h
 
     # ???
-    src/compiler/translator/SymbolTable_autogen.cpp
+    #src/compiler/translator/SymbolTable_autogen.cpp
     src/compiler/translator/SymbolTable_ESSL_autogen.cpp
-    src/compiler/translator/ImmutableString_autogen.cpp
+    #src/compiler/translator/ImmutableString_autogen.cpp
     src/compiler/translator/ImmutableString_ESSL_autogen.cpp
     )
 
@@ -1184,7 +1184,7 @@ set(angle_libglesv2_srcs # src/libGLESv2.gni
     src/libGLESv2/entry_points_gles_ext_autogen.h
     src/libGLESv2/global_state.cpp
     src/libGLESv2/global_state.h
-    src/libGLESv2/libGLESv2_autogen.cpp
+    # src/libGLESv2/libGLESv2_autogen.cpp
     src/libGLESv2/proc_table_egl.h
     src/libGLESv2/proc_table_egl_autogen.cpp
     src/libGLESv2/resource.h
@@ -1209,3 +1209,10 @@ set(angle_image_util_srcs # src/libGLESv2.gni
 
 set(angle_systeminfo_srcs # FIXME: Only for D3d9??
     src/third_party/systeminfo/SystemInfo.cpp)
+
+set(angle_gl_enum_utils
+    src/common/gl_enum_utils.cpp
+    src/common/gl_enum_utils.h
+    src/common/gl_enum_utils_autogen.cpp
+    src/common/gl_enum_utils_autogen.h)
+
