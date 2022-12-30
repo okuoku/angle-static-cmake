@@ -69,6 +69,10 @@ list(APPEND srcs
     ${angle_image_util_srcs}
     ${angle_libglesv2_srcs})
 
+# debug
+list(APPEND srcs
+    ${angle_gl_enum_utils})
+
 if(${ANGLE_BACKEND} STREQUAL Vulkan)
     list(APPEND srcs
         ${angle_fe_translator_lib_vulkan_srcs}
@@ -179,6 +183,12 @@ add_definitions(
     -DLIBANGLE_IMPLEMENTATION
     -DGL_GLEXT_PROROTYPES
     -DEGL_EGLEXT_PROTOTYPES
+    )
+
+# Debugging
+add_definitions(
+    #-DANGLE_ENABLE_DEBUG_TRACE=1
+    #-DANGLE_ENABLE_TRACE_EVENTS=1
     )
 
 # MSVCRT speicfic?
