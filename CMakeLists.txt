@@ -255,7 +255,7 @@ add_definitions(
     -DANGLE_EXPORT=
     -DEGLAPI=
     -DGL_API=
-    -DGL_APIENTRY=
+    #-DGL_APIENTRY=
     -DGL_APICALL=
 
     # zlib
