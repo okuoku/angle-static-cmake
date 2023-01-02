@@ -253,10 +253,11 @@ add_definitions(
 add_definitions(
     # Use static-link
     -DANGLE_EXPORT=
-    -DEGLAPI=
-    -DGL_API=
+    -DKHRONOS_STATIC
+    #-DEGLAPI=
+    #-DGL_API=
     #-DGL_APIENTRY=
-    -DGL_APICALL=
+    #-DGL_APICALL=
 
     # zlib
     -DCPU_NO_SIMD
