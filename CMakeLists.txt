@@ -69,6 +69,11 @@ list(APPEND srcs
     ${angle_image_util_srcs}
     ${angle_libglesv2_srcs})
 
+if(NOT ANGLE_EXCLUDE_ENTRYPOINTS)
+    list(APPEND
+        ${angle_libglesv2_entrypoints_srcs})
+endif()
+
 # debug
 list(APPEND srcs
     ${angle_gl_enum_utils})

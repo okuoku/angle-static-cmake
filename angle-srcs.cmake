@@ -1184,10 +1184,14 @@ set(angle_libglesv2_srcs # src/libGLESv2.gni
     src/libGLESv2/entry_points_gles_ext_autogen.h
     src/libGLESv2/global_state.cpp
     src/libGLESv2/global_state.h
-    src/libGLESv2/libGLESv2_autogen.cpp
     src/libGLESv2/proc_table_egl.h
     src/libGLESv2/proc_table_egl_autogen.cpp
     src/libGLESv2/resource.h
+    )
+
+set(angle_libglesv2_entrypoints_srcs # src/libGLESv2.gni
+    # Moved here to support GL implementation such as gl4es
+    src/libGLESv2/libGLESv2_autogen.cpp
     )
 
 
