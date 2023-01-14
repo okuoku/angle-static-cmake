@@ -70,7 +70,7 @@ list(APPEND srcs
     ${angle_libglesv2_srcs})
 
 if(NOT ANGLE_EXCLUDE_ENTRYPOINTS)
-    list(APPEND
+    list(APPEND srcs
         ${angle_libglesv2_entrypoints_srcs})
 endif()
 
