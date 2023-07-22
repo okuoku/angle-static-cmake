@@ -1073,6 +1073,16 @@ set(angle_libangle_vulkan_win32_srcs
     src/libANGLE/renderer/vulkan/win32/WindowSurfaceVkWin32.h
     )
 
+set(angle_libangle_vulkan_mac_srcs
+    # src/libANGLE/renderer/vulkan/BUILD.gn
+    src/libANGLE/renderer/vulkan/mac/DisplayVkMac.h
+    src/libANGLE/renderer/vulkan/mac/DisplayVkMac.mm
+    src/libANGLE/renderer/vulkan/mac/IOSurfaceSurfaceVkMac.h
+    src/libANGLE/renderer/vulkan/mac/IOSurfaceSurfaceVkMac.mm
+    src/libANGLE/renderer/vulkan/mac/WindowSurfaceVkMac.h
+    src/libANGLE/renderer/vulkan/mac/WindowSurfaceVkMac.mm
+    )
+
 set(angle_libangle_metal_mac_srcs # src/libANGLE/renderer/metal/BUILD.gn
     # _metal_backend_sources
     src/libANGLE/renderer/metal/BufferMtl.h

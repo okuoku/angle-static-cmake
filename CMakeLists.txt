@@ -122,8 +122,16 @@ elseif(APPLE)
     list(APPEND srcs
         ${angle_common_apple_srcs}
         ${angle_libangle_mac_srcs}
-        ${angle_libangle_metal_mac_srcs}
         )
+    if(${ANGLE_BACKEND} STREQUAL Metal)
+        list(APPEND srcs
+            ${angle_libangle_metal_mac_srcs}
+            )
+    elseif(${ANGLE_BACKEND} STREQUAL Vulkan)
+        list(APPEND srcs
+            ${angle_libangle_vulkan_mac_srcs}
+            )
+    endif()
     add_definitions(
         -Wno-nullability-completeness
         -Wno-unguarded-availability
