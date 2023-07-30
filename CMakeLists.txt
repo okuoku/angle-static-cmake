@@ -146,6 +146,13 @@ elseif(UNIX)
         ${angle_common_linux_srcs}
         )
 endif()
+if(ANDROID)
+    # FIXME: Why not..?
+    add_definitions(-DVK_USE_PLATFORM_ANDROID_KHR)
+    list(APPEND srcs
+        ${angle_libangle_vulkan_android_srcs}
+        )
+endif()
 
 # Rebase sources
 function(rebase_sources var)

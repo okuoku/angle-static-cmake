@@ -1083,6 +1083,18 @@ set(angle_libangle_vulkan_mac_srcs
     src/libANGLE/renderer/vulkan/mac/WindowSurfaceVkMac.mm
     )
 
+set(angle_libangle_vulkan_android_srcs
+    # src/libANGLE/renderer/vulkan/BUILD.gn
+    src/libANGLE/renderer/vulkan/android/AHBFunctions.cpp
+    src/libANGLE/renderer/vulkan/android/AHBFunctions.h
+    src/libANGLE/renderer/vulkan/android/DisplayVkAndroid.cpp
+    src/libANGLE/renderer/vulkan/android/DisplayVkAndroid.h
+    src/libANGLE/renderer/vulkan/android/HardwareBufferImageSiblingVkAndroid.cpp
+    src/libANGLE/renderer/vulkan/android/HardwareBufferImageSiblingVkAndroid.h
+    src/libANGLE/renderer/vulkan/android/WindowSurfaceVkAndroid.cpp
+    src/libANGLE/renderer/vulkan/android/WindowSurfaceVkAndroid.h
+    )
+
 set(angle_libangle_metal_mac_srcs # src/libANGLE/renderer/metal/BUILD.gn
     # _metal_backend_sources
     src/libANGLE/renderer/metal/BufferMtl.h
