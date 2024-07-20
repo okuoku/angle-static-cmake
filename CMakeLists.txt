@@ -80,13 +80,13 @@ list(APPEND srcs
 
 if(${ANGLE_BACKEND} STREQUAL Vulkan)
     list(APPEND srcs
-        ${angle_fe_translator_lib_vulkan_srcs}
+        ${angle_fe_translator_lib_spirv_srcs}
         ${angle_libangle_vulkan_common_srcs}
         )
 elseif(${ANGLE_BACKEND} STREQUAL Metal)
     list(APPEND srcs
-        ${angle_fe_translator_lib_vulkan_srcs}
-        ${angle_fe_translator_lib_metal_srcs}
+        ${angle_fe_translator_lib_spirv_srcs}
+        ${angle_fe_translator_lib_msl_srcs}
         )
 else()
     list(APPEND srcs
