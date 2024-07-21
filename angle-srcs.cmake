@@ -1131,8 +1131,8 @@ set(angle_libangle_vulkan_android_srcs
     src/libANGLE/renderer/vulkan/android/WindowSurfaceVkAndroid.h
     )
 
-set(angle_libangle_metal_mac_srcs # src/libANGLE/renderer/metal/BUILD.gn
-    # _metal_backend_sources
+set(angle_libangle_metal_mac_srcs # src/libANGLE/renderer/metal/metal_backend.gni
+    # metal_backend_sources
     src/libANGLE/renderer/metal/BufferMtl.h
     src/libANGLE/renderer/metal/BufferMtl.mm
     src/libANGLE/renderer/metal/CompilerMtl.h
@@ -1150,6 +1150,8 @@ set(angle_libangle_metal_mac_srcs # src/libANGLE/renderer/metal/BUILD.gn
     src/libANGLE/renderer/metal/IOSurfaceSurfaceMtl.mm
     src/libANGLE/renderer/metal/ImageMtl.h
     src/libANGLE/renderer/metal/ImageMtl.mm
+    src/libANGLE/renderer/metal/ProgramExecutableMtl.h
+    src/libANGLE/renderer/metal/ProgramExecutableMtl.mm
     src/libANGLE/renderer/metal/ProgramMtl.h
     src/libANGLE/renderer/metal/ProgramMtl.mm
     src/libANGLE/renderer/metal/ProvokingVertexHelper.h
@@ -1174,6 +1176,8 @@ set(angle_libangle_metal_mac_srcs # src/libANGLE/renderer/metal/BUILD.gn
     src/libANGLE/renderer/metal/TransformFeedbackMtl.mm
     src/libANGLE/renderer/metal/VertexArrayMtl.h
     src/libANGLE/renderer/metal/VertexArrayMtl.mm
+    src/libANGLE/renderer/metal/blocklayoutMetal.cpp
+    src/libANGLE/renderer/metal/blocklayoutMetal.h
     src/libANGLE/renderer/metal/mtl_buffer_manager.h
     src/libANGLE/renderer/metal/mtl_buffer_manager.mm
     src/libANGLE/renderer/metal/mtl_buffer_pool.h
@@ -1184,14 +1188,17 @@ set(angle_libangle_metal_mac_srcs # src/libANGLE/renderer/metal/BUILD.gn
     src/libANGLE/renderer/metal/mtl_common.mm
     src/libANGLE/renderer/metal/mtl_context_device.h
     src/libANGLE/renderer/metal/mtl_context_device.mm
-    src/libANGLE/renderer/metal/mtl_default_shaders_compiled.inc
     src/libANGLE/renderer/metal/mtl_format_table_autogen.mm
     src/libANGLE/renderer/metal/mtl_format_utils.h
     src/libANGLE/renderer/metal/mtl_format_utils.mm
-    src/libANGLE/renderer/metal/mtl_glslang_mtl_utils.h
-    src/libANGLE/renderer/metal/mtl_glslang_mtl_utils.mm
+    src/libANGLE/renderer/metal/mtl_library_cache.h
+    src/libANGLE/renderer/metal/mtl_library_cache.mm
+    src/libANGLE/renderer/metal/mtl_msl_utils.h
+    src/libANGLE/renderer/metal/mtl_msl_utils.mm
     src/libANGLE/renderer/metal/mtl_occlusion_query_pool.h
     src/libANGLE/renderer/metal/mtl_occlusion_query_pool.mm
+    src/libANGLE/renderer/metal/mtl_pipeline_cache.h
+    src/libANGLE/renderer/metal/mtl_pipeline_cache.mm
     src/libANGLE/renderer/metal/mtl_render_utils.h
     src/libANGLE/renderer/metal/mtl_render_utils.mm
     src/libANGLE/renderer/metal/mtl_resource_spi.h
@@ -1201,9 +1208,13 @@ set(angle_libangle_metal_mac_srcs # src/libANGLE/renderer/metal/BUILD.gn
     src/libANGLE/renderer/metal/mtl_state_cache.mm
     src/libANGLE/renderer/metal/mtl_utils.h
     src/libANGLE/renderer/metal/mtl_utils.mm
+    src/libANGLE/renderer/metal/process.cpp
+    src/libANGLE/renderer/metal/process.h
+    src/libANGLE/renderer/metal/renderermtl_utils.cpp
+    src/libANGLE/renderer/metal/renderermtl_utils.h
     src/libANGLE/renderer/metal/shaders/constants.h
-    src/libANGLE/renderer/metal/shaders/format_autogen.h
-    src/libANGLE/renderer/metal/shaders/mtl_default_shaders_src_autogen.inc
+    src/libANGLE/renderer/metal/shaders/mtl_internal_shaders_src_autogen.h
+    src/libANGLE/renderer/metal/shaders/rewrite_indices_shared.h
 
     ${angle_libangle_spirv_common_srcs}
     src/gpu_info_util/SystemInfo_apple.mm
@@ -1213,8 +1224,6 @@ set(angle_libangle_metal_mac_srcs # src/libANGLE/renderer/metal/BUILD.gn
 
 set(angle_libangle_mac_srcs # src/libGLESv2.gni
     src/libANGLE/renderer/driver_utils_mac.mm
-    src/libANGLE/renderer/gl/apple/DisplayApple_api.cpp
-    src/libANGLE/renderer/gl/apple/DisplayApple_api.h
     )
 
 set(angle_libglesv2_srcs # src/libGLESv2.gni
