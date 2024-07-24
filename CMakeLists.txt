@@ -132,6 +132,13 @@ elseif(APPLE)
             ${angle_libangle_vulkan_mac_srcs}
             )
     endif()
+    if("${CMAKE_SYSTEM_NAME}" STREQUAL iOS OR
+            "${CMAKE_SYSTEM_NAME}" STREQUAL tvOS OR
+            "${CMAKE_SYSTEM_NAME}" STREQUAL visionOS)
+    else()
+        list(APPEND srcs
+            ${angle_common_apple_macos_srcs})
+    endif()
     add_definitions(
         -Wno-nullability-completeness
         -Wno-unguarded-availability

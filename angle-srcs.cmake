@@ -558,12 +558,16 @@ set(angle_common_apple_srcs
     src/common/apple/SoftLinking.h
     src/common/apple/apple_platform.h
     src/common/apple_platform_utils.mm
-    src/common/gl/cgl/FunctionsCGL.cpp
-    src/common/gl/cgl/FunctionsCGL.h
     src/common/system_utils_apple.cpp
     src/common/system_utils_posix.cpp
     src/common/system_utils_mac.cpp
     src/common/system_utils_ios.cpp
+    )
+
+set(angle_common_apple_macos_srcs
+    src/gpu_info_util/SystemInfo_macos.mm # FIXME: Move this
+    src/common/gl/cgl/FunctionsCGL.cpp
+    src/common/gl/cgl/FunctionsCGL.h
     )
 
 set(angle_common_posix_srcs
@@ -1218,7 +1222,6 @@ set(angle_libangle_metal_mac_srcs # src/libANGLE/renderer/metal/metal_backend.gn
 
     ${angle_libangle_spirv_common_srcs}
     src/gpu_info_util/SystemInfo_apple.mm
-    src/gpu_info_util/SystemInfo_macos.mm
     src/gpu_info_util/SystemInfo_ios.cpp
     )
 
