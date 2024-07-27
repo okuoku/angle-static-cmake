@@ -101,9 +101,11 @@ if(${CMAKE_SYSTEM_NAME} STREQUAL "WindowsStore")
         ${angle_common_winrt_srcs}
         ${angle_libangle_d3d_11_winrt_srcs})
     add_definitions(
+        -DANGLE_ENABLE_WINDOWS_UWP
+        -DANGLE_ENABLE_D3D11_COMPOSITOR_NATIVE_WINDOW
         -DANGLE_IS_WINUWP
-            -D_SCL_SECURE_NO_WARNINGS
-            -D_CRT_SECURE_NO_WARNINGS)
+        -D_SCL_SECURE_NO_WARNINGS
+        -D_CRT_SECURE_NO_WARNINGS)
 elseif(WIN32)
     list(APPEND srcs
         ${angle_common_win_srcs}
@@ -115,6 +117,8 @@ elseif(WIN32)
     else()
         list(APPEND srcs
             ${angle_libangle_d3d_11_win32_srcs})
+        add_definitions(-DANGLE_ENABLE_D3D11
+            -DANGLE_ENABLE_D3D11_COMPOSITOR_NATIVE_WINDOW)
     endif()
 elseif(APPLE)
     list(APPEND srcs
