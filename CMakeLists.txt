@@ -2,12 +2,10 @@
 #
 # INPUTs:
 #   ANGLE_ROOT: Absolute path to ANGLE source
-#   ANGLE_WORKAROUND_FAKEOBJCSOURCE: Do not enable OBJC/OBJCXX
 
-cmake_minimum_required(VERSION 2.8.12)
+cmake_minimum_required(VERSION 3.16)
 project(ANGLE C CXX)
-if(APPLE AND NOT ANGLE_WORKAROUND_FAKEOBJCSOURCE)
-    cmake_minimum_required(VERSION 3.16)
+if(APPLE)
     enable_language(OBJC OBJCXX)
 endif()
 
