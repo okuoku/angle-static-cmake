@@ -154,6 +154,9 @@ elseif(UNIX)
     list(APPEND srcs
         ${angle_common_linux_srcs}
         )
+    if(${ANGLE_BACKEND} STREQUAL Vulkan)
+        list(APPEND srcs ${angle_libangle_vulkan_linux_srcs})
+    endif()
 endif()
 if(ANDROID)
     # FIXME: Why not..?

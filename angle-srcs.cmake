@@ -1137,6 +1137,31 @@ set(angle_libangle_vulkan_android_srcs
     src/libANGLE/renderer/vulkan/android/WindowSurfaceVkAndroid.h
     )
 
+set(angle_libangle_vulkan_linux_srcs
+    # src/libANGLE/renderer/vulkan/vulkan_backend.gni
+    src/libANGLE/renderer/vulkan/linux/DeviceVkLinux.cpp
+    src/libANGLE/renderer/vulkan/linux/DeviceVkLinux.h
+    src/libANGLE/renderer/vulkan/linux/DisplayVkLinux.cpp
+    src/libANGLE/renderer/vulkan/linux/DisplayVkLinux.h
+    src/libANGLE/renderer/vulkan/linux/DisplayVkOffscreen.cpp
+    src/libANGLE/renderer/vulkan/linux/DisplayVkOffscreen.h
+    src/libANGLE/renderer/vulkan/linux/DmaBufImageSiblingVkLinux.cpp
+    src/libANGLE/renderer/vulkan/linux/DmaBufImageSiblingVkLinux.h
+    src/libANGLE/renderer/vulkan/linux/display/DisplayVkSimple.cpp
+    src/libANGLE/renderer/vulkan/linux/display/DisplayVkSimple.h
+    src/libANGLE/renderer/vulkan/linux/display/WindowSurfaceVkSimple.cpp
+    src/libANGLE/renderer/vulkan/linux/display/WindowSurfaceVkSimple.h
+    src/libANGLE/renderer/vulkan/linux/headless/DisplayVkHeadless.cpp
+    src/libANGLE/renderer/vulkan/linux/headless/DisplayVkHeadless.h
+    src/libANGLE/renderer/vulkan/linux/headless/WindowSurfaceVkHeadless.cpp
+    src/libANGLE/renderer/vulkan/linux/headless/WindowSurfaceVkHeadless.h
+
+    # Vulkan common (Linux)
+    # common/linux/BUILD.gn
+    src/common/linux/dma_buf_utils.cpp
+    src/common/linux/dma_buf_utils.h
+    )
+
 set(angle_libangle_metal_mac_srcs # src/libANGLE/renderer/metal/metal_backend.gni
     # metal_backend_sources
     src/libANGLE/renderer/metal/BufferMtl.h
