@@ -155,15 +155,13 @@ elseif(UNIX)
         ${angle_common_linux_srcs}
         )
     if(${ANGLE_BACKEND} STREQUAL Vulkan)
-        list(APPEND srcs ${angle_libangle_vulkan_linux_srcs})
+        if(ANDROID)
+            add_definitions(-DVK_USE_PLATFORM_ANDROID_KHR)
+            list(APPEND srcs ${angle_libangle_vulkan_android_srcs})
+        else()
+            list(APPEND srcs ${angle_libangle_vulkan_linux_srcs})
+        endif()
     endif()
-endif()
-if(ANDROID)
-    # FIXME: Why not..?
-    add_definitions(-DVK_USE_PLATFORM_ANDROID_KHR)
-    list(APPEND srcs
-        ${angle_libangle_vulkan_android_srcs}
-        )
 endif()
 
 # Rebase sources
