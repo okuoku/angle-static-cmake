@@ -58,48 +58,49 @@ if(ANGLE_SPIRV_CROSS_ROOT)
 endif()
 
 list(APPEND srcs
-    ${angle_fe_translator_srcs}
-    ${angle_fe_preprocessor_srcs}
-    ${angle_fe_translator_lib_common_srcs}
-    ${angle_common_srcs}
-    ${angle_libangle_srcs}
-    ${angle_egl_srcs}
-    ${angle_image_util_srcs}
-    ${angle_libglesv2_srcs})
+    ${angle_preprocessor_sources}
+    ${angle_translator_sources}
+    ${angle_libangle_common_sources}
+    ${angle_xxhash_sources}
+    ${angle_libegl_sources}
+    ${angle_libangle_image_util_sources}
+    ${angle_libglesv2_sources}
+)
 
 if(NOT ANGLE_EXCLUDE_ENTRYPOINTS)
-    list(APPEND srcs
-        ${angle_libglesv2_entrypoints_srcs})
+    message(STATUS "WARING: Implement split entrypoint mode!")
+    #    list(APPEND srcs
+    #    ${angle_libglesv2_entrypoints_srcs})
 endif()
 
 # debug
-list(APPEND srcs
-    ${angle_gl_enum_utils})
+#list(APPEND srcs
+#    ${angle_gl_enum_utils})
 
 if(${ANGLE_BACKEND} STREQUAL Vulkan)
     list(APPEND srcs
-        ${angle_fe_translator_lib_spirv_srcs}
-        ${angle_libangle_vulkan_common_srcs}
+        ${angle_translator_lib_spirv_sources}
+        ${angle_vulkan_backend_sources}
         )
 elseif(${ANGLE_BACKEND} STREQUAL Metal)
     list(APPEND srcs
-        ${angle_fe_translator_lib_spirv_srcs}
-        ${angle_fe_translator_lib_msl_srcs}
+        ${angle_translator_lib_spirv_sources}
+        ${angle_translator_lib_msl_sources}
         )
 else()
     list(APPEND srcs
-        ${angle_fe_translator_lib_hlsl_srcs}
-        ${angle_libangle_d3d_common_srcs}
-        #${angle_libangle_d3d_9_srcs}
-        ${angle_libangle_d3d_11_srcs})
+        ${angle_translator_hlsl_sources}
+        ${angle_d3d_shared_sources}
+        # D3D9
+        ${angle_d3d11_backend_sources}
+    )
 endif()
 
 if(${CMAKE_SYSTEM_NAME} STREQUAL "WindowsStore")
     # Assume UWP
     list(APPEND srcs
-        ${angle_common_win_srcs}
-        ${angle_common_winrt_srcs}
-        ${angle_libangle_d3d_11_winrt_srcs})
+        ${angle_libangle_common_sources_winuwp}
+        ${angle_d3d11_backend_sources_winuwp})
     add_definitions(
         -DANGLE_ENABLE_WINDOWS_UWP
         -DANGLE_ENABLE_D3D11_COMPOSITOR_NATIVE_WINDOW
@@ -108,38 +109,37 @@ if(${CMAKE_SYSTEM_NAME} STREQUAL "WindowsStore")
         -D_CRT_SECURE_NO_WARNINGS)
 elseif(WIN32)
     list(APPEND srcs
-        ${angle_common_win_srcs}
-        ${angle_common_win32_srcs}
-        ${angle_systeminfo_srcs})
+        ${angle_libangle_common_sources_win32})
     if(${ANGLE_BACKEND} STREQUAL Vulkan)
         list(APPEND srcs
-            ${angle_libangle_vulkan_win32_srcs})
+            ${angle_vulkan_backend_sources_win32})
     else()
         list(APPEND srcs
-            ${angle_libangle_d3d_11_win32_srcs})
+            ${angle_d3d11_backend_sources_win32}
+            ${angle_d3d11_backend_sources_compositor_native_window})
         add_definitions(-DANGLE_ENABLE_D3D11
             -DANGLE_ENABLE_D3D11_COMPOSITOR_NATIVE_WINDOW)
     endif()
 elseif(APPLE)
     list(APPEND srcs
-        ${angle_common_apple_srcs}
-        ${angle_libangle_mac_srcs}
-        )
+        ${angle_libangle_common_sources_apple})
     if(${ANGLE_BACKEND} STREQUAL Metal)
         list(APPEND srcs
-            ${angle_libangle_metal_mac_srcs}
+            ${angle_metal_backend_sources}
             )
     elseif(${ANGLE_BACKEND} STREQUAL Vulkan)
         list(APPEND srcs
-            ${angle_libangle_vulkan_mac_srcs}
+            ${angle_vulkan_backend_sources_mac}
             )
     endif()
     if("${CMAKE_SYSTEM_NAME}" STREQUAL iOS OR
             "${CMAKE_SYSTEM_NAME}" STREQUAL tvOS OR
             "${CMAKE_SYSTEM_NAME}" STREQUAL visionOS)
+        list(APPEND srcs
+            ${angle_libangle_gpu_info_util_ios_sources})
     else()
         list(APPEND srcs
-            ${angle_common_apple_macos_srcs})
+            ${angle_libangle_gpu_info_util_mac_sources})
     endif()
     add_definitions(
         -Wno-nullability-completeness
@@ -147,19 +147,22 @@ elseif(APPLE)
         -fno-objc-arc
         )
 elseif(UNIX)
-    list(APPEND srcs
-        ${angle_common_posix_srcs}
-        )
     # Linux
     list(APPEND srcs
-        ${angle_common_linux_srcs}
+        ${angle_libangle_common_sources_linux}
         )
     if(${ANGLE_BACKEND} STREQUAL Vulkan)
         if(ANDROID)
             add_definitions(-DVK_USE_PLATFORM_ANDROID_KHR)
-            list(APPEND srcs ${angle_libangle_vulkan_android_srcs})
+            message(STATUS "FIXME: DisplayVkAndroid")
         else()
-            list(APPEND srcs ${angle_libangle_vulkan_linux_srcs})
+            list(APPEND srcs 
+                # FIXME: VK_KHR_WAYLAND_SURFACE_EXTENSION_NAME ?
+                #${angle_vulkan_backend_sources_wayland}
+                ${angle_vulkan_backend_sources_gbm}
+                # FIXME: VK_KHR_XCB_SURFACE_EXTENSION_NAME ?
+                # ${angle_vulkan_backend_sources_x11}
+            )
         endif()
     endif()
 endif()
