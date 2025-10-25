@@ -58,13 +58,20 @@ if(ANGLE_SPIRV_CROSS_ROOT)
 endif()
 
 list(APPEND srcs
+    ${angle_version_info_srcs}
+    ${angle_frame_capture_mock_srcs}
     ${angle_preprocessor_sources}
     ${angle_translator_sources}
+    ${angle_translator_essl_symbol_table_sources}
     ${angle_libangle_common_sources}
+    ${angle_libangle_common_shader_state_sources}
+    ${angle_libangle_sources}
     ${angle_xxhash_sources}
     ${angle_libegl_sources}
     ${angle_libangle_image_util_sources}
     ${angle_libglesv2_sources}
+    ${angle_libangle_libangle_gpu_info_util_sources}
+    ${angle_gl_enum_utils}
 )
 
 if(NOT ANGLE_EXCLUDE_ENTRYPOINTS)
@@ -81,6 +88,11 @@ if(${ANGLE_BACKEND} STREQUAL Vulkan)
     list(APPEND srcs
         ${angle_translator_lib_spirv_sources}
         ${angle_vulkan_backend_sources}
+        ${angle_spirv_srcs}
+        ${angle_vk_mem_alloc_wrapper_srcs}
+        ${angle_vulkan_icd_srcs}
+        ${angle_libangle_gpu_info_util_vulkan_sources}
+        ${angle_libvulkan_loader_srcs}
         )
 elseif(${ANGLE_BACKEND} STREQUAL Metal)
     list(APPEND srcs
@@ -150,18 +162,32 @@ elseif(UNIX)
     # Linux
     list(APPEND srcs
         ${angle_libangle_common_sources_linux}
+        ${angle_libangle_gpu_info_util_linux_sources}
+        ${angle_dma_buf_srcs}
         )
     if(${ANGLE_BACKEND} STREQUAL Vulkan)
         if(ANDROID)
             add_definitions(-DVK_USE_PLATFORM_ANDROID_KHR)
             message(STATUS "FIXME: DisplayVkAndroid")
+            list(APPEND srcs
+                ${angle_libangle_gpu_info_util_android_sources}
+            )
         else()
+            add_definitions(-DVK_USE_PLATFORM_WAYLAND_KHR
+                -DANGLE_PLATFORM_LINUX
+                -DANGLE_USE_GBM
+                -DANGLE_USE_WAYLAND
+                -DANGLE_USE_VULKAN_DISPLAY # Do we need this?
+            )
+            add_definitions(-DVK_USE_PLATFORM_XCB_KHR
+                -DANGLE_USE_X11
+            )
+
             list(APPEND srcs 
-                # FIXME: VK_KHR_WAYLAND_SURFACE_EXTENSION_NAME ?
-                #${angle_vulkan_backend_sources_wayland}
+                ${angle_vulkan_backend_sources_wayland}
+                ${angle_vulkan_backend_dma_buf_sources}
                 ${angle_vulkan_backend_sources_gbm}
-                # FIXME: VK_KHR_XCB_SURFACE_EXTENSION_NAME ?
-                # ${angle_vulkan_backend_sources_x11}
+                ${angle_vulkan_backend_sources_x11}
             )
         endif()
     endif()

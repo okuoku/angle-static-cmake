@@ -592,6 +592,25 @@ set(angle_vulkan_backend_sources
     src/libANGLE/renderer/vulkan/vk_wrapper.h
 )
 
+set(angle_vulkan_backend_dma_buf_sources
+    src/libANGLE/renderer/vulkan/linux/DeviceVkLinux.cpp
+    src/libANGLE/renderer/vulkan/linux/DeviceVkLinux.h
+    src/libANGLE/renderer/vulkan/linux/DisplayVkLinux.cpp
+    src/libANGLE/renderer/vulkan/linux/DisplayVkLinux.h
+    src/libANGLE/renderer/vulkan/linux/DisplayVkOffscreen.cpp
+    src/libANGLE/renderer/vulkan/linux/DisplayVkOffscreen.h
+    src/libANGLE/renderer/vulkan/linux/DmaBufImageSiblingVkLinux.cpp
+    src/libANGLE/renderer/vulkan/linux/DmaBufImageSiblingVkLinux.h
+    src/libANGLE/renderer/vulkan/linux/display/DisplayVkSimple.cpp
+    src/libANGLE/renderer/vulkan/linux/display/DisplayVkSimple.h
+    src/libANGLE/renderer/vulkan/linux/display/WindowSurfaceVkSimple.cpp
+    src/libANGLE/renderer/vulkan/linux/display/WindowSurfaceVkSimple.h
+    src/libANGLE/renderer/vulkan/linux/headless/DisplayVkHeadless.cpp
+    src/libANGLE/renderer/vulkan/linux/headless/DisplayVkHeadless.h
+    src/libANGLE/renderer/vulkan/linux/headless/WindowSurfaceVkHeadless.cpp
+    src/libANGLE/renderer/vulkan/linux/headless/WindowSurfaceVkHeadless.h
+)
+
 set(angle_vulkan_backend_sources_win32
     # is_win
     src/libANGLE/renderer/vulkan/win32/DisplayVkWin32.cpp
@@ -630,6 +649,12 @@ set(angle_vulkan_backend_sources_mac
     src/libANGLE/renderer/vulkan/mac/IOSurfaceSurfaceVkMac.mm
     src/libANGLE/renderer/vulkan/mac/WindowSurfaceVkMac.h
     src/libANGLE/renderer/vulkan/mac/WindowSurfaceVkMac.mm
+)
+
+# src/libANGLE/renderer/vulkan/BUILD.gn
+set(angle_vk_mem_alloc_wrapper_srcs
+    src/libANGLE/renderer/vulkan/vk_mem_alloc_wrapper.cpp
+    src/libANGLE/renderer/vulkan/vk_mem_alloc_wrapper.h
 )
 
 set(angle_d3d_shared_sources
@@ -1591,4 +1616,57 @@ set(angle_libegl_sources
     src/libEGL/resource.h
     src/libGLESv2/entry_points_egl_autogen.h
     src/libGLESv2/entry_points_egl_ext_autogen.h
+)
+
+# src/common/spirv/BUILD.gn
+set(angle_spirv_srcs
+    # angle_spirv_base
+    src/common/spirv/angle_spirv_utils.cpp
+    # angle_spirv_builder
+    src/common/spirv/spirv_instruction_builder_autogen.cpp
+    src/common/spirv/spirv_instruction_builder_autogen.h
+    # angle_spirv_parser
+    src/common/spirv/spirv_instruction_parser_autogen.cpp
+    src/common/spirv/spirv_instruction_parser_autogen.h
+)
+
+# src/common/linux/BUILD.gn
+set(angle_dma_buf_srcs
+    src/common/linux/dma_buf_utils.cpp
+    src/common/linux/dma_buf_utils.h
+)
+
+# src/common/vulkan/BUILD.gn
+set(angle_vulkan_icd_srcs
+    src/common/vulkan/vulkan_icd.cpp
+    src/common/vulkan/vulkan_icd.h
+)
+set(angle_libvulkan_loader_srcs
+    src/common/vulkan/libvulkan_loader.cpp
+    src/common/vulkan/libvulkan_loader.h
+)
+
+
+# src/BUILD.gn
+set(angle_version_info_srcs
+    src/common/angle_version_info.cpp
+    src/common/angle_version_info.h
+)
+
+# BUILD.gn
+set(angle_frame_capture_mock_srcs
+    src/common/frame_capture_utils.h
+    src/common/frame_capture_utils_autogen.h
+    src/common/gl_enum_utils_autogen.h
+    src/libANGLE/capture/FrameCapture.h
+    src/libANGLE/capture/FrameCapture_mock.cpp
+    src/libANGLE/capture/serialize.h
+    src/libANGLE/capture/serialize_mock.cpp
+)
+
+set(angle_gl_enum_utils
+    src/common/gl_enum_utils.cpp
+    src/common/gl_enum_utils.h
+    src/common/gl_enum_utils_autogen.cpp
+    src/common/gl_enum_utils_autogen.h
 )
