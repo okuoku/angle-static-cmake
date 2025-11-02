@@ -171,6 +171,7 @@ elseif(UNIX)
             message(STATUS "FIXME: DisplayVkAndroid")
             list(APPEND srcs
                 ${angle_libangle_gpu_info_util_android_sources}
+                ${angle_vulkan_backend_sources_android}
             )
         else()
             add_definitions(-DVK_USE_PLATFORM_WAYLAND_KHR
