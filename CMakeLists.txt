@@ -132,6 +132,10 @@ elseif(WIN32)
         add_definitions(-DANGLE_ENABLE_D3D11
             -DANGLE_ENABLE_D3D11_COMPOSITOR_NATIVE_WINDOW)
     endif()
+
+    # MinGW header bug workaround
+    # https://github.com/msys2/MINGW-packages/issues/22160
+    add_definitions(-D____FIReference_1_boolean_INTERFACE_DEFINED__)
 elseif(APPLE)
     list(APPEND srcs
         ${angle_libangle_common_sources_apple})
