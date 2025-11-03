@@ -1681,3 +1681,15 @@ set(angle_gl_enum_utils
     src/common/gl_enum_utils_autogen.cpp
     src/common/gl_enum_utils_autogen.h
 )
+
+set(angle_d3d_format_tables
+    src/libANGLE/renderer/dxgi_format_map.h
+    src/libANGLE/renderer/dxgi_format_map_autogen.cpp
+    src/libANGLE/renderer/dxgi_support_table.h
+    src/libANGLE/renderer/dxgi_support_table_autogen.cpp
+)
+
+set(angle_d3d_format_tables_nowinuwp
+    src/libANGLE/renderer/d3d_format.cpp
+    src/libANGLE/renderer/d3d_format.h
+)

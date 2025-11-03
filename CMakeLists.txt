@@ -111,6 +111,7 @@ endif()
 if(${CMAKE_SYSTEM_NAME} STREQUAL "WindowsStore")
     # Assume UWP
     list(APPEND srcs
+        ${angle_d3d_format_tables}
         ${angle_libangle_common_sources_winuwp}
         ${angle_d3d11_backend_sources_winuwp})
     add_definitions(
@@ -127,6 +128,8 @@ elseif(WIN32)
             ${angle_vulkan_backend_sources_win32})
     else()
         list(APPEND srcs
+            ${angle_d3d_format_tables}
+            ${angle_d3d_format_tables_nowinuwp}
             ${angle_d3d11_backend_sources_win32}
             ${angle_d3d11_backend_sources_compositor_native_window})
         add_definitions(-DANGLE_ENABLE_D3D11
