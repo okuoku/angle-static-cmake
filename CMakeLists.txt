@@ -94,6 +94,21 @@ if(${ANGLE_BACKEND} STREQUAL Vulkan)
         ${angle_libangle_gpu_info_util_vulkan_sources}
         ${angle_libvulkan_loader_srcs}
         )
+    # Workaround
+    list(APPEND srcs
+        ${CMAKE_CURRENT_LIST_DIR}/WAR_vk_cache_utils.cpp
+    )
+    # See SHA256 for 1aaa3e415528dd621b043c96adbc58e147874eb27ea8594a0ce2cc6d462b5ed4
+    file(SHA256 ${ANGLE_ROOT}/src/libANGLE/renderer/vulkan/vk_cache_utils.cpp _hash)
+    if(NOT "${_hash}" STREQUAL 1aaa3e415528dd621b043c96adbc58e147874eb27ea8594a0ce2cc6d462b5ed4)
+        message(FATAL_ERROR "vk_cache_utils.cpp hash did not match.")
+    endif()
+
+    set_source_files_properties(
+        ${CMAKE_CURRENT_LIST_DIR}/WAR_vk_cache_utils.cpp
+        PROPERTIES
+        INCLUDE_DIRECTORIES ${ANGLE_ROOT}/src
+    )
 elseif(${ANGLE_BACKEND} STREQUAL Metal)
     list(APPEND srcs
         ${angle_translator_lib_spirv_sources}
@@ -205,7 +220,11 @@ endif()
 function(rebase_sources var)
     set(srcs0)
     foreach(s ${ARGN})
-        set(srcname ${ANGLE_ROOT}/${s})
+        if("${s}" MATCHES "^/")
+            set(srcname ${s})
+        else()
+            set(srcname ${ANGLE_ROOT}/${s})
+        endif()
         list(APPEND srcs0 ${srcname})
         if(ANGLE_WORKAROUND_FAKEOBJCSOURCE)
             get_filename_component(ext ${srcname} EXT)
