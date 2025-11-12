@@ -258,6 +258,10 @@ if(WIN32)
     add_definitions(-DANGLE_IS_WIN)
 endif()
 
+if(MSVC)
+    add_compile_options(/MP)
+endif()
+
 # Configurations
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
