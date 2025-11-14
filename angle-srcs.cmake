@@ -1237,6 +1237,10 @@ set(angle_libangle_common_sources_win32
     src/common/system_utils_win32.cpp
 )
 
+set(angle_libangle_mac_sources
+    src/libANGLE/renderer/driver_utils_mac.mm
+)
+
 set(angle_libangle_image_util_headers
     src/image_util/AstcDecompressor.h
     src/image_util/copyimage.h

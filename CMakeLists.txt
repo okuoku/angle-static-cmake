@@ -171,9 +171,12 @@ elseif(APPLE)
             "${CMAKE_SYSTEM_NAME}" STREQUAL tvOS OR
             "${CMAKE_SYSTEM_NAME}" STREQUAL visionOS)
         list(APPEND srcs
+            ${angle_libangle_common_sources_ios}
             ${angle_libangle_gpu_info_util_ios_sources})
     else()
         list(APPEND srcs
+            ${angle_libangle_mac_sources}
+            ${angle_libangle_common_sources_mac}
             ${angle_libangle_gpu_info_util_mac_sources})
     endif()
     add_definitions(
