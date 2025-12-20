@@ -101,7 +101,10 @@ if(${ANGLE_BACKEND} STREQUAL Vulkan)
     # See SHA256 for 1aaa3e415528dd621b043c96adbc58e147874eb27ea8594a0ce2cc6d462b5ed4
     file(SHA256 ${ANGLE_ROOT}/src/libANGLE/renderer/vulkan/vk_cache_utils.cpp _hash)
     if(NOT "${_hash}" STREQUAL 1aaa3e415528dd621b043c96adbc58e147874eb27ea8594a0ce2cc6d462b5ed4)
-        message(FATAL_ERROR "vk_cache_utils.cpp hash did not match.")
+        # 2nd chance for CRLF line endings
+        if(NOT "${_hash}" STREQUAL 2a1524a35e94109ea422307c3bbe1f3616006d032d57644be61e304d17bfa1d5)
+            message(FATAL_ERROR "vk_cache_utils.cpp hash did not match.")
+        endif()
     endif()
 
     set_source_files_properties(
